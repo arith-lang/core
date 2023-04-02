@@ -23,4 +23,5 @@ export const isNewline = (ch) => /\n/.test(ch);
 export const isMinus = (ch) => /-/.test(ch);
 export const isZero = (ch) => /0/.test(ch);
 export const isAmp = (ch) => /&/.test(ch);
-export const isHash = ch => /#/.test(ch);
+export const isHash = (ch) => /#/.test(ch);
+export const isComma = (ch) => /,/.test(ch);
