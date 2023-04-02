@@ -5,6 +5,7 @@
 export const TokenTypes = {
   Integer: "Integer",
   Decimal: "Decimal",
+  Double: "Double",
   String: "String",
   Boolean: "Boolean",
   Nil: "Nil",
