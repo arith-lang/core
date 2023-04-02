@@ -34,6 +34,22 @@ class Cons extends Array {
     return lst;
   }
 
+  /**
+   * Create a list from an arbitrary list of items
+   * @param {any} first
+   * @param  {...any} args
+   * @returns {Cons}
+   */
+  static of(first, ...args) {
+    let lst = cons(first, null);
+
+    for (let arg of args) {
+      lst.append(arg);
+    }
+
+    return lst;
+  }
+
   get head() {
     return this[0];
   }
