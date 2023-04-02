@@ -8,7 +8,6 @@ import { isNewline } from "./utils.js";
  * @property {number} line
  * @property {number} col
  * @property {number} pos
- * @property {number} length
  */
 export class Input {
   /**
