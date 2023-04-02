@@ -4,7 +4,7 @@ import { isNewline } from "./utils.js";
  * Manages the input string for the tokenizer
  * @class Input
  * @property {string} input
- * @property {string} file
+ * @property {string} file URL of the file being read
  * @property {number} line
  * @property {number} col
  * @property {number} pos
