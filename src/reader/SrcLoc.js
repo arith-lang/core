@@ -1,5 +1,5 @@
 /**
- * @typedef SrcLoc
+ * @class SrcLoc
  * @property {number} line
  * @property {number} col
  * @property {number} pos
