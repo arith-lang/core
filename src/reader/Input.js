@@ -22,7 +22,6 @@ export class Input {
     this.line = 1;
     this.col = 1;
     this.pos = 0;
-    this.length = input.length;
   }
 
   /**
@@ -32,6 +31,13 @@ export class Input {
    */
   static new(input, file) {
     return new Input(input, file);
+  }
+
+  /**
+   * Getter for length
+   */
+  get length() {
+    return this.input.length();
   }
 
   /**
