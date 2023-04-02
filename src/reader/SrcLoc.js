@@ -5,7 +5,7 @@
  * @property {number} pos
  * @property {string} file
  */
-class SrcLoc {
+export class SrcLoc {
   /**
    * Constructs a SrcLoc instance
    * @param {number} line
