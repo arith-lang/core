@@ -16,5 +16,8 @@
     "educational"
   ],
   "author": "Jason Barr <jason@jasonsbarr.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "ffi-napi": "^4.0.3"
+  }
 }
