@@ -14,6 +14,26 @@ class Cons extends Array {
     super(head, tail);
   }
 
+  /**
+   * @typedef Iterable
+   * @property {Function} [Symbol.iterator]
+   */
+  /**
+   * Constructs a list from another iterable for parity with Array.from
+   * @param {Iterable} iter
+   * @returns {Cons}
+   */
+  static from(iter) {
+    const args = [...iter]
+    let lst = cons(args[0], null);
+
+    for (let arg of args.slice(1)) {
+      lst.append(arg);
+    }
+
+    return lst;
+  }
+
   get head() {
     return this[0];
   }
@@ -91,3 +111,22 @@ export function cons(head, tail) {
   }
   return new Cons(head, tail);
 }
+
+/**
+ * Add head and tail properties to Array for parity with Cons
+ */
+Object.defineProperties(Array.prototype, {
+  head: {
+    enumerable: false,
+    get: function() {
+      return this[0];
+    }
+  },
+
+  tail: {
+    enumerable: false,
+    get: function() {
+      return this.slice(1);
+    }
+  }
+});
