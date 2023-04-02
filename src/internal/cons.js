@@ -104,7 +104,7 @@ class Cons extends Array {
         tail = tail.tail;
       } else if (tail === null) {
         yield value;
-        break;
+        tail = undefined;
       } else {
         // is pair/improper list
         yield value;
