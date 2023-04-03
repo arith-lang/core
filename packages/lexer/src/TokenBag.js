@@ -102,6 +102,14 @@ export class TokenBag {
   }
 
   /**
+   * Adds a keyword token to the bag
+   * @param {string} value
+   * @param {SrcLoc} srcloc
+   * @param {string} trivia
+   */
+  addKeywordToken(value, srcloc, trivia) {}
+
+  /**
    * Adds a double-quoted string token to the bag
    * @param {string} value
    * @param {SrcLoc} srcloc

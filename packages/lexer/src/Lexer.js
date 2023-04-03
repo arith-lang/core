@@ -126,6 +126,19 @@ export class Lexer {
   }
 
   /**
+   * Reads a keyword
+   * @param {string} trivia
+   */
+  readKeyword(trivia) {
+    const { line, col, pos, file } = this.input;
+    const srcloc = SrcLoc.new(line, col, pos, file);
+    let kw = this.input.next();
+
+    str += this.input.readWhile(isSymbolChar);
+    this.tokens.addKeywordToken(kw, srcloc, trivia);
+  }
+
+  /**
    * Reads a number
    * @param {string} trivia
    */
