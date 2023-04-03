@@ -1,7 +1,7 @@
 {
-  "name": "@arith-lang/core",
+  "name": "@arith-lang/lib-server",
   "version": "0.1.0",
-  "description": "core files needed by Arith packages",
+  "description": "Arith stdlib modules for server applications",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -11,7 +11,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "core",
+    "server",
+    "node",
+    "stdlib",
     "arith"
   ],
   "author": "Jason Barr <jason@jasonsbarr.com>",
@@ -19,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/arith-lang/ArithLang/"
   },
-  "homepage": "https://github.com/arith-lang/ArithLang#readme"
+  "homepage": "https://github.com/arith-lang/ArithLang#readme",
+  "dependencies": {
+    "@arith-lang/core": "^0.1.0"
+  }
 }

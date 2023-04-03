@@ -1,7 +1,7 @@
 {
-  "name": "@arith-lang/core",
+  "name": "@arith-lang/expander",
   "version": "0.1.0",
-  "description": "core files needed by Arith packages",
+  "description": "Desugars an Arith AST into the expanded tree, including macroexpansion",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -11,7 +11,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "core",
+    "desugaring",
+    "desugar",
+    "macroexpansion",
     "arith"
   ],
   "author": "Jason Barr <jason@jasonsbarr.com>",

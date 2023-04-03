@@ -1,7 +1,7 @@
 {
-  "name": "@arith-lang/core",
+  "name": "@arith-lang/lib-shared",
   "version": "0.1.0",
-  "description": "core files needed by Arith packages",
+  "description": "Arith stdlib modules shared between all applications",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "core",
+    "stdlib",
     "arith"
   ],
   "author": "Jason Barr <jason@jasonsbarr.com>",
