@@ -33,4 +33,12 @@ export class Token {
   static new(type, value, srcloc, trivia) {
     return new Token(type, value, srcloc, trivia);
   }
+
+  /**
+   * Checks to see if Token is a certain type
+   * @param {TokenTypes} type
+   */
+  is(type) {
+    return this.type === type;
+  }
 }
