@@ -249,6 +249,45 @@ export class Lexer {
   }
 
   /**
+   * Reads a multiline string
+   * @param {string} trivia
+   */
+  readMultilineString(trivia) {
+    const { line, col, pos, file } = this.input;
+    const srcloc = SrcLoc.new(line, col, pos, file);
+    let str = this.input.readWhile(isDoubleQuote);
+    let ended = false;
+    let escaped = false;
+
+    while (!this.input.eof()) {
+      let ch = this.input.next();
+
+      if (isDoubleQuote(ch)) {
+        if (isDoubleQuote(this.input.peek()) && isDoubleQuote(this.input.lookahead(1))) {
+          str += ch += this.input.readWhile(isDoubleQuote);
+          ended = true;
+          break;
+        } else {
+          str += ch;
+        }
+      } else if (escaped) {
+        str += this.readEscapeSequence(ch);
+        escaped = false;
+      } else if (ch === "\\") {
+        escaped = true;
+      } else {
+        str += ch;
+      }
+    }
+
+    if (!ended && this.input.eof()) {
+      throw new Error('Expected """ to close multiline string; got EOF');
+    }
+
+    this.tokens.addMultilineStringToken(str, srcloc, trivia);
+  }
+
+  /**
    * Reads a punctuation token
    * @param {string} trivia
    * @param {TokenTypes} type
@@ -325,7 +364,11 @@ export class Lexer {
       } else if (isSymbolStart(ch)) {
         this.readIdentifier(trivia);
       } else if (isDoubleQuote(ch)) {
-        this.readString(trivia);
+        if (isDoubleQuote(this.input.lookahead(1)) && isDoubleQuote(this.input.lookahead(2))) {
+          this.readMultilineString(trivia);
+        } else {
+          this.readString(trivia);
+        }
       } else if (isColon(ch)) {
         this.readKeyword(trivia);
       } else if (isLParen(ch)) {

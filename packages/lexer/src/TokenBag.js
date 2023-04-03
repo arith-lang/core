@@ -107,7 +107,21 @@ export class TokenBag {
    * @param {SrcLoc} srcloc
    * @param {string} trivia
    */
-  addKeywordToken(value, srcloc, trivia) {}
+  addKeywordToken(value, srcloc, trivia) {
+    const token = Token.new(TokenTypes.Keyword, value, srcloc, trivia);
+    this.append(token);
+  }
+
+  /**
+   * Adds a multiline string token to the bag
+   * @param {string} value
+   * @param {SrcLoc} srcloc
+   * @param {string} trivia
+   */
+  addMultilineStringToken(value, srcloc, trivia) {
+    const token = Token.new(TokenTypes.MultilineString, value, srcloc, trivia);
+    this.append(token);
+  }
 
   /**
    * Adds a double-quoted string token to the bag
