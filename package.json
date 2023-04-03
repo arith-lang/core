@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier -w {src,lib}/**/*.js"
+    "format": "prettier -w packages"
   },
   "keywords": [
     "lisp",
