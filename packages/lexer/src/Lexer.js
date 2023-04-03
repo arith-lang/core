@@ -371,8 +371,6 @@ export class Lexer {
     while (!this.input.eof()) {
       trivia = this.readTrivia();
       let ch = this.input.peek();
-      console.log("ch:", ch);
-      console.log(isColon(ch));
 
       if (isMinus(ch)) {
         const next = this.input.lookahead(1);
