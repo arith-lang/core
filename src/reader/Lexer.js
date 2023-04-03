@@ -70,6 +70,7 @@ export class Lexer {
         escaped = true;
       } else if (isDoubleQuote(ch)) {
         ended = true;
+        str += ch;
         break;
       } else if (ch === "\n") {
         throw new Error(
