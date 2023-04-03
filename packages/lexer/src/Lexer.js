@@ -19,6 +19,7 @@ import {
   isOctDigit,
   isPlus,
   isQQuote,
+  isQuestion,
   isQuote,
   isRBrace,
   isRBrack,
@@ -300,7 +301,7 @@ export class Lexer {
     const srcloc = SrcLoc.new(line, col, pos, file);
     let punc = this.input.next();
 
-    if (isAt(this.input.peek())) {
+    if (isAt(this.input.peek()) || isDot(this.input.peek())) {
       punc += this.input.next();
     }
 
@@ -404,6 +405,12 @@ export class Lexer {
           this.readPunc(trivia, TokenTypes.SUQuote);
         } else {
           this.readPunc(trivia, TokenTypes.UQuote);
+        }
+      } else if (isQuestion(ch)) {
+        if (isDot(this.input.lookahead(1))) {
+          this.readPunc(trivia, TokenTypes.OptionalMember);
+        } else {
+          this.readPunc(trivia, TokenTypes.Question);
         }
       } else {
         const { line, col, pos, file } = this.input;

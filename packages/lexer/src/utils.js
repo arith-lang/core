@@ -4,7 +4,7 @@ export const isOctDigit = (ch) => /[0-7]/.test(ch);
 export const isBinDigit = (ch) => /[0-1]/.test(ch);
 export const isSymbolStart = (ch) => /[=<>%:|?\\/*\p{L}_$!+-]/u.test(ch);
 export const isSymbolChar = (ch) =>
-  /[:=@~<>%:&|?\\/^*&#'\p{L}\p{N}_$!+-]/u.test(ch);
+  /[:=@~<>%:&|\\/^*&#'\p{L}\p{N}_$!+-]/u.test(ch);
 export const isQuote = (ch) => /'/.test(ch);
 export const isDoubleQuote = (ch) => /"/.test(ch);
 export const isQQuote = (ch) => /`/.test(ch);
@@ -26,3 +26,4 @@ export const isZero = (ch) => /0/.test(ch);
 export const isAmp = (ch) => /&/.test(ch);
 export const isHash = (ch) => /#/.test(ch);
 export const isPlus = (ch) => /\+/.test(ch);
+export const isQuestion = (ch) => /\?/.test(ch);
