@@ -9,7 +9,7 @@ export const TokenTypes = {
   String: "String",
   Boolean: "Boolean",
   Nil: "Nil",
-  Symbol: "Symbol",
+  Identifier: "Identifier",
   Keyword: "Keyword",
   LParen: "LParen",
   RParen: "RParen",
@@ -24,4 +24,5 @@ export const TokenTypes = {
   Amp: "Amp",
   Dot: "Dot",
   Hash: "Hash",
+  Bad: "Bad"
 }

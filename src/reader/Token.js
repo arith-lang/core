@@ -13,16 +13,13 @@ export class Token {
    * Constructs a Token instance
    * @param {TokenTypes} type
    * @param {string} value
-   * @param {number} line
-   * @param {number} col
-   * @param {number} pos
-   * @param {string} file
+   * @param {SrcLoc} srcloc
    * @param {string} trivia
    */
-  constructor(type, value, line, col, pos, file, trivia) {
+  constructor(type, value, srcloc, trivia) {
     this.type = type;
     this.value = value;
-    this.srcloc = SrcLoc.new(line, col, pos, file);
+    this.srcloc = srcloc;
     this.trivia = trivia;
   }
 
@@ -30,13 +27,10 @@ export class Token {
    * Static constructor for Token
    * @param {string} type
    * @param {string} value
-   * @param {number} line
-   * @param {number} col
-   * @param {number} pos
-   * @param {string} file
+   * @param {SrcLoc} srcloc
    * @param {string} trivia
    */
-  static new(type, value, line, col, pos, file, trivia) {
-    return new Token(type, value, line, col, pos, file, trivia);
+  static new(type, value, srcloc, trivia) {
+    return new Token(type, value, srcloc, trivia);
   }
 }

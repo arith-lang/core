@@ -1,4 +1,6 @@
+import { SrcLoc } from "./SrcLoc.js";
 import { Token } from "./Token.js";
+import { TokenTypes } from "./TokenTypes.js";
 
 /**
  * @class TokenBag
@@ -16,7 +18,7 @@ export class TokenBag {
   /**
    * Static constructor for TokenBag
    */
-  new() {
+  static new() {
     return new TokenBag();
   }
 
@@ -25,6 +27,59 @@ export class TokenBag {
    */
   get length() {
     return this._tokens.length;
+  }
+
+  /**
+   * Adds a boolean token to the bag
+   * @param {string} value
+   * @param {SrcLoc} srcloc
+   * @param {string} trivia
+   */
+  addBooleanToken(value, srcloc, trivia) {
+    const token = Token.new(TokenTypes.Boolean, value, srcloc, trivia);
+    this.append(token);
+  }
+
+  /**
+   * Adds a double token to the bag
+   * @param {string} value
+   * @param {SrcLoc} srcloc
+   * @param {string} trivia
+   */
+  addDoubleToken(value, srcloc, trivia) {
+    const token = Token.new(TokenTypes.Double, value, srcloc, trivia)
+  }
+
+  /**
+   * Adds an identifier token to the bag
+   * @param {string} value
+   * @param {SrcLoc} srcloc
+   * @param {string} trivia
+   */
+  addIdentifierToken(value, srcloc, trivia) {
+    const token = Token.new(TokenTypes.Identifier, value, srcloc, trivia);
+    this.append(token);
+  }
+
+  /**
+   * Adds a nil token to the bag
+   * @param {SrcLoc} srcloc
+   * @param {string} trivia
+   */
+  addNilToken(srcloc, trivia) {
+    const token = Token.new(TokenTypes.Nil, "null", srcloc, trivia);
+    this.append(token);
+  }
+
+  /**
+   * Adds an integer token to the bag
+   * @param {string} value
+   * @param {SrcLoc} srcloc
+   * @param {string} trivia
+   */
+  addIntegerToken(value, srcloc, trivia) {
+    const token = Token.new(TokenTypes.Integer, value, srcloc, trivia);
+    this.append(token);
   }
 
   /**
