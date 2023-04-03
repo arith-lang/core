@@ -2,9 +2,6 @@
   "name": "@onfocusacademy/wandalang",
   "version": "0.1.0",
   "type": "module",
-  "publishConfig": {
-    "access": "public"
-  },
   "description": "A Lisp-like programming language",
   "main": "index.js",
   "scripts": {
