@@ -11,6 +11,7 @@ export const TokenTypes = {
   Boolean: "Boolean",
   Nil: "Nil",
   Identifier: "Identifier",
+  Reserved: "Reserved",
   Keyword: "Keyword",
   LParen: "LParen",
   RParen: "RParen",

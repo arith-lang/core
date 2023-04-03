@@ -34,6 +34,7 @@ import {
 } from "./utils.js";
 import { TokenTypes } from "./TokenTypes.js";
 import { Token } from "./Token.js";
+import { reserved } from "./reserved.js";
 
 /**
  * @class Lexer
@@ -146,6 +147,28 @@ export class Lexer {
   }
 
   /**
+   * Reads an identifier (symbol)
+   * @param {string} trivia
+   */
+  readIdentifier(trivia) {
+    const { line, col, pos, file } = this.input;
+    const srcloc = SrcLoc.new(line, col, pos, file);
+    const id = this.input.readWhile(isSymbolChar);
+
+    if (id === "true" || id === "false") {
+      this.tokens.addBooleanToken(id, srcloc, trivia);
+    } else if (id === "nil") {
+      this.tokens.addNilToken(srcloc, trivia);
+    } else if (id === "Infinity" || id === "-Infinity" || id === "NaN") {
+      this.tokens.addDoubleToken(id, srcloc, trivia);
+    } else if (reserved.includes(id)) {
+      this.tokens.addReservedToken(id, srcloc, trivia);
+    } else {
+      this.tokens.addIdentifierToken(id, srcloc, trivia);
+    }
+  }
+
+  /**
    * Reads a keyword
    * @param {string} trivia
    */
@@ -156,6 +179,50 @@ export class Lexer {
 
     kw += this.input.readWhile(isSymbolChar);
     this.tokens.addKeywordToken(kw, srcloc, trivia);
+  }
+
+  /**
+   * Reads a multiline string
+   * @param {string} trivia
+   */
+  readMultilineString(trivia) {
+    const { line, col, pos, file } = this.input;
+    const srcloc = SrcLoc.new(line, col, pos, file);
+    let str = this.input.readWhile(isDoubleQuote);
+    let ended = false;
+    let escaped = false;
+
+    while (!this.input.eof()) {
+      let ch = this.input.next();
+
+      if (isDoubleQuote(ch)) {
+        if (
+          isDoubleQuote(this.input.peek()) &&
+          isDoubleQuote(this.input.lookahead(1))
+        ) {
+          str += ch += this.input.readWhile(isDoubleQuote);
+          ended = true;
+          break;
+        } else {
+          str += ch;
+        }
+      } else if (escaped) {
+        str += this.readEscapeSequence(ch);
+        escaped = false;
+      } else if (ch === "\\") {
+        escaped = true;
+      } else {
+        str += ch;
+      }
+    }
+
+    if (!ended && this.input.eof()) {
+      throw new SyntaxException(
+        'Expected """ to close multiline string; got EOF'
+      );
+    }
+
+    this.tokens.addMultilineStringToken(str, srcloc, trivia);
   }
 
   /**
@@ -236,70 +303,6 @@ export class Lexer {
       // is integer
       this.tokens.addIntegerToken(num, srcloc, trivia);
     }
-  }
-
-  /**
-   * Reads an identifier (symbol)
-   * @param {string} trivia
-   */
-  readIdentifier(trivia) {
-    const { line, col, pos, file } = this.input;
-    const srcloc = SrcLoc.new(line, col, pos, file);
-    const id = this.input.readWhile(isSymbolChar);
-
-    if (id === "true" || id === "false") {
-      this.tokens.addBooleanToken(id, srcloc, trivia);
-    } else if (id === "nil") {
-      this.tokens.addNilToken(srcloc, trivia);
-    } else if (id === "Infinity" || id === "-Infinity" || id === "NaN") {
-      this.tokens.addDoubleToken(id, srcloc, trivia);
-    } else {
-      this.tokens.addIdentifierToken(id, srcloc, trivia);
-    }
-  }
-
-  /**
-   * Reads a multiline string
-   * @param {string} trivia
-   */
-  readMultilineString(trivia) {
-    const { line, col, pos, file } = this.input;
-    const srcloc = SrcLoc.new(line, col, pos, file);
-    let str = this.input.readWhile(isDoubleQuote);
-    let ended = false;
-    let escaped = false;
-
-    while (!this.input.eof()) {
-      let ch = this.input.next();
-
-      if (isDoubleQuote(ch)) {
-        if (
-          isDoubleQuote(this.input.peek()) &&
-          isDoubleQuote(this.input.lookahead(1))
-        ) {
-          str += ch += this.input.readWhile(isDoubleQuote);
-          ended = true;
-          break;
-        } else {
-          str += ch;
-        }
-      } else if (escaped) {
-        str += this.readEscapeSequence(ch);
-        escaped = false;
-      } else if (ch === "\\") {
-        escaped = true;
-      } else {
-        str += ch;
-      }
-    }
-
-    if (!ended && this.input.eof()) {
-      throw new SyntaxException(
-        'Expected """ to close multiline string; got EOF'
-      );
-    }
-
-    this.tokens.addMultilineStringToken(str, srcloc, trivia);
   }
 
   /**

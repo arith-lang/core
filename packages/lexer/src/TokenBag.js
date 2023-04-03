@@ -85,16 +85,6 @@ export class TokenBag {
   }
 
   /**
-   * Adds a nil token to the bag
-   * @param {SrcLoc} srcloc
-   * @param {string} trivia
-   */
-  addNilToken(srcloc, trivia) {
-    const token = Token.new(TokenTypes.Nil, "nil", srcloc, trivia);
-    this.append(token);
-  }
-
-  /**
    * Adds an integer token to the bag
    * @param {string} value
    * @param {SrcLoc} srcloc
@@ -124,6 +114,27 @@ export class TokenBag {
    */
   addMultilineStringToken(value, srcloc, trivia) {
     const token = Token.new(TokenTypes.MultilineString, value, srcloc, trivia);
+    this.append(token);
+  }
+
+  /**
+   * Adds a nil token to the bag
+   * @param {SrcLoc} srcloc
+   * @param {string} trivia
+   */
+  addNilToken(srcloc, trivia) {
+    const token = Token.new(TokenTypes.Nil, "nil", srcloc, trivia);
+    this.append(token);
+  }
+
+  /**
+   * Adds a token for a reserved word to the bag
+   * @param {string} value
+   * @param {SrcLoc} srcloc
+   * @param {string} trivia
+   */
+  addReservedToken(value, srcloc, trivia) {
+    const token = Token.new(TokenTypes.Reserved, value, srcloc, trivia);
     this.append(token);
   }
 
