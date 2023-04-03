@@ -2,20 +2,36 @@ import { Input } from "./Input.js";
 import { TokenBag } from "./TokenBag.js";
 import { SrcLoc } from "./SrcLoc.js";
 import {
+  isAmp,
+  isAt,
   isBinDigit,
+  isColon,
   isDigit,
   isDot,
+  isDoubleQuote,
+  isHash,
   isHexDigit,
+  isLBrace,
+  isLBrack,
+  isLParen,
   isMinus,
   isNewline,
   isOctDigit,
   isPlus,
+  isQQuote,
+  isQuote,
+  isRBrace,
+  isRBrack,
+  isRParen,
   isSemicolon,
   isSymbolChar,
   isSymbolStart,
+  isUQuote,
   isWhitespace,
   isZero,
 } from "./utils.js";
+import { TokenTypes } from "./TokenTypes.js";
+import { Token } from "./Token.js";
 
 /**
  * @class Lexer
@@ -233,6 +249,25 @@ export class Lexer {
   }
 
   /**
+   * Reads a punctuation token
+   * @param {string} trivia
+   * @param {TokenTypes} type
+   */
+  readPunc(trivia, type) {
+    const { line, col, pos, file } = this.input;
+    const srcloc = SrcLoc.new(line, col, pos, file);
+    let punc = this.input.next();
+
+    if (isAt(this.input.peek())) {
+      punc += this.input.next();
+    }
+
+    const token = Token.new(type, punc, srcloc, trivia);
+
+    this.tokens.append(token);
+  }
+
+  /**
    * Reads a double-quoted string
    * @param {string} trivia
    */
@@ -289,6 +324,43 @@ export class Lexer {
         }
       } else if (isSymbolStart(ch)) {
         this.readIdentifier(trivia);
+      } else if (isDoubleQuote(ch)) {
+        this.readString(trivia);
+      } else if (isColon(ch)) {
+        this.readKeyword(trivia);
+      } else if (isLParen(ch)) {
+        this.readPunc(trivia, TokenTypes.LParen);
+      } else if (isRParen(ch)) {
+        this.readPunc(trivia, TokenTypes.RParen);
+      } else if (isLBrack(ch)) {
+        this.readPunc(trivia, TokenTypes.LBrack);
+      } else if (isRBrack(ch)) {
+        this.readPunc(trivia, TokenTypes.RBrack);
+      } else if (isLBrace(ch)) {
+        this.readPunc(trivia, TokenTypes.LBrace);
+      } else if (isRBrace(ch)) {
+        this.readPunc(trivia, TokenTypes.RBrace);
+      } else if (isAmp(ch)) {
+        this.readPunc(trivia, TokenTypes.Amp);
+      } else if (isDot(ch)) {
+        this.readPunc(trivia, TokenTypes.Dot);
+      } else if (isHash(ch)) {
+        this.readPunc(trivia, TokenTypes.Hash);
+      } else if (isQuote(ch)) {
+        this.readPunc(trivia, TokenTypes.Quote);
+      } else if (isQQuote(ch)) {
+        this.readPunc(trivia, TokenTypes.QQuote);
+      } else if (isUQuote(ch)) {
+        if (isAt(this.input.lookahead(1))) {
+          this.readPunc(trivia, TokenTypes.SUQuote);
+        } else {
+          this.readPunc(trivia, TokenTypes.UQuote);
+        }
+      } else {
+        const { line, col, pos, file } = this.input;
+        throw new Error(
+          `Unknown token type ${ch} at ${file} ${pos} (${line}:${col})`
+        );
       }
     }
   }
