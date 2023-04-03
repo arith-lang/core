@@ -4,10 +4,12 @@ import { SrcLoc } from "./SrcLoc.js";
 import {
   isBinDigit,
   isDigit,
+  isDot,
   isHexDigit,
   isMinus,
   isNewline,
   isOctDigit,
+  isPlus,
   isSemicolon,
   isSymbolChar,
   isSymbolStart,
@@ -63,6 +65,7 @@ export class Lexer {
     }
 
     if (isZero(this.input.peek())) {
+      // Could be hex, octal, or binary integer
       num += this.input.next();
       const nextCh = this.input.peek();
       const numType =
@@ -75,12 +78,50 @@ export class Lexer {
           : "dec";
 
       if (numType === "hex") {
-        num += this.input.readWhile((ch) => isHexDigit(ch));
+        num += this.input.readWhile(isHexDigit);
       } else if (numType === "oct") {
-        num += this.input.readWhile((ch) => isOctDigit(ch));
+        num += this.input.readWhile(isOctDigit);
       } else if (numType === "bin") {
-        num += this.input.readWhile((ch) => isBinDigit(ch));
+        num += this.input.readWhile(isBinDigit);
+      } else {
+        // must be a base 10 number
+        num += this.input.readWhile(isDigit);
       }
+
+      if (isDot(this.input.peek()) && numType !== "dec") {
+        throw new Error(`Only base 10 numbers may include decimal point`);
+      }
+    } else {
+      num += this.input.readWhile((ch) => isDigit(ch));
+    }
+
+    if (isDot(this.input.peek())) {
+      // is either a decimal or double number
+      num += this.input.next();
+      num += this.input.readWhile(isDigit);
+
+      if (this.input.peek() === "e") {
+        // is exponential notation
+        num += this.input.next();
+
+        if (isMinus(this.input.peek()) || isPlus(this.input.peek())) {
+          num += this.input.next();
+        }
+
+        num += this.input.readWhile(isDigit);
+      }
+
+      if (this.input.peek() === "f") {
+        // is double
+        num += this.input.next();
+        this.tokens.addDoubleToken(num, srcloc, trivia);
+      } else {
+        // is decimal
+        this.tokens.addDecimalToken(num, srcloc, trivia);
+      }
+    } else {
+      // is integer
+      this.tokens.addIntegerToken(num, srcloc, trivia);
     }
   }
 
@@ -91,7 +132,7 @@ export class Lexer {
   readIdentifier(trivia) {
     const { line, col, pos, file } = this.input;
     const srcloc = SrcLoc.new(line, col, pos, file);
-    const id = this.input.readWhile((ch) => isSymbolChar(ch));
+    const id = this.input.readWhile(isSymbolChar);
 
     if (id === "true" || id === "false") {
       this.tokens.addBooleanToken(id, srcloc, trivia);
@@ -116,7 +157,7 @@ export class Lexer {
 
     while (isWhitespace(char) || isSemicolon(char)) {
       if (isWhitespace(char)) {
-        trivia += this.input.readWhile((ch) => isWhitespace(ch));
+        trivia += this.input.readWhile(isWhitespace);
         char = this.input.peek();
       }
 

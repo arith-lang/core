@@ -41,6 +41,14 @@ export class TokenBag {
   }
 
   /**
+   * Adds a decimal token to the bag
+   * @param {string} value
+   * @param {SrcLoc} srcloc
+   * @param {string} trivia
+   */
+  addDecimalToken(value, srcloc, trivia) {}
+
+  /**
    * Adds a double token to the bag
    * @param {string} value
    * @param {SrcLoc} srcloc
@@ -62,12 +70,23 @@ export class TokenBag {
   }
 
   /**
+   * Adds an integer token to the bag
+   * @param {string} value
+   * @param {SrcLoc} srcloc
+   * @param {string} trivia
+   */
+  addIntegerToken(value, srcloc, trivia) {
+    const token = Token.new(TokenTypes.Integer, value, srcloc, trivia);
+    this.append(token);
+  }
+
+  /**
    * Adds a nil token to the bag
    * @param {SrcLoc} srcloc
    * @param {string} trivia
    */
   addNilToken(srcloc, trivia) {
-    const token = Token.new(TokenTypes.Nil, "null", srcloc, trivia);
+    const token = Token.new(TokenTypes.Nil, "nil", srcloc, trivia);
     this.append(token);
   }
 
