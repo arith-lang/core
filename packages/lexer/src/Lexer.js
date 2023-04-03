@@ -1,4 +1,4 @@
-import { SyntaxException } from "@arith-lang/core"
+import { SyntaxException } from "@arith-lang/core";
 import { Input } from "./Input.js";
 import { TokenBag } from "./TokenBag.js";
 import { SrcLoc } from "./SrcLoc.js";
@@ -100,7 +100,9 @@ export class Lexer {
     }
 
     if (!ended && this.input.eof()) {
-      throw new SyntaxException("Expected double quote to close string literal; got EOF");
+      throw new SyntaxException(
+        "Expected double quote to close string literal; got EOF"
+      );
     }
 
     return str;
@@ -198,7 +200,9 @@ export class Lexer {
       }
 
       if (isDot(this.input.peek()) && numType !== "dec") {
-        throw new SyntaxException(`Only base 10 numbers may include decimal point`);
+        throw new SyntaxException(
+          `Only base 10 numbers may include decimal point`
+        );
       }
     } else {
       num += this.input.readWhile((ch) => isDigit(ch));
@@ -290,7 +294,9 @@ export class Lexer {
     }
 
     if (!ended && this.input.eof()) {
-      throw new SyntaxException('Expected """ to close multiline string; got EOF');
+      throw new SyntaxException(
+        'Expected """ to close multiline string; got EOF'
+      );
     }
 
     this.tokens.addMultilineStringToken(str, srcloc, trivia);
@@ -431,7 +437,7 @@ export class Lexer {
       }
     }
 
-    const {line, col, pos, file} = this.input;
+    const { line, col, pos, file } = this.input;
     const srcloc = SrcLoc.new(line, col, pos, file);
     this.tokens.append(Token.new(TokenTypes.EOF, "EOF", srcloc, trivia));
 
