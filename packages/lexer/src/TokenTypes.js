@@ -28,4 +28,5 @@ export const TokenTypes = {
   Question: "Question",
   OptionalMember: "OptionalMember",
   Bad: "Bad",
+  EOF: "EOF"
 };

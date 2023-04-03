@@ -74,7 +74,7 @@ export class Lexer {
    * @returns {string}
    */
   readEscaped() {
-    let str = "";
+    let str = this.input.next();
     let escaped = false;
     let ended = false;
 
@@ -152,7 +152,7 @@ export class Lexer {
     const srcloc = SrcLoc.new(line, col, pos, file);
     let kw = this.input.next();
 
-    str += this.input.readWhile(isSymbolChar);
+    kw += this.input.readWhile(isSymbolChar);
     this.tokens.addKeywordToken(kw, srcloc, trivia);
   }
 
@@ -181,6 +181,10 @@ export class Lexer {
           : nextCh === "b"
           ? "bin"
           : "dec";
+
+      if (numType !== "dec") {
+        num += this.input.next();
+      }
 
       if (numType === "hex") {
         num += this.input.readWhile(isHexDigit);
@@ -302,7 +306,7 @@ export class Lexer {
     const srcloc = SrcLoc.new(line, col, pos, file);
     let punc = this.input.next();
 
-    if (isAt(this.input.peek()) || isDot(this.input.peek())) {
+    if (isAt(this.input.peek()) || isQuestion(this.input.peek())) {
       punc += this.input.next();
     }
 
@@ -353,11 +357,15 @@ export class Lexer {
    * @returns {TokenBag}
    */
   tokenize() {
-    while (!this.input.eof()) {
-      let trivia = this.readTrivia();
-      let char = this.input.peek();
+    let trivia = "";
 
-      if (isMinus(char)) {
+    while (!this.input.eof()) {
+      trivia = this.readTrivia();
+      let ch = this.input.peek();
+      console.log("ch:", ch);
+      console.log(isColon(ch));
+
+      if (isMinus(ch)) {
         const next = this.input.lookahead(1);
         if (isDigit(next)) {
           // reading this as a number leaves out theoretically valid identifier names
@@ -366,6 +374,8 @@ export class Lexer {
         } else {
           this.readIdentifier(trivia);
         }
+      } else if (isDigit(ch)) {
+        this.readNumber(trivia);
       } else if (isSymbolStart(ch)) {
         this.readIdentifier(trivia);
       } else if (isDoubleQuote(ch)) {
@@ -394,7 +404,11 @@ export class Lexer {
       } else if (isAmp(ch)) {
         this.readPunc(trivia, TokenTypes.Amp);
       } else if (isDot(ch)) {
-        this.readPunc(trivia, TokenTypes.Dot);
+        if (isQuestion(this.input.lookahead(1))) {
+          this.readPunc(trivia, TokenTypes.OptionalMember);
+        } else {
+          this.readPunc(trivia, TokenTypes.Dot);
+        }
       } else if (isHash(ch)) {
         this.readPunc(trivia, TokenTypes.Hash);
       } else if (isQuote(ch)) {
@@ -408,11 +422,7 @@ export class Lexer {
           this.readPunc(trivia, TokenTypes.UQuote);
         }
       } else if (isQuestion(ch)) {
-        if (isDot(this.input.lookahead(1))) {
-          this.readPunc(trivia, TokenTypes.OptionalMember);
-        } else {
-          this.readPunc(trivia, TokenTypes.Question);
-        }
+        this.readPunc(trivia, TokenTypes.Question);
       } else {
         const { line, col, pos, file } = this.input;
         throw new SyntaxException(
@@ -420,5 +430,11 @@ export class Lexer {
         );
       }
     }
+
+    const {line, col, pos, file} = this.input;
+    const srcloc = SrcLoc.new(line, col, pos, file);
+    this.tokens.append(Token.new(TokenTypes.EOF, "EOF", srcloc, trivia));
+
+    return this.tokens;
   }
 }

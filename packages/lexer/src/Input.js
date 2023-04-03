@@ -36,7 +36,7 @@ export class Input {
    * Getter for length
    */
   get length() {
-    return this.input.length();
+    return this.input.length;
   }
 
   /**

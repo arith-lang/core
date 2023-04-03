@@ -46,7 +46,10 @@ export class TokenBag {
    * @param {SrcLoc} srcloc
    * @param {string} trivia
    */
-  addDecimalToken(value, srcloc, trivia) {}
+  addDecimalToken(value, srcloc, trivia) {
+    const token = Token.new(TokenTypes.Decimal, value, srcloc, trivia);
+    this.append(token);
+  }
 
   /**
    * Adds a double token to the bag
@@ -56,6 +59,7 @@ export class TokenBag {
    */
   addDoubleToken(value, srcloc, trivia) {
     const token = Token.new(TokenTypes.Double, value, srcloc, trivia);
+    this.append(token);
   }
 
   /**
