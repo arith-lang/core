@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/arith-lang/ArithLang/"
   },
-  "homepage": "https://github.com/arith-lang/ArithLang#readme"
+  "homepage": "https://github.com/arith-lang/ArithLang#readme",
+  "dependencies": {
+    "@arith-lang/lexer": "^0.1.0"
+  }
 }
