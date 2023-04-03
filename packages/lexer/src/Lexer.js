@@ -263,7 +263,10 @@ export class Lexer {
       let ch = this.input.next();
 
       if (isDoubleQuote(ch)) {
-        if (isDoubleQuote(this.input.peek()) && isDoubleQuote(this.input.lookahead(1))) {
+        if (
+          isDoubleQuote(this.input.peek()) &&
+          isDoubleQuote(this.input.lookahead(1))
+        ) {
           str += ch += this.input.readWhile(isDoubleQuote);
           ended = true;
           break;
@@ -364,7 +367,10 @@ export class Lexer {
       } else if (isSymbolStart(ch)) {
         this.readIdentifier(trivia);
       } else if (isDoubleQuote(ch)) {
-        if (isDoubleQuote(this.input.lookahead(1)) && isDoubleQuote(this.input.lookahead(2))) {
+        if (
+          isDoubleQuote(this.input.lookahead(1)) &&
+          isDoubleQuote(this.input.lookahead(2))
+        ) {
           this.readMultilineString(trivia);
         } else {
           this.readString(trivia);
