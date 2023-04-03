@@ -102,6 +102,17 @@ export class TokenBag {
   }
 
   /**
+   * Adds a double-quoted string token to the bag
+   * @param {string} value
+   * @param {SrcLoc} srcloc
+   * @param {string} trivia
+   */
+  addStringToken(value, srcloc, trivia) {
+    const token = Token.new(TokenTypes.String, value, srcloc, trivia);
+    this.append(token);
+  }
+
+  /**
    * Append a token
    * @param {Token}
    */

@@ -52,6 +52,79 @@ export class Lexer {
   }
 
   /**
+   * Reads a double-quoted string for escape sequences and converts them to characters
+   * @returns {string}
+   */
+  readEscaped() {
+    let str = "";
+    let escaped = false;
+    let ended = false;
+
+    while (!this.input.eof()) {
+      let ch = this.input.next();
+
+      if (escaped) {
+        str += this.readEscapeSequence(ch);
+        escaped = false;
+      } else if (ch === "\\") {
+        escaped = true;
+      } else if (isDoubleQuote(ch)) {
+        ended = true;
+        break;
+      } else if (ch === "\n") {
+        throw new Error(
+          "Unexpected newline in nonterminated single-line string literal"
+        );
+      } else {
+        str += ch;
+      }
+    }
+
+    if (!ended && this.input.eof()) {
+      throw new Error("Expected double quote to close string literal; got EOF");
+    }
+
+    return str;
+  }
+
+  /**
+   * Read a valid escape sequence into a character
+   * @returns {string}
+   */
+  readEscapeSequence(c) {
+    let str = "";
+    let seq = "";
+
+    if (c === "n") {
+      str += "\n";
+    } else if (c === "b") {
+      str += "\b";
+    } else if (c === "f") {
+      str += "\f";
+    } else if (c === "r") {
+      str += "\r";
+    } else if (c === "t") {
+      str += "\t";
+    } else if (c === "v") {
+      str += "\v";
+    } else if (c === "0") {
+      str += "\0";
+    } else if (c === "'") {
+      str += "'";
+    } else if (c === '"') {
+      str += '"';
+    } else if (c === "\\") {
+      str += "\\";
+    } else if (c === "u" || c === "U") {
+      // is Unicode escape sequence
+      seq += this.input.readWhile(isHexDigit);
+      str += String.fromCodePoint(parseInt(seq, 16));
+    }
+
+    return str;
+  }
+
+  /**
    * Reads a number
    * @param {string} trivia
    */
@@ -146,6 +219,18 @@ export class Lexer {
   }
 
   /**
+   * Reads a double-quoted string
+   * @param {string} trivia
+   */
+  readString(trivia) {
+    const { line, col, pos, file } = this.input;
+    const srcloc = SrcLoc.new(line, col, pos, file);
+    const str = this.readEscaped();
+
+    this.tokens.addStringToken(str, srcloc, trivia);
+  }
+
+  /**
    * Returns any trivia, e.g. text that isn't a value for a token but is part of the source code
    *
    * The trivia for a token is any such text found before the actual token value
@@ -182,6 +267,8 @@ export class Lexer {
       if (isMinus(char)) {
         const next = this.input.lookahead(1);
         if (isDigit(next)) {
+          // reading this as a number leaves out theoretically valid identifier names
+          // like -123a, but I don't care - besides, this is how Racket does it
           this.readNumber(trivia);
         } else {
           this.readIdentifier(trivia);
