@@ -47,7 +47,7 @@ export class TokenBag {
    * @param {string} trivia
    */
   addDoubleToken(value, srcloc, trivia) {
-    const token = Token.new(TokenTypes.Double, value, srcloc, trivia)
+    const token = Token.new(TokenTypes.Double, value, srcloc, trivia);
   }
 
   /**

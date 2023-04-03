@@ -24,5 +24,5 @@ export const TokenTypes = {
   Amp: "Amp",
   Dot: "Dot",
   Hash: "Hash",
-  Bad: "Bad"
-}
+  Bad: "Bad",
+};

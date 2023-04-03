@@ -3,7 +3,8 @@ export const isHexDigit = (ch) => /[0-9a-fA-F]/.test(ch);
 export const isOctDigit = (ch) => /[0-7]/.test(ch);
 export const isBinDigit = (ch) => /[0-1]/.test(ch);
 export const isSymbolStart = (ch) => /[=<>%:|?\\/*\p{L}_$!+-]/u.test(ch);
-export const isSymbolChar = (ch) => /[:=@~<>%:&|?\\/^*&#'\p{L}\p{N}_$!+-]/u.test(ch);
+export const isSymbolChar = (ch) =>
+  /[:=@~<>%:&|?\\/^*&#'\p{L}\p{N}_$!+-]/u.test(ch);
 export const isQuote = (ch) => /'/.test(ch);
 export const isDoubleQuote = (ch) => /"/.test(ch);
 export const isQQuote = (ch) => /`/.test(ch);

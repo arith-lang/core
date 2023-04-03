@@ -1,7 +1,19 @@
 import { Input } from "./Input.js";
 import { TokenBag } from "./TokenBag.js";
 import { SrcLoc } from "./SrcLoc.js";
-import { isDigit, isMinus, isNewline, isSemicolon, isSymbolChar, isSymbolStart, isWhitespace } from "./utils.js";
+import {
+  isBinDigit,
+  isDigit,
+  isHexDigit,
+  isMinus,
+  isNewline,
+  isOctDigit,
+  isSemicolon,
+  isSymbolChar,
+  isSymbolStart,
+  isWhitespace,
+  isZero,
+} from "./utils.js";
 
 /**
  * @class Lexer
@@ -44,6 +56,32 @@ export class Lexer {
   readNumber(trivia) {
     const { line, col, pos, file } = this.input;
     const srcloc = SrcLoc.new(line, col, pos, file);
+    let num = "";
+
+    if (isMinus(this.input.peek())) {
+      num += this.input.next();
+    }
+
+    if (isZero(this.input.peek())) {
+      num += this.input.next();
+      const nextCh = this.input.peek();
+      const numType =
+        nextCh === "x"
+          ? "hex"
+          : nextCh === "o"
+          ? "oct"
+          : nextCh === "b"
+          ? "bin"
+          : "dec";
+
+      if (numType === "hex") {
+        num += this.input.readWhile((ch) => isHexDigit(ch));
+      } else if (numType === "oct") {
+        num += this.input.readWhile((ch) => isOctDigit(ch));
+      } else if (numType === "bin") {
+        num += this.input.readWhile((ch) => isBinDigit(ch));
+      }
+    }
   }
 
   /**
@@ -74,7 +112,7 @@ export class Lexer {
    */
   readTrivia() {
     let char = this.input.peek();
-    let trivia = ""
+    let trivia = "";
 
     while (isWhitespace(char) || isSemicolon(char)) {
       if (isWhitespace(char)) {
@@ -82,12 +120,10 @@ export class Lexer {
         char = this.input.peek();
       }
 
-
       if (isSemicolon(char)) {
         trivia += this.readComment();
         char = this.input.peek();
       }
-
     }
 
     return trivia;

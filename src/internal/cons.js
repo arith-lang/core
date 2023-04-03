@@ -24,7 +24,7 @@ class Cons extends Array {
    * @returns {Cons}
    */
   static from(iter) {
-    const args = [...iter]
+    const args = [...iter];
     let lst = cons(args[0], null);
 
     for (let arg of args.slice(1)) {
@@ -87,7 +87,9 @@ class Cons extends Array {
         return list;
       } else {
         // is an improper list
-        throw new Error("Cannot append item to improper list or pair whose tail is not nil");
+        throw new Error(
+          "Cannot append item to improper list or pair whose tail is not nil"
+        );
       }
     }
   }
@@ -134,15 +136,15 @@ export function cons(head, tail) {
 Object.defineProperties(Array.prototype, {
   head: {
     enumerable: false,
-    get: function() {
+    get: function () {
       return this[0];
-    }
+    },
   },
 
   tail: {
     enumerable: false,
-    get: function() {
+    get: function () {
       return this.slice(1);
-    }
-  }
+    },
+  },
 });
