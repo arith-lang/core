@@ -1,9 +1,1 @@
-export const reserved = [
-  "if",
-  "cond",
-  "def",
-  "var",
-  "let",
-  "do",
-  "fn"
-];
+export const reserved = ["if", "cond", "def", "var", "let", "do", "fn"];
