@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/arith-lang/ArithLang#readme",
   "dependencies": {
-    "ffi-napi": "^4.0.3"
+    "ffi-napi": "^4.0.3",
+    "object-hash": "^3.0.0"
   }
 }
