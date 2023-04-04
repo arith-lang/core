@@ -2,9 +2,12 @@ import { cons, Cons, SyntaxException } from '@arith-lang/core';
 import { Token, TokenTypes } from '@arith-lang/lexer';
 import { TokenReader } from './TokenReader';
 /**
+ * @typedef {Cons} AST
+ */
+/**
  * @callback ReaderFunction
  * @param {TokenReader} reader
- * @returns {Cons}
+ * @returns {AST}
  */
 /**
  * @class MacroReader
@@ -40,13 +43,13 @@ export class MacroReader {
   read(token) {
     switch (token.type) {
       case TokenTypes.Quote:
-        return this.readQuote();
+        return this.readQuote(token);
       case TokenTypes.QQuote:
-        return this.readQuasiquote();
+        return this.readQuasiquote(token);
       case TokenTypes.SUQuote:
-        return this.readSpliceUnquote();
+        return this.readSpliceUnquote(token);
       case TokenTypes.UQuote:
-        return this.readUnquote();
+        return this.readUnquote(token);
       case TokenTypes.Hash:
         return this.readHashMacro(token);
       default:
@@ -57,27 +60,53 @@ export class MacroReader {
   /**
    * Reads a # macro
    * @param {Token} token
+   * @returns {AST}
    */
   readHashMacro(token) {}
 
   /**
    * Reads a ` macro as a quasiquote expression
+   * @param {Token} token
+   * @returns {Cons}
    */
-  readQuasiquote() {}
+  readQuasiquote(token) {
+    const { value, srcloc, trivia } = token;
+    const newToken = Token.new(TokenTypes.Reserved, "quasiquote", srcloc, trivia += value);
+    this.reader.skip();
+    return cons(newToken, this.read(this.reader));
+  }
 
   /**
    * Reads a ' macro as a quote expression
+   * @param {Token} token
    * @returns {Cons}
    */
-  readQuote() {}
+  readQuote(token) {
+    const { value, srcloc, trivia } = token;
+    const newToken = Token.new(TokenTypes.Reserved, "quote", srcloc, trivia += value);
+    this.reader.skip();
+    return cons(newToken, this.read(this.reader));
+  }
 
   /**
    * Reads a ~@ macro as a splice-unquote expression
+   * @param {Token} token
+   * @returns {Cons}
    */
-  readSpliceUnquote () {}
+  readSpliceUnquote (token) {const { value, srcloc, trivia } = token;
+    const newToken = Token.new(TokenTypes.Reserved, "splice-unquote", srcloc, trivia += value);
+    this.reader.skip();
+    return cons(newToken, this.read(this.reader));}
 
   /**
    * Reads a ~ macro as an unquote expression
+   * @param {Token} token
+   * @returns {Cons}
    */
-  readUnquote() {}
+  readUnquote(token) {
+    const { value, srcloc, trivia } = token;
+    const newToken = Token.new(TokenTypes.Reserved, "unquote", srcloc, trivia += value);
+    this.reader.skip();
+    return cons(newToken, this.read(this.reader));
+  }
 }
