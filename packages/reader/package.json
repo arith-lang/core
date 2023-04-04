@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/arith-lang/ArithLang#readme",
   "dependencies": {
-    "@arith-lang/core": "^0.1.0"
+    "@arith-lang/core": "^0.1.0",
+    "@arith-lang/lexer": "^0.1.0"
   }
 }
