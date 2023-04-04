@@ -2,9 +2,7 @@ import { cons, Cons, SyntaxException } from '@arith-lang/core';
 import { Token, TokenTypes } from '@arith-lang/lexer';
 import { TokenReader } from './TokenReader.js';
 import { MacroToken } from './MacroToken.js';
-/**
- * @typedef {Cons} AST
- */
+
 /**
  * @callback ReaderFunction
  * @param {TokenReader} reader
@@ -64,7 +62,8 @@ export class MacroReader {
    * @returns {AST}
    */
   readHashMacro(token) {
-    const { value, srcloc, trivia } = token;
+    const next = this.reader.lookahead(1);
+    // do later
   }
 
   /**

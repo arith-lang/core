@@ -4,7 +4,7 @@ import { SrcLoc, TokenBag } from "@arith-lang/lexer";
 /**
  * @class TokenReader
  * @desc Manages the state of the token stream in the reader
- * @property {Token} tokens
+ * @property {Token[]} tokens
  * @property {number} pos
  * @property {number} length
  */
@@ -14,7 +14,8 @@ export class TokenReader {
    * @param {TokenBag} tokens
    */
   constructor(tokens) {
-    this.tokens = tokens;
+    // convert TokenBag to array
+    this.tokens = [...tokens];
     this.pos = 0;
   }
 
