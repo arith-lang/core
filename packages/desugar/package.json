@@ -1,7 +1,7 @@
 {
   "name": "@arith-lang/expander",
   "version": "0.1.0",
-  "description": "Expands all macros to fully realize the s-expression parse tree",
+  "description": "Desugars the parse tree into the full AST",
   "type": "module",
   "publishConfig": {
     "access": "public"
