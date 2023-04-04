@@ -74,7 +74,7 @@ export class MacroReader {
    */
   readQuasiquote(token) {
     const { value, srcloc, trivia } = token;
-    const newToken = Token.new(TokenTypes.Reserved, "quasiquote", srcloc, trivia += value);
+    const newToken = MacroToken.new(TokenTypes.Reserved, "quote", srcloc, trivia, value);
     this.reader.skip();
     return cons(newToken, this.read(this.reader));
   }
@@ -97,7 +97,7 @@ export class MacroReader {
    * @returns {Cons}
    */
   readSpliceUnquote (token) {const { value, srcloc, trivia } = token;
-    const newToken = Token.new(TokenTypes.Reserved, "splice-unquote", srcloc, trivia += value);
+    const newToken = MacroToken.new(TokenTypes.Reserved, "quote", srcloc, trivia, value);
     this.reader.skip();
     return cons(newToken, this.read(this.reader));}
 
@@ -108,7 +108,7 @@ export class MacroReader {
    */
   readUnquote(token) {
     const { value, srcloc, trivia } = token;
-    const newToken = Token.new(TokenTypes.Reserved, "unquote", srcloc, trivia += value);
+    const newToken = MacroToken.new(TokenTypes.Reserved, "quote", srcloc, trivia, value);
     this.reader.skip();
     return cons(newToken, this.read(this.reader));
   }
