@@ -4,7 +4,7 @@
  * @property {any} head
  * @property {any} tail
  */
-class Cons extends Array {
+export class Cons extends Array {
   /**
    * Constructs a Cons instance
    * @param {any} head

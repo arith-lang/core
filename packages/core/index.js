@@ -1,8 +1,8 @@
-import { cons } from "./src/cons.js";
+import { cons, Cons } from "./src/cons.js";
 import { readline } from "./src/readline.js";
 import { Exception, SyntaxException } from "./src/exceptions.js";
 import { hash } from "./src/hash.js";
 import { gensym } from "./src/gensym.js";
 import { cuid } from "./src/cuid.js";
 
-export { cons, cuid, gensym, hash, readline, Exception, SyntaxException };
+export { cons, cuid, gensym, hash, readline, Cons, Exception, SyntaxException };
