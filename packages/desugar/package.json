@@ -13,7 +13,6 @@
   "keywords": [
     "desugaring",
     "desugar",
-    "macroexpansion",
     "arith"
   ],
   "author": "Jason Barr <jason@jasonsbarr.com>",
