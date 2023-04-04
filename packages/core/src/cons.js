@@ -157,3 +157,17 @@ Object.defineProperties(Array.prototype, {
 export function isCons(obj) {
   return obj instanceof Cons;
 }
+
+/**
+ * Checks to see if a value is a null-terminated list
+ * @param {any} obj
+ * @returns {boolean}
+ */
+export function isList(obj) {
+  if (!isCons(obj))  {
+    return false;
+  }
+
+  let tail = obj.tail;
+  return tail === null ? isList(tail) : true;
+}
