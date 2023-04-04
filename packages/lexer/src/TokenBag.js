@@ -6,6 +6,7 @@ import { TokenTypes } from "./TokenTypes.js";
  * @class TokenBag
  * @desc Container for syntax tokens
  * @property {Token[]} _tokens
+ * @property {number} length getter for _tokens.length
  */
 export class TokenBag {
   /**

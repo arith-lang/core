@@ -1,4 +1,4 @@
-import { SyntaxException } from "@arith-lang/core";
+import { Exception, SyntaxException } from "@arith-lang/core";
 import { Input } from "./Input.js";
 import { TokenBag } from "./TokenBag.js";
 import { SrcLoc } from "./SrcLoc.js";
@@ -92,7 +92,7 @@ export class Lexer {
         str += ch;
         break;
       } else if (ch === "\n") {
-        throw new SyntaxException(
+        throw new Exception(
           "Unexpected newline in nonterminated single-line string literal"
         );
       } else {
@@ -101,7 +101,7 @@ export class Lexer {
     }
 
     if (!ended && this.input.eof()) {
-      throw new SyntaxException(
+      throw new Exception(
         "Expected double quote to close string literal; got EOF"
       );
     }
@@ -218,7 +218,8 @@ export class Lexer {
 
     if (!ended && this.input.eof()) {
       throw new SyntaxException(
-        'Expected """ to close multiline string; got EOF'
+        'Expected """ to close multiline string; got EOF',
+        srcloc
       );
     }
 
@@ -268,7 +269,7 @@ export class Lexer {
 
       if (isDot(this.input.peek()) && numType !== "dec") {
         throw new SyntaxException(
-          `Only base 10 numbers may include decimal point`
+          `Only base 10 numbers may include decimal point`, srcloc
         );
       }
     } else {
@@ -331,9 +332,13 @@ export class Lexer {
   readString(trivia) {
     const { line, col, pos, file } = this.input;
     const srcloc = SrcLoc.new(line, col, pos, file);
-    const str = this.readEscaped();
 
-    this.tokens.addStringToken(str, srcloc, trivia);
+    try {
+      const str = this.readEscaped();
+      this.tokens.addStringToken(str, srcloc, trivia);
+    } catch (e) {
+      throw new SyntaxException(e.message, srcloc);
+    }
   }
 
   /**
@@ -433,7 +438,8 @@ export class Lexer {
       } else {
         const { line, col, pos, file } = this.input;
         throw new SyntaxException(
-          `Unknown token type ${ch} at ${file} ${pos} (${line}:${col})`
+          `Unknown token type ${ch})`,
+          SrcLoc.new(line, col, pos, file)
         );
       }
     }
