@@ -148,3 +148,12 @@ Object.defineProperties(Array.prototype, {
     },
   },
 });
+
+/**
+ * Tests if a value is a Cons cell
+ * @param {any} obj
+ * @returns {boolean}
+ */
+export function isCons(obj) {
+  return obj instanceof Cons;
+}

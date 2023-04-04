@@ -1,6 +1,7 @@
 import { cons, Cons, SyntaxException } from '@arith-lang/core';
 import { Token, TokenTypes } from '@arith-lang/lexer';
-import { TokenReader } from './TokenReader';
+import { TokenReader } from './TokenReader.js';
+import { MacroToken } from './MacroToken.js';
 /**
  * @typedef {Cons} AST
  */
@@ -62,7 +63,9 @@ export class MacroReader {
    * @param {Token} token
    * @returns {AST}
    */
-  readHashMacro(token) {}
+  readHashMacro(token) {
+    const { value, srcloc, trivia } = token;
+  }
 
   /**
    * Reads a ` macro as a quasiquote expression
@@ -83,7 +86,7 @@ export class MacroReader {
    */
   readQuote(token) {
     const { value, srcloc, trivia } = token;
-    const newToken = Token.new(TokenTypes.Reserved, "quote", srcloc, trivia += value);
+    const newToken = MacroToken.new(TokenTypes.Reserved, "quote", srcloc, trivia, value);
     this.reader.skip();
     return cons(newToken, this.read(this.reader));
   }
