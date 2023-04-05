@@ -49,7 +49,7 @@ function readList(reader) {
     code += el.code ? el.code : el.trivia + el.value;
   }
 
-  code += ")";
+  code += token.trivia + token.value;
 
   // add code property to list for consistency with other expressions' interfaces
   lst.code = code;
