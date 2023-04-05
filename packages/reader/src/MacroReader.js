@@ -80,19 +80,7 @@ export class MacroReader {
    * @returns {Cons}
    */
   readQuasiquote(token) {
-    const { value, srcloc, trivia } = token;
-    const newToken = MacroToken.new(
-      TokenTypes.Reserved,
-      "quasiquote",
-      srcloc,
-      trivia,
-      value
-    );
-    this.reader.skip();
-    const quote = cons(newToken, this.read(this.reader));
-    quote.srcloc = srcloc;
-    quote.code = getListInternalCode(quote);
-    return quote;
+    return this.readQuoteMacro(token, "quasiquote");
   }
 
   /**
@@ -101,10 +89,14 @@ export class MacroReader {
    * @returns {Cons}
    */
   readQuote(token) {
+    return this.readQuoteMacro(token, "quote");
+  }
+
+  readQuoteMacro(token, type) {
     const { value, srcloc, trivia } = token;
     const newToken = MacroToken.new(
       TokenTypes.Reserved,
-      "quote",
+      type,
       srcloc,
       trivia,
       value
@@ -152,19 +144,7 @@ export class MacroReader {
    * @returns {Cons}
    */
   readSpliceUnquote(token) {
-    const { value, srcloc, trivia } = token;
-    const newToken = MacroToken.new(
-      TokenTypes.Reserved,
-      "splice-unquote",
-      srcloc,
-      trivia,
-      value
-    );
-    this.reader.skip();
-    const quote = cons(newToken, this.read(this.reader));
-    quote.srcloc = srcloc;
-    quote.code = getListInternalCode(quote);
-    return quote;
+    return this.readQuoteMacro(token, "splice-unquote");
   }
 
   /**
@@ -203,18 +183,6 @@ export class MacroReader {
    * @returns {Cons}
    */
   readUnquote(token) {
-    const { value, srcloc, trivia } = token;
-    const newToken = MacroToken.new(
-      TokenTypes.Reserved,
-      "unquote",
-      srcloc,
-      trivia,
-      value
-    );
-    this.reader.skip();
-    const quote = cons(newToken, this.read(this.reader));
-    quote.srcloc = srcloc;
-    quote.code = getListInternalCode(quote);
-    return quote;
+    return this.readQuoteMacro(token, "unquote");
   }
 }
