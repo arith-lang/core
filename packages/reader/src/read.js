@@ -58,7 +58,7 @@ function readList(reader) {
 }
 
 /**
- *
+ * Read member expressions from the token stream
  * @param {TokenReader} reader
  * @param {CST} left
  * @returns {MemberExpression|OptionalMemberExpression}
