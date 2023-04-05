@@ -269,7 +269,8 @@ export class Lexer {
 
       if (isDot(this.input.peek()) && numType !== "dec") {
         throw new SyntaxException(
-          `Only base 10 numbers may include decimal point`, srcloc
+          `Only base 10 numbers may include decimal point`,
+          srcloc
         );
       }
     } else {

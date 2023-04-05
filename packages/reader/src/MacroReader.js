@@ -1,7 +1,7 @@
-import { cons, Cons, SyntaxException } from '@arith-lang/core';
-import { Token, TokenTypes } from '@arith-lang/lexer';
-import { TokenReader } from './TokenReader.js';
-import { MacroToken } from './MacroToken.js';
+import { cons, Cons, SyntaxException } from "@arith-lang/core";
+import { Token, TokenTypes } from "@arith-lang/lexer";
+import { TokenReader } from "./TokenReader.js";
+import { MacroToken } from "./MacroToken.js";
 
 /**
  * @callback ReaderFunction
@@ -56,7 +56,10 @@ export class MacroReader {
       case TokenTypes.RBrace:
         return this.readRecord(token);
       default:
-        throw new SyntaxException(`Unknown reader macro ${token.value}`, token.srcloc);
+        throw new SyntaxException(
+          `Unknown reader macro ${token.value}`,
+          token.srcloc
+        );
     }
   }
 
@@ -77,7 +80,13 @@ export class MacroReader {
    */
   readQuasiquote(token) {
     const { value, srcloc, trivia } = token;
-    const newToken = MacroToken.new(TokenTypes.Reserved, "quote", srcloc, trivia, value);
+    const newToken = MacroToken.new(
+      TokenTypes.Reserved,
+      "quote",
+      srcloc,
+      trivia,
+      value
+    );
     this.reader.skip();
     return cons(newToken, this.read(this.reader));
   }
@@ -89,7 +98,13 @@ export class MacroReader {
    */
   readQuote(token) {
     const { value, srcloc, trivia } = token;
-    const newToken = MacroToken.new(TokenTypes.Reserved, "quote", srcloc, trivia, value);
+    const newToken = MacroToken.new(
+      TokenTypes.Reserved,
+      "quote",
+      srcloc,
+      trivia,
+      value
+    );
     this.reader.skip();
     return cons(newToken, this.read(this.reader));
   }
@@ -106,9 +121,15 @@ export class MacroReader {
    * @param {Token} token
    * @returns {Cons}
    */
-  readSpliceUnquote (token) {
+  readSpliceUnquote(token) {
     const { value, srcloc, trivia } = token;
-    const newToken = MacroToken.new(TokenTypes.Reserved, "quote", srcloc, trivia, value);
+    const newToken = MacroToken.new(
+      TokenTypes.Reserved,
+      "quote",
+      srcloc,
+      trivia,
+      value
+    );
     this.reader.skip();
     return cons(newToken, this.read(this.reader));
   }
@@ -127,7 +148,13 @@ export class MacroReader {
    */
   readUnquote(token) {
     const { value, srcloc, trivia } = token;
-    const newToken = MacroToken.new(TokenTypes.Reserved, "quote", srcloc, trivia, value);
+    const newToken = MacroToken.new(
+      TokenTypes.Reserved,
+      "quote",
+      srcloc,
+      trivia,
+      value
+    );
     this.reader.skip();
     return cons(newToken, this.read(this.reader));
   }

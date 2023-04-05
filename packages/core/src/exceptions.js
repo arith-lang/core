@@ -24,6 +24,6 @@ export class SyntaxException extends Exception {
    */
   constructor(message, srcloc) {
     const { line, col, file } = srcloc;
-    super(`${message} in ${file} at ${line}:${col}`)
+    super(`${message} in ${file} at ${line}:${col}`);
   }
 }

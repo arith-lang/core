@@ -164,7 +164,7 @@ export function isCons(obj) {
  * @returns {boolean}
  */
 export function isList(obj) {
-  if (!isCons(obj))  {
+  if (!isCons(obj)) {
     return false;
   }
 

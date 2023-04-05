@@ -7,5 +7,5 @@ export const macrotokens = [
   TokenTypes.UQuote,
   TokenTypes.Hash,
   TokenTypes.RBrack,
-  TokenTypes.RBrace
+  TokenTypes.RBrace,
 ];

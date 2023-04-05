@@ -1,4 +1,4 @@
-import { SrcLoc, TokenTypes } from '@arith-lang/lexer';
+import { SrcLoc, TokenTypes } from "@arith-lang/lexer";
 
 /**
  * @class MacroToken
