@@ -6,7 +6,7 @@ import { MacroToken } from './MacroToken.js';
 /**
  * @callback ReaderFunction
  * @param {TokenReader} reader
- * @returns {AST}
+ * @returns {CST}
  */
 /**
  * @class MacroReader
@@ -63,7 +63,7 @@ export class MacroReader {
   /**
    * Reads a # macro
    * @param {Token} token
-   * @returns {AST}
+   * @returns {CST}
    */
   readHashMacro(token) {
     const next = this.reader.lookahead(1);

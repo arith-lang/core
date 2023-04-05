@@ -1,4 +1,4 @@
-import { cons, Cons } from "@arith-lang/core";
+import { cons, Cons, SyntaxException } from "@arith-lang/core";
 import { Token, TokenBag, TokenTypes } from "@arith-lang/lexer";
 import { TokenReader } from "./TokenReader.js";
 import { MacroReader } from "./MacroReader.js";
@@ -9,9 +9,20 @@ import { OptionalMemberExpression } from "./expressions/OptionalMemberExpression
 const PRECEDENCE = { [TokenTypes.Dot]: 90, [TokenTypes.OptionalMember]: 90 };
 
 /**
+ * @typedef {import("./CST").CST} CST
+ */
+
+/**
+ * Reads a list form from the token stream
+ * @param {TokenReader} reader
+ * @returns {Cons}
+ */
+function readList(reader) {}
+
+/**
  *
  * @param {TokenReader} reader
- * @param {AST} left
+ * @param {CST} left
  * @returns {MemberExpression|OptionalMemberExpression}
  */
 function readMemberExpression(reader, left) {}
@@ -19,7 +30,7 @@ function readMemberExpression(reader, left) {}
 /**
  * Reads a reader macro from the token stream
  * @param {TokenReader} reader
- * @returns {AST}
+ * @returns {CST}
  */
 function readMacro(reader) {
   return MacroReader.new(reader, readExpr);
@@ -30,24 +41,47 @@ function readMacro(reader) {
  * @param {TokenReader} reader
  * @returns {Token}
  */
-function readAtom(reader) {}
+function readAtom(reader) {
+  const token = reader.next();
+
+  switch (token.type) {
+    case TokenTypes.Integer:
+    case TokenTypes.Decimal:
+    case TokenTypes.Double:
+    case TokenTypes.String:
+    case TokenTypes.MultilineString:
+    case TokenTypes.Boolean:
+    case TokenTypes.Keyword:
+    case TokenTypes.Nil:
+    case TokenTypes.Amp:
+    case TokenTypes.Reserved:
+    case TokenTypes.Identifier:
+      return token;
+    default:
+      throw new SyntaxException(
+        `Invalid token type ${token.type}`,
+        token.srcloc
+      );
+  }
+}
 
 /**
  * Reads a syntactic form from the token stream
  * @param {TokenReader} reader
- * @returns {AST}
+ * @returns {CST}
  */
 function readForm(reader) {
   const token = reader.peek();
 
-  if (macrotokens.includes(token)) {
+  if (macrotokens.includes(token.type)) {
     return readMacro(reader);
   }
 
-  switch (token.type) {
-    default:
-      return readAtom(reader)
+  if (token.type === TokenTypes.LParen) {
+    return readList(reader);
   }
+
+  return readAtom(reader);
 }
 
 /**
@@ -55,7 +89,7 @@ function readForm(reader) {
  *
  * Handles parsing expressions like MemberExpression
  * @param {TokenReader} reader
- * @returns {AST}
+ * @returns {CST}
  */
 function readExpr(reader, bp = 0) {
   const left = readForm(reader);
