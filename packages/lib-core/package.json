@@ -1,5 +1,5 @@
 {
-  "name": "@arith-lang/lib-shared",
+  "name": "@arith-lang/lib-core",
   "version": "0.1.0",
   "description": "Arith stdlib modules shared between all applications",
   "type": "module",
