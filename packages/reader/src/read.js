@@ -17,7 +17,45 @@ const PRECEDENCE = { [TokenTypes.Dot]: 90, [TokenTypes.OptionalMember]: 90 };
  * @param {TokenReader} reader
  * @returns {Cons}
  */
-function readList(reader) {}
+function readList(reader) {
+  let start = reader.next();
+  const srcloc = start.srcloc;
+  let token = reader.next();
+
+  if (token.type === TokenTypes.RParen) {
+    throw new SyntaxException(`Parenthesized list cannot be empty`, srcloc);
+  }
+
+  let lst = cons(readExpr(reader), null);
+  lst.srcloc = srcloc;
+  token = reader.peek();
+
+  while (token.type !== TokenTypes.RParen) {
+    if (!token) {
+      // Whoops, ran out of tokens before the end of the list
+      throw new SyntaxException(`Expected ")", got EOF`, prev.srcloc);
+    }
+
+    lst.append(readExpr(reader));
+    token = reader.peek();
+  }
+  // skip end token
+  reader.skip();
+
+  // get the list's code from its elements
+  let code = "(" + start.trivia + start.value;
+
+  for (let el of lst) {
+    code += el.code ? el.code : el.trivia + el.value;
+  }
+
+  code += ")";
+
+  // add code property to list for consistency with other expressions' interfaces
+  lst.code = code;
+
+  return lst;
+}
 
 /**
  *
@@ -25,7 +63,19 @@ function readList(reader) {}
  * @param {CST} left
  * @returns {MemberExpression|OptionalMemberExpression}
  */
-function readMemberExpression(reader, left) {}
+function readMemberExpression(reader, left) {
+  const operator = reader.next();
+  const property = readExpr(reader);
+  let code = left.code
+    ? left.code
+    : left.trivia + left.value + operator.trivia + operator.value;
+  code += property.code ? property.code : property.trivia + property.value;
+
+  return operator.type === TokenTypes.Dot
+    ? // if MemberExpression or OptionalMemberExpression, property will be an Identifier token
+      MemberExpression.new(left, property, left.srcloc, code)
+    : OptionalMemberExpression.new(left, property, srcloc, code);
+}
 
 /**
  * Reads a reader macro from the token stream
