@@ -20,7 +20,7 @@ const PRECEDENCE = { [TokenTypes.Dot]: 90, [TokenTypes.OptionalMember]: 90 };
 function readList(reader) {
   let start = reader.next();
   const srcloc = start.srcloc;
-  let token = reader.next();
+  let token = reader.peek();
 
   if (token.type === TokenTypes.RParen) {
     throw new SyntaxException(`Parenthesized list cannot be empty`, srcloc);
@@ -43,7 +43,7 @@ function readList(reader) {
   reader.skip();
 
   // get the list's code from its elements
-  let code = "(" + start.trivia + start.value;
+  let code = start.trivia + start.value;
 
   for (let el of lst) {
     code += el.code ? el.code : el.trivia + el.value;
