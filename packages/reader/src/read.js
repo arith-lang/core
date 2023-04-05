@@ -66,9 +66,14 @@ function readList(reader) {
 function readMemberExpression(reader, left) {
   const operator = reader.next();
   const property = readExpr(reader);
-  let code = left.code
-    ? left.code
-    : left.trivia + left.value + operator.trivia + operator.value;
+  let code =
+    left.type === "MemberExpression"
+      ? left.code.split(".")[1]
+      : left.type === "OptionalMemberExpression"
+      ? left.code.split(".?")[1]
+      : left.code
+      ? left.code
+      : left.trivia + left.value + operator.trivia + operator.value;
   code += property.code ? property.code : property.trivia + property.value;
 
   return operator.type === TokenTypes.Dot
