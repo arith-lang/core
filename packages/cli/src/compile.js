@@ -1,4 +1,5 @@
 import { tokenize } from "@arith-lang/lexer";
+import { read } from "@arith-lang/reader";
 
 /**
  * Runs the whole compilation pipeline on a string of Arith code
@@ -6,5 +7,9 @@ import { tokenize } from "@arith-lang/lexer";
  * @param {string} file
  */
 export function compile(input, file = "file://stdin") {
-  return tokenize(input, file);
+  return read(tokenize(input, file));
 }
+
+const code = `15`;
+
+console.log(compile(code));

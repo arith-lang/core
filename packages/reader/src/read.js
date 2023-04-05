@@ -170,10 +170,14 @@ function readExpr(reader, bp = 0) {
 export function read(tokens) {
   const reader = TokenReader.new(tokens);
   let parseTree = cons(readExpr(reader), null);
+  let token = reader.peek();
 
-  while (!reader.eof()) {
+  while (!reader.eof() && token.type !== TokenTypes.EOF) {
     parseTree.append(readExpr(reader));
+    token = reader.peek();
   }
+
+  parseTree.append(token);
 
   return parseTree;
 }
