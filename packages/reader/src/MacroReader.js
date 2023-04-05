@@ -51,6 +51,10 @@ export class MacroReader {
         return this.readUnquote(token);
       case TokenTypes.Hash:
         return this.readHashMacro(token);
+      case TokenTypes.RBrack:
+        return this.readVector(token);
+      case TokenTypes.RBrace:
+        return this.readRecord(token);
       default:
         throw new SyntaxException(`Unknown reader macro ${token.value}`, token.srcloc);
     }
@@ -91,14 +95,30 @@ export class MacroReader {
   }
 
   /**
+   * Reads a record macro as a function call
+   * @param {TokenReader} reader
+   * @returns {Cons}
+   */
+  readRecord(reader) {}
+
+  /**
    * Reads a ~@ macro as a splice-unquote expression
    * @param {Token} token
    * @returns {Cons}
    */
-  readSpliceUnquote (token) {const { value, srcloc, trivia } = token;
+  readSpliceUnquote (token) {
+    const { value, srcloc, trivia } = token;
     const newToken = MacroToken.new(TokenTypes.Reserved, "quote", srcloc, trivia, value);
     this.reader.skip();
-    return cons(newToken, this.read(this.reader));}
+    return cons(newToken, this.read(this.reader));
+  }
+
+  /**
+   * Reads a vector macro as a function call
+   * @param {Token} token
+   * @returns {Cons}
+   */
+  readVector(token) {}
 
   /**
    * Reads a ~ macro as an unquote expression
