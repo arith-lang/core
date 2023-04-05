@@ -2,6 +2,7 @@ import { cons, Cons, SyntaxException } from "@arith-lang/core";
 import { Token, TokenTypes } from "@arith-lang/lexer";
 import { TokenReader } from "./TokenReader.js";
 import { MacroToken } from "./MacroToken.js";
+import { getListInternalCode } from "./utils.js";
 
 /**
  * @callback ReaderFunction
@@ -82,13 +83,16 @@ export class MacroReader {
     const { value, srcloc, trivia } = token;
     const newToken = MacroToken.new(
       TokenTypes.Reserved,
-      "quote",
+      "quasiquote",
       srcloc,
       trivia,
       value
     );
     this.reader.skip();
-    return cons(newToken, this.read(this.reader));
+    const quote = cons(newToken, this.read(this.reader));
+    quote.srcloc = srcloc;
+    quote.code = getListInternalCode(quote);
+    return quote;
   }
 
   /**
@@ -106,15 +110,41 @@ export class MacroReader {
       value
     );
     this.reader.skip();
-    return cons(newToken, this.read(this.reader));
+    const quote = cons(newToken, this.read(this.reader));
+    quote.srcloc = srcloc;
+    quote.code = getListInternalCode(quote);
+    return quote;
   }
 
   /**
    * Reads a record macro as a function call
-   * @param {TokenReader} reader
+   * @param {Token} token
    * @returns {Cons}
    */
-  readRecord(reader) {}
+  readRecord(token) {
+    const { value, srcloc, trivia } = token;
+    const first = MacroToken.new(
+      TokenTypes.Identifier,
+      "record",
+      srcloc,
+      trivia,
+      value
+    );
+    const rec = cons(first, null);
+    rec.srcloc = srcloc;
+
+    // skip open brace token
+    this.reader.skip();
+    token = this.reader.peek();
+
+    while (token.type !== TokenTypes.RBrace) {
+      rec.append(this.read(this.reader));
+      token = this.reader.peek();
+    }
+    const code = getListInternalCode(rec) + token.trivia + token.value;
+    rec.code = code;
+    return rec;
+  }
 
   /**
    * Reads a ~@ macro as a splice-unquote expression
@@ -125,13 +155,16 @@ export class MacroReader {
     const { value, srcloc, trivia } = token;
     const newToken = MacroToken.new(
       TokenTypes.Reserved,
-      "quote",
+      "splice-unquote",
       srcloc,
       trivia,
       value
     );
     this.reader.skip();
-    return cons(newToken, this.read(this.reader));
+    const quote = cons(newToken, this.read(this.reader));
+    quote.srcloc = srcloc;
+    quote.code = getListInternalCode(quote);
+    return quote;
   }
 
   /**
@@ -139,7 +172,30 @@ export class MacroReader {
    * @param {Token} token
    * @returns {Cons}
    */
-  readVector(token) {}
+  readVector(token) {
+    const { value, srcloc, trivia } = token;
+    const first = MacroToken.new(
+      TokenTypes.Identifier,
+      "vector",
+      srcloc,
+      trivia,
+      value
+    );
+    const vec = cons(first, null);
+    vec.srcloc = srcloc;
+
+    // skip open bracket token
+    this.reader.skip();
+    token = this.reader.peek();
+
+    while (token.type !== TokenTypes.RBrack) {
+      vec.append(this.read(this.reader));
+      token = this.reader.peek();
+    }
+    const code = getListInternalCode(vec) + token.trivia + token.value;
+    vec.code = code;
+    return vec;
+  }
 
   /**
    * Reads a ~ macro as an unquote expression
@@ -150,12 +206,15 @@ export class MacroReader {
     const { value, srcloc, trivia } = token;
     const newToken = MacroToken.new(
       TokenTypes.Reserved,
-      "quote",
+      "unquote",
       srcloc,
       trivia,
       value
     );
     this.reader.skip();
-    return cons(newToken, this.read(this.reader));
+    const quote = cons(newToken, this.read(this.reader));
+    quote.srcloc = srcloc;
+    quote.code = getListInternalCode(quote);
+    return quote;
   }
 }

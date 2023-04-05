@@ -71,4 +71,11 @@ export class TokenReader {
   peek() {
     return this.tokens[this.pos];
   }
+
+  /**
+   * Skips the current token
+   */
+  skip() {
+    this.pos++;
+  }
 }

@@ -5,6 +5,7 @@ import { MacroReader } from "./MacroReader.js";
 import { macrotokens } from "./macrotokens.js";
 import { MemberExpression } from "./expressions/MemberExpression.js";
 import { OptionalMemberExpression } from "./expressions/OptionalMemberExpression.js";
+import { getListInternalCode } from "./utils.js";
 
 const PRECEDENCE = { [TokenTypes.Dot]: 90, [TokenTypes.OptionalMember]: 90 };
 
@@ -45,9 +46,7 @@ function readList(reader) {
   // get the list's code from its elements
   let code = start.trivia + start.value;
 
-  for (let el of lst) {
-    code += el.code ? el.code : el.trivia + el.value;
-  }
+  code += getListInternalCode(lst);
 
   code += token.trivia + token.value;
 
@@ -74,7 +73,9 @@ function readMemberExpression(reader, left) {
       : left.code
       ? left.code
       : left.trivia + left.value + operator.trivia + operator.value;
-  code += property.code ? property.code : property.trivia + property.value;
+  code += property.code
+    ? property.code
+    : property.trivia + (property.macro ? property.macro : property.value);
 
   return operator.type === TokenTypes.Dot
     ? // if MemberExpression or OptionalMemberExpression, property will be an Identifier token
