@@ -18,7 +18,7 @@
   "author": "Jason Barr <jason@jasonsbarr.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/arith-lang/ArithLang/"
+    "url": "https://github.com/arith-lang/core/issues"
   },
-  "homepage": "https://github.com/arith-lang/ArithLang#readme"
+  "homepage": "https://github.com/arith-lang/core#readme"
 }
