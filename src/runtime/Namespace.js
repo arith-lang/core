@@ -64,4 +64,13 @@ export class Namespace {
   set(name, value) {
     this.vars.set(name, value);
   }
+
+  var(name) {
+    const value = this.get(name);
+    return { name, value };
+  }
+}
+
+export function makeNamespace(initial = null) {
+  return new Namespace({ initial });
 }
