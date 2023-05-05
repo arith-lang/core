@@ -27,3 +27,13 @@ export class SyntaxException extends Exception {
     super(`${message} in ${file} at ${line}:${col}`);
   }
 }
+
+/**
+ * @class AssertException
+ * @desc Arith assertion error, used in testing
+ */
+export class AssertException extends Exception {
+  constructor(msg) {
+    super(msg);
+  }
+}
