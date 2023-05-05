@@ -16,8 +16,7 @@
   "author": "Jason Barr <jason@jasonsbarr.com>",
   "license": "MIT",
   "devDependencies": {
-    "prettier": "^2.8.7",
-    "vitest": "^0.31.0"
+    "prettier": "^2.8.7"
   },
   "workspaces": [
     "packages/*"
