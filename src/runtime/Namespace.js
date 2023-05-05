@@ -23,6 +23,10 @@ export class Namespace {
     return this.lookup(name) !== null;
   }
 
+  extend() {
+    return new Namespace({ parent: this });
+  }
+
   get(name) {
     const scope = this.lookup(name);
 
