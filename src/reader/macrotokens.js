@@ -1,4 +1,4 @@
-import { TokenTypes } from "@arith-lang/lexer";
+import { TokenTypes } from "../lexer/TokenTypes.js";
 
 export const macrotokens = [
   TokenTypes.Quote,

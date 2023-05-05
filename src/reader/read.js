@@ -1,5 +1,8 @@
-import { cons, Cons, SyntaxException } from "@arith-lang/core";
-import { Token, TokenBag, TokenTypes } from "@arith-lang/lexer";
+import { cons, Cons } from "../core/cons.js";
+import { SyntaxException } from "../core/exceptions.js";
+import { Token } from "../lexer/Token.js";
+import { TokenBag } from "../lexer/TokenBag.js";
+import { TokenTypes } from "../lexer/TokenTypes.js";
 import { TokenReader } from "./TokenReader.js";
 import { MacroReader } from "./MacroReader.js";
 import { macrotokens } from "./macrotokens.js";

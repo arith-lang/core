@@ -1,5 +1,5 @@
-import { Cons } from "@arith-lang/core";
-import { Token } from "@arith-lang/lexer";
+import { Cons } from "../core/cons.js";
+import { Token } from "../lexer/Token.js";
 import { MemberExpression } from "./expressions/MemberExpression";
 import { OptionalMemberExpression } from "./expressions/OptionalMemberExpression";
 

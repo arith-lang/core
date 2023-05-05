@@ -1,5 +1,5 @@
-import { tokenize } from "@arith-lang/lexer";
-import { read } from "@arith-lang/reader";
+import { tokenize } from "../lexer/tokenize.js";
+import { read } from "../reader/read.js";
 
 /**
  * Runs the whole compilation pipeline on a string of Arith code

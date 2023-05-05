@@ -1,4 +1,5 @@
-import { SrcLoc, Token } from "@arith-lang/lexer";
+import { SrcLoc } from "../../lexer/SrcLoc.js";
+import { Token } from "../../lexer/Token.js";
 
 /**
  * @typedef {import("../CST").CST} CST

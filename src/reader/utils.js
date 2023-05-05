@@ -1,4 +1,4 @@
-import { Cons } from "@arith-lang/core";
+import { Cons } from "../core/cons.js";
 
 /**
  * Extract the code from a CST list

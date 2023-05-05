@@ -1,5 +1,7 @@
-import { cons, Cons, SyntaxException } from "@arith-lang/core";
-import { Token, TokenTypes } from "@arith-lang/lexer";
+import { SyntaxException } from "../core/exceptions.js";
+import { Cons, cons } from "../core/cons.js";
+import { Token } from "../lexer/Token.js";
+import { TokenTypes } from "../lexer/TokenTypes.js";
 import { TokenReader } from "./TokenReader.js";
 import { MacroToken } from "./MacroToken.js";
 import { getListInternalCode } from "./utils.js";

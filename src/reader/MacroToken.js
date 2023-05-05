@@ -1,4 +1,5 @@
-import { SrcLoc, TokenTypes } from "@arith-lang/lexer";
+import { SrcLoc } from "../lexer/SrcLoc.js";
+import { TokenTypes } from "../lexer/TokenTypes.js";
 
 /**
  * @class MacroToken

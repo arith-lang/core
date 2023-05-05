@@ -1,4 +1,4 @@
-import { Exception, SyntaxException } from "@arith-lang/core";
+import { Exception, SyntaxException } from "../core/exceptions.js";
 import { Input } from "./Input.js";
 import { TokenBag } from "./TokenBag.js";
 import { SrcLoc } from "./SrcLoc.js";

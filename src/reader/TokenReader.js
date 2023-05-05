@@ -1,5 +1,6 @@
-import { SyntaxException } from "@arith-lang/core";
-import { SrcLoc, TokenBag } from "@arith-lang/lexer";
+import { SyntaxException } from "../core/exceptions.js";
+import { SrcLoc } from "../lexer/SrcLoc.js";
+import { TokenBag } from "../lexer/TokenBag.js";
 
 /**
  * @class TokenReader
