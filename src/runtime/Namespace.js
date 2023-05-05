@@ -46,7 +46,7 @@ export class Namespace {
     let current = this;
 
     while (current !== null) {
-      if (current.vars.has(name)) {
+      if (current.has(name)) {
         return current;
       }
       current = this.parent;
