@@ -150,6 +150,15 @@ Object.defineProperties(Array.prototype, {
 });
 
 /**
+ * Construct a proper list of cons cells
+ * @param  {...any} args
+ * @returns {Cons}
+ */
+export function list(...args) {
+  return Cons.of(...args);
+}
+
+/**
  * Tests if a value is a Cons cell
  * @param {any} obj
  * @returns {boolean}
