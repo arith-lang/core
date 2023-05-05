@@ -24,7 +24,7 @@ export class SyntaxException extends Exception {
    */
   constructor(message, srcloc) {
     const { line, col, file } = srcloc;
-    super(`${message} in ${file} at ${line}:${col}`);
+    super(`SyntaxException: ${message} in ${file} at ${line}:${col}`);
   }
 }
 
@@ -34,6 +34,12 @@ export class SyntaxException extends Exception {
  */
 export class AssertException extends Exception {
   constructor(msg) {
-    super(msg);
+    super("AssertException: " + msg);
+  }
+}
+
+export class ReferenceException extends Exception {
+  constructor(name) {
+    super(`ReferenceException: ${name} is not defined`);
   }
 }

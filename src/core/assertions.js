@@ -9,7 +9,7 @@ import { AssertException } from "./exceptions";
  */
 export function assert(expr, msg) {
   if (!expr) {
-    throw new AssertException("Assertion failed: ", msg);
+    throw new AssertException(msg);
   }
 
   return true;
