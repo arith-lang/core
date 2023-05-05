@@ -11,3 +11,7 @@ export function hasMethod(obj, methodName) {
 export function fail(msg, exn = Exception) {
   throw new exn(msg);
 }
+
+export function mapToObject(map) {
+  return Object.fromEntries(map.entries());
+}
