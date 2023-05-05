@@ -22,6 +22,7 @@ export function assertEqual(actual, expected, msg = "") {
   );
 }
 
+// TODO: Replace JSON.stringify with pretty printer
 export function assertDeepEqual(actual, expected, msg = "") {
   return assert(
     equal(actual, expected),
