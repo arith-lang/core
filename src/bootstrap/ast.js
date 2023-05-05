@@ -13,6 +13,7 @@ export const ASTTypes = {
   IfExpression: "IfExpression",
   ForExpression: "ForExpression",
   CondExpression: "CondExpression",
+  MatchExpression: "MatchExpression",
   TryCatch: "TryCatch",
   Module: "Module",
   Include: "Include",
@@ -99,6 +100,14 @@ export const CondExpression = Record({
   alternate: null,
   srcloc: null,
   code: "",
+});
+
+export const MatchExpression = Record({
+  type: ASTTypes.SwitchExpression,
+  discriminant: null,
+  cases: [],
+  default: null,
+  srcloc: null,
 });
 
 export const TryCatch = Record({
