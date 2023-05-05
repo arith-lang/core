@@ -3,6 +3,7 @@ import { ReferenceException } from "../core/exceptions";
 export class Namespace {
   constructor({ parent = null, initial = null, name = "" } = {}) {
     this.parent = parent;
+    this.name = name;
     this.vars = new Map();
 
     if (initial) {
@@ -23,8 +24,8 @@ export class Namespace {
     return this.lookup(name) !== null;
   }
 
-  extend() {
-    return new Namespace({ parent: this });
+  extend(name = "") {
+    return new Namespace({ parent: this, name });
   }
 
   get(name) {
@@ -67,7 +68,11 @@ export class Namespace {
 
   var(name) {
     const value = this.get(name);
-    return { [Symbol.for(":name")]: name, [Symbol.for(":value")]: value };
+    return {
+      [Symbol.for(":ns")]: this.name,
+      [Symbol.for(":name")]: name,
+      [Symbol.for(":value")]: value,
+    };
   }
 }
 
