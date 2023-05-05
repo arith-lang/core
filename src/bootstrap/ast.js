@@ -47,6 +47,7 @@ export const VariableDefinition = Record({
 export const FunctionDefinition = Record({
   type: ASTTypes.FunctionDefinition,
   async: false,
+  variadic: false,
   name: null,
   params: [],
   body: [],
@@ -57,6 +58,7 @@ export const FunctionDefinition = Record({
 export const FunctionExpression = Record({
   type: ASTTypes.FunctionExpression,
   async: false,
+  variadic: false,
   params: [],
   body: [],
   srcloc: null,
