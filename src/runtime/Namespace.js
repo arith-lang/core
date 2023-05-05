@@ -67,7 +67,7 @@ export class Namespace {
 
   var(name) {
     const value = this.get(name);
-    return { name, value };
+    return { [Symbol.for(":name")]: name, [Symbol.for(":value")]: value };
   }
 }
 
