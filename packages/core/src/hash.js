@@ -6,5 +6,5 @@ import objectHash from "object-hash";
  * @returns {string}
  */
 export function hash(obj) {
-  return objectHash(obj);
+  return objectHash(obj, { excludeKeys: (key) => key === Symbol.for(":--id--") });
 }
