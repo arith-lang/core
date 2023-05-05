@@ -1,0 +1,23 @@
+{
+  "name": "@arith-lang/bootstrap",
+  "version": "0.1.0",
+  "description": "Compiler for a minimal subset of Arith that builds the compiler for the full language",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "compiler",
+    "arith"
+  ],
+  "author": "Jason Barr <jason@jasonsbarr.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arith-lang/core/issues"
+  },
+  "homepage": "https://github.com/arith-lang/core#readme"
+}
