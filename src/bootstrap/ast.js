@@ -7,6 +7,7 @@ import { Record } from "immutable";
 export const ASTTypes = {
   Program: "Program",
   VariableDefinition: "VariableDefinition",
+  FunctionDefinition: "FunctionDefinition",
   FunctionExpression: "FunctionExpression",
   CallExpression: "CallExpression",
   IfExpression: "IfExpression",
@@ -32,6 +33,7 @@ export const Program = Record({
   type: ASTTypes.Program,
   nodes: [],
   srcloc: null,
+  code: "",
 });
 
 export const VariableDefinition = Record({
@@ -39,6 +41,17 @@ export const VariableDefinition = Record({
   name: null,
   initializer: null,
   srcloc: null,
+  code: "",
+});
+
+export const FunctionDefinition = Record({
+  type: ASTTypes.FunctionDefinition,
+  async: false,
+  name: null,
+  params: [],
+  body: [],
+  srcloc: null,
+  code: "",
 });
 
 export const FunctionExpression = Record({
@@ -47,6 +60,7 @@ export const FunctionExpression = Record({
   params: [],
   body: [],
   srcloc: null,
+  code: "",
 });
 
 export const CallExpression = Record({
@@ -55,6 +69,7 @@ export const CallExpression = Record({
   args: [],
   body: [],
   srcloc: null,
+  code: "",
 });
 
 export const IfExpression = Record({
@@ -63,6 +78,7 @@ export const IfExpression = Record({
   consequent: null,
   alternate: null,
   srcloc: null,
+  code: "",
 });
 
 export const ForExpression = Record({
@@ -72,6 +88,7 @@ export const ForExpression = Record({
   iters: [],
   body: [],
   srcloc: null,
+  code: "",
 });
 
 export const CondExpression = Record({
@@ -79,6 +96,7 @@ export const CondExpression = Record({
   clauses: [],
   alternate: null,
   srcloc: null,
+  code: "",
 });
 
 export const TryCatch = Record({
@@ -87,6 +105,7 @@ export const TryCatch = Record({
   error: "",
   catch: [],
   finally: null,
+  code: "",
 });
 
 export const Module = Record({
@@ -94,6 +113,7 @@ export const Module = Record({
   name: "",
   body: [],
   srcloc: null,
+  code: "",
 });
 
 export const Include = Record({
@@ -101,12 +121,14 @@ export const Include = Record({
   names: null, // destructured imports via record macro
   module: null,
   srcloc: null,
+  code: "",
 });
 
 export const Provide = Record({
   type: ASTTypes.Provide,
   member: null,
   srcloc: null,
+  code: "",
 });
 
 export const JSImport = Record({
@@ -115,47 +137,55 @@ export const JSImport = Record({
   names: null, // destructured imports via record macro
   module: "", // the string of the module being imported
   srcloc: null,
+  code: "",
 });
 
 export const Quote = Record({
   type: ASTTypes.Quote,
   value: null,
   srcloc: null,
+  code: "",
 });
 
 export const NumberLiteral = Record({
   type: ASTTypes.NumberLiteral,
   value: "",
   srcloc: null,
+  code: "",
 });
 
 export const StringLiteral = Record({
   type: ASTTypes.StringLiteral,
   value: "",
   srcloc: null,
+  code: "",
 });
 
 export const BooleanLiteral = Record({
   type: ASTTypes.BooleanLiteral,
   value: "",
   srcloc: null,
+  code: "",
 });
 
 export const KeywordLiteral = Record({
   type: ASTTypes.KeywordLiteral,
   value: "",
   srcloc: null,
+  code: "",
 });
 
 export const NilLiteral = Record({
   type: ASTTypes.NilLiteral,
   srcloc: null,
+  code: "",
 });
 
 export const Identifier = Record({
   type: ASTTypes.Identifier,
   name: "",
   srcloc: null,
+  code: "",
 });
 
 export const MemberExpression = Record({
@@ -163,6 +193,7 @@ export const MemberExpression = Record({
   object: null,
   property: null,
   srcloc: null,
+  code: "",
 });
 
 export const OptionalMemberExpression = Record({
@@ -170,4 +201,5 @@ export const OptionalMemberExpression = Record({
   object: null,
   property: null,
   srcloc: null,
+  code: "",
 });
