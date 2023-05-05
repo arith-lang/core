@@ -1,7 +1,7 @@
 import { ReferenceException } from "../core/exceptions";
 
 export class Namespace {
-  constructor({ parent = null, initial = null } = {}) {
+  constructor({ parent = null, initial = null, name = "" } = {}) {
     this.parent = parent;
     this.vars = new Map();
 
@@ -71,6 +71,6 @@ export class Namespace {
   }
 }
 
-export function makeNamespace(initial = null) {
-  return new Namespace({ initial });
+export function makeNamespace(name, initial = null) {
+  return new Namespace({ initial, name });
 }
