@@ -51,6 +51,12 @@ export class Namespace {
     return null;
   }
 
+  // same name in other overwrites an existing name
+  merge(other) {
+    this.addMany(other.vars);
+    return this;
+  }
+
   set(name, value) {
     this.vars.set(name, value);
   }
