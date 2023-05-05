@@ -28,6 +28,7 @@ export const ASTTypes = {
   Identifier: "Identifier",
   MemberExpression: "MemberExpression",
   OptionalMemberExpression: "OptionalMemberExpression",
+  VarExpression: "VarExpression",
 };
 
 export const Program = Record({
@@ -213,4 +214,10 @@ export const OptionalMemberExpression = Record({
   property: null,
   srcloc: null,
   code: "",
+});
+
+export const VarExpression = Record({
+  type: ASTTypes.VarExpression,
+  name: null,
+  srcloc: null,
 });

@@ -21,4 +21,5 @@ export const reserved = [
   "js-import",
   "async",
   "await",
+  "var",
 ];
