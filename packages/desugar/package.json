@@ -1,5 +1,5 @@
 {
-  "name": "@arith-lang/expander",
+  "name": "@arith-lang/desugar",
   "version": "0.1.0",
   "description": "Desugars the parse tree into the full AST",
   "type": "module",
