@@ -32,7 +32,8 @@ export class Namespace {
     const scope = this.lookup(name);
 
     if (scope) {
-      return scope.vars.get(name);
+      const varObj = scope.vars.get(name);
+      return varObj[Symbol.for(":value")];
     }
 
     throw new ReferenceException(name);
