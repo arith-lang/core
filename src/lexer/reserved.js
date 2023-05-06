@@ -9,7 +9,7 @@ export const reserved = [
   "quasiquote",
   "unquote",
   "splice-unquote",
-  "macro",
+  "defmacro",
   "macroexpand",
   "for",
   "cond",
