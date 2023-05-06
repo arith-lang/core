@@ -1,3 +1,5 @@
+import { addMetaField } from "./object";
+
 export function makeFunction(
   func,
   name,
@@ -9,6 +11,7 @@ export function makeFunction(
     value: name,
   });
 
-  func.arity = arity;
-  func.variadic = variadic;
+  addMetaField(func, "name", name);
+  addMetaField(func, "arity", arity);
+  addMetaField(func, "variadic", variadic);
 }
