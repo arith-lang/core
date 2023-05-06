@@ -20,7 +20,7 @@ export function getField(obj, field) {
   }
 
   if (value === undefined) {
-    return ifFieldUndefined(field);
+    return errorIfFieldUndefined(field);
   }
 
   if (typeof value === "function") {
@@ -48,7 +48,7 @@ export function getKeywordField(obj, field) {
   }
 
   if (value === undefined) {
-    return ifFieldUndefined(kw.description);
+    return errorIfFieldUndefined(kw.description);
   }
 
   if (typeof value === "function") {
@@ -63,6 +63,6 @@ export function addMetaField(obj, prop, value) {
   obj[metaField] = value;
 }
 
-export function ifFieldUndefined(field) {
+export function errorIfFieldUndefined(field) {
   throw new RuntimeException(`Field ${field} not found on object`);
 }
