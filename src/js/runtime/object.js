@@ -14,5 +14,14 @@ export function getField(obj, field) {
     throw new RuntimeException(`Field ${field} not found on object`);
   }
 
+  if (typeof value === "function") {
+    value = value.bind(obj);
+  }
+
   return value;
+}
+
+export function addMetaProp(obj, prop, value) {
+  const metaField = makeKeyword(prop);
+  obj[metaField] = value;
 }

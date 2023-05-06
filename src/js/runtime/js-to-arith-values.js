@@ -1,4 +1,4 @@
-// Currently these all just return JS values, but that will change
+import { addMetaProp } from "./object";
 
 export function makeNumber(jsNum) {
   return jsNum;
@@ -24,8 +24,11 @@ export function makeVector(jsArr) {
   return jsArr;
 }
 
-export function makeObject(jsObj) {
-  return jsObj;
+export function makeObject(jsObj, constructor = jsObj.constructor) {
+  let arithObj = {};
+  arithObj[addMetaProp(arithObj, "type", "Object")];
+  arithObj[addMetaProp(arithObj, "dict", jsObj)];
+  arithObj[addMetaProp(arithObj, "constructor", constructor)];
 }
 
 export function makeMap(jsMap) {
