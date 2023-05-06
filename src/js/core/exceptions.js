@@ -43,3 +43,9 @@ export class ReferenceException extends Exception {
     super(`ReferenceException: ${name} is not defined`);
   }
 }
+
+export class RuntimeException extends Exception {
+  constructor(msg) {
+    super(msg);
+  }
+}

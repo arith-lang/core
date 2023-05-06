@@ -9,3 +9,7 @@ export function defer(func) {
     setImmediate(func);
   }
 }
+
+export function makeKeyword(str) {
+  return Symbol.for(`:${str}`);
+}
