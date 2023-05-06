@@ -29,6 +29,7 @@ export function makeObject(jsObj, constructor = jsObj.constructor) {
   arithObj[addMetaProp(arithObj, "type", "Object")];
   arithObj[addMetaProp(arithObj, "dict", jsObj)];
   arithObj[addMetaProp(arithObj, "constructor", constructor)];
+  arithObj[addMetaProp(arithObj, "lang", "Arith")];
 }
 
 export function makeMap(jsMap) {
