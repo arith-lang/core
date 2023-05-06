@@ -30,6 +30,14 @@ export function getField(obj, field) {
   return value;
 }
 
+export function hasField(obj, field) {
+  if (hasDict(obj)) {
+    return typeof obj[makeKeyword("dict")][field] !== "undefined";
+  }
+
+  return typeof obj[field] !== "undefined";
+}
+
 export function getKeywordField(obj, field) {
   const kw = makeKeyword(field);
   let value;
