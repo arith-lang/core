@@ -4,6 +4,10 @@ export function makeNumber(jsNum) {
   return jsNum;
 }
 
+export function makeBignum(jsBig) {
+  return jsBig;
+}
+
 export function makeString(jsString) {
   return jsString;
 }
@@ -46,4 +50,35 @@ export function makeDate(jsDate) {
 
 export function makeRegExp(jsRegExp) {
   return jsRegExp;
+}
+
+export function makeArithValue(jsVal) {
+  switch (typeof jsVal) {
+    case "number":
+      return makeNumber(jsVal);
+    case "bigint":
+      return makeBignum(jsVal);
+    case "string":
+      return makeString(jsVal);
+    case "boolean":
+      return makeBoolean(jsVal);
+    case "symbol":
+      return makeSymbol(jsVal);
+    case "undefined":
+      return makeNil(jsVal);
+    case "object":
+      return jsVal === null
+        ? makeNil(jsVal)
+        : jsVal instanceof Map
+        ? makeMap(jsVal)
+        : jsVal instanceof Set
+        ? makeSet(jsVal)
+        : jsVal instanceof Date
+        ? makeDate(jsVal)
+        : jsVal instanceof RegExp
+        ? makeRegExp(jsVal)
+        : Array.isArray(jsVal)
+        ? makeVector(jsVal)
+        : makeObject(jsVal);
+  }
 }
