@@ -138,7 +138,7 @@ export const Include = Record({
 
 export const Provide = Record({
   type: ASTTypes.Provide,
-  member: null,
+  members: [],
   srcloc: null,
   code: "",
 });
