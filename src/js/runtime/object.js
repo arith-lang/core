@@ -58,6 +58,17 @@ export function getKeywordField(obj, field) {
   return value;
 }
 
+export function getMetaField(obj, field) {
+  const kw = makeKeyword(field);
+  const value = obj[kw];
+
+  if (value === undefined) {
+    return errorIfFieldUndefined(kw.description);
+  }
+
+  return value;
+}
+
 export function addMetaField(obj, prop, value) {
   const metaField = makeKeyword(prop);
   obj[metaField] = value;

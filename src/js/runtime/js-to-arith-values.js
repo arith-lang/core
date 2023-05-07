@@ -1,4 +1,5 @@
-import { addMetaProp } from "./object";
+import { makeFunction } from "./function.js";
+import { addMetaProp } from "./object.js";
 
 export function makeNumber(jsNum) {
   return jsNum;
