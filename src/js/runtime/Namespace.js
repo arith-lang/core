@@ -1,11 +1,12 @@
-import { ReferenceException } from "../core/exceptions";
+import { ReferenceException } from "../core/exceptions.js";
+import { addMetaField } from "./object.js";
 
 export class Namespace {
   constructor({ parent = null, initial = null, name = "" } = {}) {
     this.parent = parent;
     this.name = name;
     this.vars = new Map();
-    this["*ns*"] = this;
+    addMetaField(this, "ns", this);
 
     if (initial) {
       this.addMany(initial);
