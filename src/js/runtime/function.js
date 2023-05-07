@@ -1,4 +1,5 @@
-import { addMetaField } from "./object";
+import { cuid } from "../core/cuid.js";
+import { addMetaField } from "./object.js";
 
 export function makeFunction(
   func,
@@ -15,4 +16,5 @@ export function makeFunction(
   addMetaField(func, "arity", arity);
   addMetaField(func, "variadic", variadic);
   addMetaField(func, "url", url);
+  addMetaField(func, "id", cuid());
 }

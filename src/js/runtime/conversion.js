@@ -1,6 +1,6 @@
 import { Cons } from "../core/cons.js";
-import { makeFunction } from "./function.js";
-import { addMetaProp, getMetaField } from "./object.js";
+import { cuid } from "../core/cuid.js";
+import { addMetaField, getMetaField } from "./object.js";
 
 export function makeNumber(jsNum) {
   return jsNum;
@@ -36,10 +36,11 @@ export function makeVector(jsArr) {
 
 export function makeObject(jsObj, constructor = jsObj.constructor) {
   let arithObj = {};
-  arithObj[addMetaProp(arithObj, "type", "Object")];
-  arithObj[addMetaProp(arithObj, "dict", jsObj)];
-  arithObj[addMetaProp(arithObj, "constructor", constructor)];
-  arithObj[addMetaProp(arithObj, "lang", "Arith")];
+  addMetaField(arithObj, "type", "Object");
+  addMetaField(arithObj, "dict", jsObj);
+  addMetaField(arithObj, "constructor", constructor);
+  addMetaField(arithObj, "lang", "Arith");
+  addMetaField(arithObj, "id", cuid());
 }
 
 export function makeMap(jsMap) {

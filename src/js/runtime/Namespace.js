@@ -1,3 +1,4 @@
+import { cuid } from "../core/cuid.js";
 import { ReferenceException } from "../core/exceptions.js";
 import { addMetaField } from "./object.js";
 
@@ -7,6 +8,7 @@ export class Namespace {
     this.name = name;
     this.vars = new Map();
     addMetaField(this, "ns", this);
+    addMetaField(this, "id", cuid());
 
     if (initial) {
       this.addMany(initial);
