@@ -1,5 +1,6 @@
+import { Cons } from "../core/cons.js";
 import { makeFunction } from "./function.js";
-import { addMetaProp } from "./object.js";
+import { addMetaProp, getMetaField } from "./object.js";
 
 export function makeNumber(jsNum) {
   return jsNum;
@@ -23,6 +24,10 @@ export function makeSymbol(jsSym) {
 
 export function makeNil(nullOrUndefined) {
   return nullOrUndefined === null ? nullOrUndefined : null;
+}
+
+export function makeList(jsArr) {
+  return Cons.from(jsArr);
 }
 
 export function makeVector(jsArr) {
@@ -82,4 +87,8 @@ export function makeArithValue(jsVal) {
         ? makeVector(jsVal)
         : makeObject(jsVal);
   }
+}
+
+export function makeJSObj(arithObj) {
+  return getMetaField(arithObj, "dict");
 }
