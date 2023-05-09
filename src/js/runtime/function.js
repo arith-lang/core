@@ -14,5 +14,4 @@ export function makeFunction(
   addMetaField(func, "arity", arity);
   addMetaField(func, "variadic", variadic);
   addMetaField(func, "url", url);
-  addMetaField(func, "id", cuid());
 }
