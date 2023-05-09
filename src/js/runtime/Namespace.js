@@ -42,7 +42,7 @@ export class Namespace {
 
     if (scope) {
       const varObj = scope.vars.get(name);
-      return varObj[makeKeyword("value")];
+      return getKeywordField(varObj, "value");
     }
 
     throw new ReferenceException(name.description);

@@ -70,6 +70,17 @@ export function getKeywordField(obj, field) {
   return value;
 }
 
+export function setKeywordField(obj, field, value) {
+  const kw = makeKeyword(field);
+  if (hasDict(obj)) {
+    obj[makeKeyword("dict")][kw] = value;
+    return obj;
+  }
+
+  obj[kw] = value;
+  return obj;
+}
+
 export function getMetaField(obj, field) {
   const kw = makeKeyword(field);
   const value = obj[kw];
@@ -83,7 +94,12 @@ export function getMetaField(obj, field) {
 
 export function addMetaField(obj, prop, value) {
   const metaField = makeKeyword(prop);
-  obj[metaField] = value;
+  Object.defineProperty(obj, metaField, {
+    configurable: false,
+    writable: false,
+    enumerable: false,
+    value,
+  });
 }
 
 export function errorIfFieldUndefined(field) {
