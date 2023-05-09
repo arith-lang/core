@@ -36,10 +36,10 @@ export function getField(obj, field) {
 
 export function hasField(obj, field) {
   if (hasDict(obj)) {
-    return typeof obj[makeKeyword("dict")][field] !== "undefined";
+    return hasProperty(obj[makeKeyword("dict")][field]);
   }
 
-  return typeof obj[field] !== "undefined";
+  return hasProperty(obj[field]);
 }
 
 export function hasMethod(obj, method) {
