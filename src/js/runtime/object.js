@@ -1,5 +1,5 @@
 import { RuntimeException } from "../core/exceptions.js";
-import { hasProperty } from "../core/utils.js";
+import { hasProperty, hasMethod as hM } from "../core/utils.js";
 import { makeKeyword } from "./utils.js";
 
 export function hasDict(obj) {
@@ -40,6 +40,14 @@ export function hasField(obj, field) {
   }
 
   return typeof obj[field] !== "undefined";
+}
+
+export function hasMethod(obj, method) {
+  if (hasDict(obj)) {
+    return hM(obj[makeKeyword("dict")], method);
+  }
+
+  return hM(obj, method);
 }
 
 export function getKeywordField(obj, field) {
