@@ -53,7 +53,7 @@ export function hasMethod(obj, method) {
 export function getKeywordField(obj, field) {
   const kw = makeKeyword(field);
   let value;
-  if (hasDict(obj) && hasProperty(obj[makeKeyword("dict")], field)) {
+  if (hasDict(obj) && hasProperty(obj[makeKeyword("dict")], kw)) {
     value = obj[makeKeyword("dict")][kw];
   } else {
     value = obj[kw];
