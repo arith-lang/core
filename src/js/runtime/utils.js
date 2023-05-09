@@ -13,3 +13,7 @@ export function defer(func) {
 export function makeKeyword(str) {
   return Symbol.for(`:${str}`);
 }
+
+export function isKeyword(val) {
+  return typeof val === "symbol" && Symbol.keyFor(val).startsWith(":");
+}
