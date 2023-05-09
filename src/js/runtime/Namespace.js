@@ -41,7 +41,7 @@ export class Namespace {
     const scope = this.lookup(name);
 
     if (scope) {
-      const varObj = scope.vars.get(name);
+      const varObj = scope.var(name);
       return getKeywordField(varObj, "value");
     }
 
