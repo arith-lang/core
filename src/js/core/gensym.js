@@ -5,5 +5,5 @@ import { createId } from "@paralleldrive/cuid2";
  * @returns {symbol}
  */
 export function gensym() {
-  return createId();
+  return Symbol.for(createId());
 }
