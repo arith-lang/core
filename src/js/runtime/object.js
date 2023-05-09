@@ -20,7 +20,9 @@ export function getField(obj, field) {
   }
 
   if (value === undefined) {
-    return errorIfFieldUndefined(field);
+    return errorIfFieldUndefined(
+      typeof field === "symbol" ? field.description : field
+    );
   }
 
   if (typeof value === "function") {
