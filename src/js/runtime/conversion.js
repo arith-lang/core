@@ -38,7 +38,7 @@ export function makeObject(jsObj, constructor = jsObj.constructor) {
   let arithObj = {};
   addMetaField(arithObj, "type", "Object");
   addMetaField(arithObj, "dict", jsObj);
-  addMetaField(arithObj, "constructor", constructor);
+  addMetaField(arithObj, "class", constructor);
   addMetaField(arithObj, "lang", "Arith");
   addMetaField(arithObj, "id", cuid());
 }
