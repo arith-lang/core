@@ -1,4 +1,3 @@
-import { cuid } from "../core/cuid.js";
 import { addMetaField } from "./object.js";
 
 export function makeFunction(
