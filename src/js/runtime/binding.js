@@ -7,8 +7,8 @@ import { Namespace } from "./Namespace.js";
  * @param {any} value
  * @returns {void}
  */
-export function setVar(ns, name, value) {
-  ns.set(name, value);
+export function setq(ns, name, value) {
+  ns.set(Symbol.for(name), value);
 }
 /**
  * Gets a variable from the current namespace
@@ -16,6 +16,16 @@ export function setVar(ns, name, value) {
  * @param {string} name
  * @returns {any}
  */
-export function getVar(ns, name) {
-  return ns.get(name);
+export function getq(ns, name) {
+  return ns.get(Symbol.for(name));
+}
+
+/**
+ * Gets a var object from the current namespace
+ * @param {Namespace} ns
+ * @param {string} name
+ * @returns {Var} Var object a variable value is stored as in the namespace
+ */
+export function getv(ns, name) {
+  return ns.var(name);
 }

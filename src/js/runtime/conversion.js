@@ -1,5 +1,4 @@
 import { Cons } from "../core/cons.js";
-import { cuid } from "../core/cuid.js";
 import { addMetaField, getMetaField } from "./object.js";
 
 export function makeNumber(jsNum) {
@@ -40,7 +39,6 @@ export function makeObject(jsObj, constructor = jsObj.constructor) {
   addMetaField(arithObj, "dict", jsObj);
   addMetaField(arithObj, "class", constructor);
   addMetaField(arithObj, "lang", "Arith");
-  addMetaField(arithObj, "id", cuid());
 }
 
 export function makeMap(jsMap) {
