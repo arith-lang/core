@@ -15,5 +15,5 @@ export function makeKeyword(str) {
 }
 
 export function isKeyword(val) {
-  return typeof val === "symbol" && Symbol.keyFor(val).startsWith(":");
+  return typeof val === "symbol" && val.description.startsWith(":");
 }
