@@ -26,7 +26,9 @@ export function getField(obj, field) {
   }
 
   if (typeof value === "function") {
-    value = value.bind(obj);
+    value = hasDict(obj)
+      ? value.bind(obj[makeKeyword("dict")])
+      : value.bind(obj);
   }
 
   return value;
