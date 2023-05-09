@@ -7,8 +7,6 @@ export function makeFunction(
   { arity = func.length, variadic = false, url = "" } = {}
 ) {
   Object.defineProperty(func, "name", {
-    writable: true,
-    configurable: true,
     value: name,
   });
 
