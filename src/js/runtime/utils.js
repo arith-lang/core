@@ -21,3 +21,7 @@ export function isKeyword(val) {
 export function isFalsy(val) {
   return val == null || val === false;
 }
+
+export function isTruthy(val) {
+  return !isFalsy(val);
+}
