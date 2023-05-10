@@ -9,6 +9,7 @@ export const ASTTypes = {
   VariableDefinition: "VariableDefinition",
   FunctionDefinition: "FunctionDefinition",
   FunctionExpression: "FunctionExpression",
+  FunctionParameter: "FunctionParameter",
   CallExpression: "CallExpression",
   IfExpression: "IfExpression",
   ForExpression: "ForExpression",
@@ -63,6 +64,15 @@ export const FunctionExpression = Record({
   variadic: false,
   params: [],
   body: [],
+  srcloc: null,
+  code: "",
+});
+
+export const FunctionParameter = Record({
+  type: ASTTypes.FunctionParameter,
+  name: null,
+  default: null,
+  keyword: null,
   srcloc: null,
   code: "",
 });
