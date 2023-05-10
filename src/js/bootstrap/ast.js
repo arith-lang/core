@@ -2,6 +2,7 @@ import { Record } from "immutable";
 
 /**
  * AST nodes for the bootstrap compiler
+ * @enum {string}
  */
 
 export const ASTTypes = {
