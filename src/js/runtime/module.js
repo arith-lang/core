@@ -1,9 +1,8 @@
 export class Module {
-  constructor(name, members, requires, nativeRequires) {
+  constructor(name, members, requires) {
     this.name = name;
     this.members = members;
     this.requires = requires;
-    this.nativeRequires = nativeRequires;
   }
 
   toString() {
@@ -11,6 +10,6 @@ export class Module {
   }
 }
 
-export function makeModule(name, members, requires, nativeRequires) {
-  return new Module(name, members, requires, nativeRequires);
+export function makeModule(name, members, requires) {
+  return new Module(name, members, requires);
 }
