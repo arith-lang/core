@@ -81,6 +81,11 @@ export function setKeywordField(obj, field, value) {
   return obj;
 }
 
+export function hasMetaField(obj, field) {
+  const kw = makeKeyword(field);
+  return hasProperty(obj, kw);
+}
+
 export function getMetaField(obj, field) {
   const kw = makeKeyword(field);
   const value = obj[kw];
