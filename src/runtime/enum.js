@@ -24,7 +24,7 @@ export function makeEnum(
   }
 
   let e = {};
-  addMetaField(e, "type", typeName);
+  addMetaField(e, "type", makeString(typeName));
   addMetaField(
     e,
     "constructors",
@@ -52,4 +52,8 @@ export function makeVariantConstructor(type, variant, methods = []) {
 
     return v;
   };
+}
+
+export function unwrap(variant) {
+  return getMetaField(variant, "data");
 }
