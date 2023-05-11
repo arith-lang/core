@@ -1,4 +1,4 @@
-import { ArithVector } from "./Vector.js";
+import { Cons } from "../../core/cons.js";
 
 export class ArithString extends String {
   constructor(str) {
@@ -22,11 +22,31 @@ export class ArithString extends String {
   }
 
   get chars() {
-    return ArithVector.from([...str]);
+    return Cons.from([...str]);
   }
 
   get "utf-16"() {
-    return ArithVector.from(str.split("").map((c) => c.charCodeAt(0)));
+    return Cons.from(str.split("").map((c) => c.charCodeAt(0)));
+  }
+
+  "equal?"(other) {
+    if (!other instanceof ArithString && typeof other !== "string") {
+      return false;
+    } else if (typeof other === "string") {
+      return this.raw === other;
+    }
+
+    return this.raw === other.raw;
+  }
+
+  lte(other) {
+    if (!other instanceof ArithString && typeof other !== "string") {
+      return false;
+    } else if (typeof other === "string") {
+      return this.raw <= other;
+    }
+
+    return this.raw <= other.raw;
   }
 
   toString() {
