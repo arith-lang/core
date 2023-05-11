@@ -1,7 +1,7 @@
 import { cuid } from "../core/cuid.js";
 import { ReferenceException } from "../core/exceptions.js";
 import { makeString } from "./conversion.js";
-import { addMetaField, getKeywordField } from "./object.js";
+import { addMetaField, getKeywordField, getMetaField } from "./object.js";
 import { makeKeyword } from "./utils.js";
 
 export class Namespace {
@@ -71,7 +71,7 @@ export class Namespace {
   makeVarObject(value) {
     return {
       [makeKeyword("value")]: value,
-      [makeKeyword("ns")]: getKeywordField(this, "name"),
+      [makeKeyword("ns")]: getMetaField(this, "name"),
       [makeKeyword("id")]: cuid(),
     };
   }
