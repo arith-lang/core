@@ -1,5 +1,7 @@
 import { Cons } from "../core/cons.js";
 import { addMetaField, getMetaField } from "./object.js";
+import { ArithString } from "./types/String.js";
+import { ArithVector } from "./types/Vector.js";
 
 export function makeNumber(jsNum) {
   return jsNum;
@@ -10,7 +12,11 @@ export function makeBignum(jsBig) {
 }
 
 export function makeString(jsString) {
-  return jsString;
+  let s = ArithString.from(jsString);
+  addMetaField(s, "type", "String");
+  addMetaField(s, "raw", s.raw);
+  addMetaField(s, "length", makeNumber(s.length));
+  addMetaField(s, "class", ArithString);
 }
 
 export function makeBoolean(jsBool) {
@@ -34,7 +40,12 @@ export function makeList(jsArr) {
 }
 
 export function makeVector(jsArr) {
-  return jsArr;
+  let v = ArithVector.from(jsArr);
+  addMetaField(v, "type", "Vector");
+  addMetaField(v, "length", makeNumber(v.length));
+  addMetaField(v, "data", v.data);
+  addMetaField(v, "class", ArithVector);
+  return v;
 }
 
 export function makeObject(jsObj, constructor = jsObj.constructor) {
@@ -43,6 +54,7 @@ export function makeObject(jsObj, constructor = jsObj.constructor) {
   addMetaField(arithObj, "dict", jsObj);
   addMetaField(arithObj, "class", constructor);
   addMetaField(arithObj, "lang", "Arith");
+  return arithObj;
 }
 
 export function makeMap(jsMap) {
