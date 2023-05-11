@@ -64,7 +64,7 @@ export function getKeywordField(obj, field) {
   }
 
   if (typeof value === "function") {
-    value = value.bind(obj);
+    value = value.bind(hasDict(obj) ? obj[makeKeyword("dict")] : obj);
   }
 
   return value;

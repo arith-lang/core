@@ -1,5 +1,6 @@
 import { cuid } from "../core/cuid.js";
 import { ReferenceException } from "../core/exceptions.js";
+import { makeString } from "./conversion.js";
 import { addMetaField, getKeywordField } from "./object.js";
 import { makeKeyword } from "./utils.js";
 
@@ -8,8 +9,8 @@ export class Namespace {
     this.parent = parent;
     this.vars = new Map();
     addMetaField(this, "ns", this);
-    addMetaField(this, "id", cuid());
-    addMetaField(this, "name", name);
+    addMetaField(this, "id", makeString(cuid()));
+    addMetaField(this, "name", makeString(name));
 
     if (initial) {
       this.addMany(initial);
