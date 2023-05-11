@@ -1,3 +1,4 @@
+import equal from "fast-deep-equal";
 import { addMetaField } from "../object.js";
 
 export class ArithVector {
@@ -33,6 +34,10 @@ export class ArithVector {
     }
   }
 
+  "equal?"(other) {
+    return equal(this, other);
+  }
+
   filter(fn) {
     return ArithVector.from(this.data.filter(fn));
   }
@@ -50,7 +55,7 @@ export class ArithVector {
   }
 
   toString() {
-    return `[ ${this.data.map((v) => String(v))} ]`;
+    return `[${this.data.map((v) => String(v))}]`;
   }
 }
 
