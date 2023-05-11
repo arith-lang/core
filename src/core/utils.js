@@ -19,3 +19,7 @@ export function fail(msg, exn = Exception) {
 export function mapToObject(map) {
   return Object.fromEntries(map.entries());
 }
+
+export function isIterable(obj) {
+  return hasMethod(obj, Symbol.iterator);
+}
