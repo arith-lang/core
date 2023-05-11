@@ -1,7 +1,7 @@
 export class Module {
-  constructor(name, members, requires) {
+  constructor(name, provides, requires) {
     this.name = name;
-    this.members = members;
+    this.provides = provides;
     this.requires = requires;
   }
 
@@ -10,6 +10,6 @@ export class Module {
   }
 }
 
-export function makeModule(name, members, requires = []) {
-  return new Module(name, members, requires);
+export function makeModule(name, provides, requires = []) {
+  return new Module(name, provides, requires);
 }
