@@ -26,6 +26,10 @@ export function makeNil(nullOrUndefined) {
 }
 
 export function makeList(jsArr) {
+  if (jsArr instanceof Cons) {
+    return jsArr;
+  }
+
   return Cons.from(jsArr);
 }
 
@@ -83,7 +87,9 @@ export function makeArithValue(jsVal) {
         : jsVal instanceof RegExp
         ? makeRegExp(jsVal)
         : Array.isArray(jsVal)
-        ? makeVector(jsVal)
+        ? jsVal instanceof Cons
+          ? jsVal
+          : makeVector(jsVal)
         : makeObject(jsVal);
   }
 }
