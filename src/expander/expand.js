@@ -4,7 +4,7 @@ import { Cons } from "../core/cons.js";
 /**
  *
  * @param {Cons} prog
- * @returns
+ * @returns {Cons}
  */
 export function expand(prog) {
   return prog;

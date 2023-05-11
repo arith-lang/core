@@ -10,6 +10,6 @@ export class Module {
   }
 }
 
-export function makeModule(name, members, requires) {
+export function makeModule(name, members, requires = []) {
   return new Module(name, members, requires);
 }
