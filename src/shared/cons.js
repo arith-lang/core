@@ -46,6 +46,50 @@ export class Cons extends Array {
     // if we're out of the loop and haven't returned or errored yet, something bad happened and I don't know what
     fail(`Error trying to append ${String(val)} to list`);
   }
+
+  /**
+   * Fetch the value at index n of the current list, fail if out of list bounds
+   * @param {number} n
+   * @returns {any}
+   */
+  get(n) {
+    let i = 0;
+
+    for (let value of this) {
+      if (i === n) {
+        return value;
+      }
+
+      i++;
+    }
+
+    fail(`Index ${n} out of list bounds`);
+  }
+
+  toArray() {
+    return [...this];
+  }
+
+  *[Symbol.iterator]() {
+    let value = this.head;
+    let tail = this.tail;
+
+    while (tail !== undefined) {
+      if (tail instanceof Cons) {
+        yield value;
+        value = tail.head;
+        tail = tail.tail;
+      } else if (tail === null) {
+        yield value;
+        tail = undefined;
+      } else {
+        // is a pair/improper list
+        yield value;
+        yield tail;
+        tail = undefined;
+      }
+    }
+  }
 }
 
 export const cons = (head, tail) => new Cons(head, tail);
