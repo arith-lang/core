@@ -1,4 +1,4 @@
-import { fail } from "./utils.js";
+import { fail, isTruthy } from "./utils.js";
 
 export class Cons extends Array {
   constructor(head, tail) {
@@ -74,6 +74,26 @@ export class Cons extends Array {
     for (let val of this) {
       fn(val, i++, this);
     }
+  }
+
+  /**
+   *
+   * @param {*} fn
+   */
+  filter(fn) {
+    let list = null;
+
+    this.each((el, i, lst) => {
+      if (isTruthy(fn(el, i, lst))) {
+        if (listLength(list) === 0) {
+          list = cons(el, null);
+        } else {
+          list.append(el);
+        }
+      }
+    });
+
+    return list;
   }
 
   /**
@@ -156,9 +176,13 @@ export const isList = (obj) => {
 };
 
 export const listLength = (list) => {
+  if (list == null) {
+    return 0;
+  }
+
   let i = 0;
 
-  for (let val of list) {
+  for (let _ of list) {
     i++;
   }
 
