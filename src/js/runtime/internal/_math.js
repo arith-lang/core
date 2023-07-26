@@ -35,18 +35,24 @@ math.import([
   factory("add", ["typed"], function createBigIntAdd({ typed }) {
     return typed("add", {
       "BigInt, BigInt": (a, b) => a + b,
+      "BigNumber, number": (a, b) => a.toNumber() + b,
+      "number, BigNumber": (a, b) => a + b.toNumber(),
     });
   }),
 
   factory("subtract", ["typed"], function createBigIntSubtract({ typed }) {
     return typed("subtract", {
       "BigInt, BigInt": (a, b) => a - b,
+      "BigNumber, number": (a, b) => a.toNumber() - b,
+      "number, BigNumber": (a, b) => a - b.toNumber(),
     });
   }),
 
   factory("multiply", ["typed"], function createBigIntMultiply({ typed }) {
     return typed("multiply", {
       "BigInt, BigInt": (a, b) => a * b,
+      "BigNumber, number": (a, b) => a.toNumber() * b,
+      "number, BigNumber": (a, b) => a * b.toNumber(),
     });
   }),
 
@@ -89,18 +95,24 @@ math.import([
 
         return quotient;
       },
+      "BigNumber, number": (a, b) => a.toNumber() / b,
+      "number, BigNumber": (a, b) => a / b.toNumber(),
     });
   }),
 
   factory("mod", ["typed"], function createBigIntMod({ typed }) {
     return typed("mod", {
       "BigInt, BigInt": (a, b) => a % b,
+      "BigNumber, number": (a, b) => a.toNumber() % b,
+      "number, BigNumber": (a, b) => a % b.toNumber(),
     });
   }),
 
   factory("pow", ["typed"], function createBigIntPow({ typed }) {
     return typed("pow", {
       "BigInt, BigInt": (a, b) => a ** b,
+      "BigNumber, number": (a, b) => a.toNumber() ** b,
+      "number, BigNumber": (a, b) => a ** b.toNumber(),
     });
   }),
 
@@ -137,6 +149,8 @@ math.import([
   factory("bitAnd", ["typed"], function createBigIntBitAnd({ typed }) {
     return typed("bitAnd", {
       "BigInt, BigInt": (a, b) => a & b,
+      "BigNumber, number": (a, b) => a.toNumber() & b,
+      "number, BigNumber": (a, b) => a & b.toNumber(),
     });
   }),
 
@@ -149,18 +163,24 @@ math.import([
   factory("bitOr", ["typed"], function createBigIntBitOr({ typed }) {
     return typed("bitOr", {
       "BigInt, BigInt": (a, b) => a | b,
+      "BigNumber, number": (a, b) => a.toNumber() | b,
+      "number, BigNumber": (a, b) => a | b.toNumber(),
     });
   }),
 
   factory("bitXor", ["typed"], function createBigIntBitXor({ typed }) {
     return typed("bitXor", {
       "BigInt, BigInt": (a, b) => a ^ b,
+      "BigNumber, number": (a, b) => a.toNumber() ^ b,
+      "number, BigNumber": (a, b) => a ^ b.toNumber(),
     });
   }),
 
   factory("leftShift", ["typed"], function createBigIntLeftShift({ typed }) {
     return typed("leftShift", {
       "BigInt, BigInt": (a, b) => a << b,
+      "BigNumber, number": (a, b) => a.toNumber() << b,
+      "number, BigNumber": (a, b) => a << b.toNumber(),
     });
   }),
 
@@ -170,6 +190,8 @@ math.import([
     function createBigIntRightArithShift({ typed }) {
       return typed("rightArithShift", {
         "BigInt, BigInt": (a, b) => a >> b,
+        "BigNumber, number": (a, b) => a.toNumber() >> b,
+        "number, BigNumber": (a, b) => a >> b.toNumber(),
       });
     },
   ),
@@ -182,6 +204,8 @@ math.import([
         "BigInt, BigInt": (a, b) => Number(a) >>> Number(b),
         "BigInt, Number": (a, b) => Number(a) >>> b,
         "Number, BigInt": (a, b) => a >>> Number(b),
+        "BigNumber, number": (a, b) => a.toNumber() >>> b,
+        "number, BigNumber": (a, b) => a >>> b.toNumber(),
       });
     },
   ),
