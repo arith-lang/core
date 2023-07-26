@@ -1,6 +1,6 @@
 import TokenTypes from "./token-types.js";
 
-export default class Token {
+export class Token {
   /**
    * Constructor for Token
    * @param {TokenTypes} type
@@ -24,3 +24,5 @@ export default class Token {
     return new Token(type, value, srcloc);
   }
 }
+
+export default Token;
