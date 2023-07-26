@@ -13,11 +13,3 @@ export const isComplex = (str) =>
 export const isFloat = (str) => FLOAT.test(str);
 export const isReal = (str) => REAL.test(str);
 export const isInteger = (str) => INTEGER.test(str);
-
-export default {
-  isRational,
-  isComplex,
-  isFloat,
-  isReal,
-  isInteger,
-};
