@@ -124,3 +124,13 @@ export const isList = (obj) => {
   // only option left is it's a cons
   return isList(obj.tail);
 };
+
+export const listLength = (list) => {
+  let i = 0;
+
+  for (let val of list) {
+    i++;
+  }
+
+  return i;
+};
