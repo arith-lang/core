@@ -1,3 +1,5 @@
+import { isNewline } from "./utils.js";
+
 /**
  * Manages the input position for the lexer
  * @class
