@@ -1,4 +1,4 @@
-import { fail, isTruthy } from "./utils.js";
+import { fail, isNil, isTruthy } from "./utils.js";
 
 export class Cons extends Array {
   constructor(head, tail) {
@@ -212,9 +212,9 @@ export const cons = (head, tail) => new Cons(head, tail);
 export const list = (...args) => Cons.from(args);
 
 export const isList = (obj) => {
-  if (obj != null && !(obj instanceof Cons)) {
+  if (!isNil(obj) && !(obj instanceof Cons)) {
     return false;
-  } else if (obj == null) {
+  } else if (isNil(obj)) {
     return true;
   }
 

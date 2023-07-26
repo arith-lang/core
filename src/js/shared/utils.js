@@ -7,3 +7,5 @@ export const fail = (msg) => {
 export const isTruthy = (val) => val !== false && val != null;
 
 export const isFalsy = (val) => !isTruthy(val);
+
+export const isNil = (val) => val == null;
