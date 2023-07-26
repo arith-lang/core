@@ -3,3 +3,9 @@ export class Exception extends Error {
     super(msg);
   }
 }
+
+export class DivideByZeroException extends Exception {
+  constructor() {
+    super("Cannot divide by zero");
+  }
+}

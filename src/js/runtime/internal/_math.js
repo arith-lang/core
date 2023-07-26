@@ -47,6 +47,24 @@ math.import([
         }
         return a + b.toNumber();
       },
+      "number, BigInt": (a, b) => {
+        if (Number.isInteger(a)) {
+          if (!isIntWithinBounds(a + Number(b))) {
+            return BigInt(a) + b;
+          }
+        }
+
+        return a + Number(b);
+      },
+      "BigInt, number": (a, b) => {
+        if (Number.isInteger(b)) {
+          if (!isIntWithinBounds(b + Number(a))) {
+            return BigInt(b) + a;
+          }
+        }
+
+        return b + Number(a);
+      },
     });
   }),
 
@@ -65,6 +83,24 @@ math.import([
         }
         return a - b.toNumber();
       },
+      "number, BigInt": (a, b) => {
+        if (Number.isInteger(a)) {
+          if (!isIntWithinBounds(a - Number(b))) {
+            return BigInt(a) - b;
+          }
+        }
+
+        return a - Number(b);
+      },
+      "BigInt, number": (a, b) => {
+        if (Number.isInteger(b)) {
+          if (!isIntWithinBounds(Number(a) - b)) {
+            return a - BigInt(b);
+          }
+        }
+
+        return Number(a) - b;
+      },
     });
   }),
 
@@ -82,6 +118,24 @@ math.import([
           return math.multiply(math.bignumber(a), b);
         }
         return a * b.toNumber();
+      },
+      "number, BigInt": (a, b) => {
+        if (Number.isInteger(a)) {
+          if (!isIntWithinBounds(a * Number(b))) {
+            return BigInt(a) * b;
+          }
+        }
+
+        return a * Number(b);
+      },
+      "BigInt, number": (a, b) => {
+        if (Number.isInteger(b)) {
+          if (!isIntWithinBounds(b * Number(a))) {
+            return BigInt(b) * a;
+          }
+        }
+
+        return b * Number(a);
       },
     });
   }),
@@ -137,6 +191,24 @@ math.import([
         }
         return a / b.toNumber();
       },
+      "number, BigInt": (a, b) => {
+        if (Number.isInteger(a)) {
+          if (!isIntWithinBounds(a / Number(b))) {
+            return BigInt(a) / b;
+          }
+        }
+
+        return a / Number(b);
+      },
+      "BigInt, number": (a, b) => {
+        if (Number.isInteger(b)) {
+          if (!isIntWithinBounds(Number(a) / b)) {
+            return a / BigInt(b);
+          }
+        }
+
+        return Number(a) / b;
+      },
     });
   }),
 
@@ -154,6 +226,24 @@ math.import([
           return math.mod(math.bignumber(a), b);
         }
         return a % b.toNumber();
+      },
+      "number, BigInt": (a, b) => {
+        if (Number.isInteger(a)) {
+          if (!isIntWithinBounds(a % Number(b))) {
+            return BigInt(a) % b;
+          }
+        }
+
+        return a % Number(b);
+      },
+      "BigInt, number": (a, b) => {
+        if (Number.isInteger(b)) {
+          if (!isIntWithinBounds(Number(a) % b)) {
+            return a % BigInt(b);
+          }
+        }
+
+        return Number(a) % b;
       },
     });
   }),
@@ -302,4 +392,4 @@ function bigIntToBigNum(bigint) {
 }
 
 export default math;
-console.log(math.divide(math.bignumber(100), 5n));
+console.log(math.equal(0n, math.bignumber(0)));
