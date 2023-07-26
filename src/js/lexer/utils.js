@@ -28,3 +28,6 @@ export const isHexChar = (ch) => /[0-9a-fA-F]/.test(ch);
 // String matchers
 export const isBoolean = (str) => /true|false/.test(str);
 export const isNil = (str) => /nil/.test(str);
+export const isRational = (str) => /[\+\-]?\d+\/\d+/.test(str);
+export const isComplex = (str) =>
+  /[\+\-]?(\d+(\.\d+)?\+)?\d+(\.\d+)?i/.test(str);
