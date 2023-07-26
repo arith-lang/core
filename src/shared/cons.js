@@ -5,6 +5,24 @@ export class Cons extends Array {
     super(head, tail);
   }
 
+  static of(first, ...args) {
+    if (first === undefined) {
+      return null;
+    }
+
+    let list = cons(first, null);
+
+    for (let arg of args) {
+      list.append(arg);
+    }
+
+    return list;
+  }
+
+  static from(iter) {
+    return Cons.of(...iter);
+  }
+
   get head() {
     return this[0];
   }
@@ -93,3 +111,16 @@ export class Cons extends Array {
 }
 
 export const cons = (head, tail) => new Cons(head, tail);
+
+export const list = (...args) => Cons.from(args);
+
+export const isList = (obj) => {
+  if (obj != null && !(obj instanceof Cons)) {
+    return false;
+  } else if (obj == null) {
+    return true;
+  }
+
+  // only option left is it's a cons
+  return isList(obj.tail);
+};
