@@ -195,7 +195,7 @@ math.import([
       "number, BigInt": (a, b) => {
         if (Number.isInteger(a)) {
           if (!isIntWithinBounds(a / Number(b))) {
-            return BigInt(a) / b;
+            return math.divide(BigInt(a), b);
           }
         }
 
@@ -204,7 +204,7 @@ math.import([
       "BigInt, number": (a, b) => {
         if (Number.isInteger(b)) {
           if (!isIntWithinBounds(Number(a) / b)) {
-            return a / BigInt(b);
+            return math.divide(a, BigInt(b));
           }
         }
 
