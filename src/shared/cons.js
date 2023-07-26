@@ -98,6 +98,26 @@ export class Cons extends Array {
   }
 
   /**
+   * Reduces the current list to a single value
+   * @param {Function} fn
+   * @param {any} init
+   * @returns {any}
+   */
+  fold(fn, init) {
+    return this.reduce(fn, init);
+  }
+
+  /**
+   * Reduces the list, but starting from the end
+   * @param {Function} fn
+   * @param {any} init
+   * @returns {any}
+   */
+  "fold-r"(fn, init) {
+    return this.reduceRight(fn, init);
+  }
+
+  /**
    * Fetches the value at index n of the current list, fail if out of list bounds
    * @param {number} n
    * @returns {any}
