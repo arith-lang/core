@@ -23,6 +23,5 @@ export const isQQuote = (ch) => ch === "`";
 export const isUQuote = (ch) => ch === "~";
 
 // String matchers
-export const isNumber = (str) => /^[+-]?\d+(\.\d+)?$/.test(str);
 export const isBoolean = (str) => /true|false/.test(str);
 export const isNil = (str) => /nil/.test(str);
