@@ -21,6 +21,7 @@ export const isHash = (ch) => /#/.test(ch);
 export const isQuote = (ch) => ch === "'";
 export const isQQuote = (ch) => ch === "`";
 export const isUQuote = (ch) => ch === "~";
+export const isAt = (ch) => ch === "@";
 export const isBinChar = (ch) => /[0-1]/.test(ch);
 export const isOctChar = (ch) => /[0-7]/.test(ch);
 export const isHexChar = (ch) => /[0-9a-fA-F]/.test(ch);
