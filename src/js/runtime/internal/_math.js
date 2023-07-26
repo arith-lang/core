@@ -409,4 +409,3 @@ export const mod = (a, b) => {
 };
 
 export default { ...math, divide, mod };
-console.log(math.equal(0n, math.bignumber(0)));
