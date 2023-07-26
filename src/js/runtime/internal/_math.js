@@ -35,24 +35,54 @@ math.import([
   factory("add", ["typed"], function createBigIntAdd({ typed }) {
     return typed("add", {
       "BigInt, BigInt": (a, b) => a + b,
-      "BigNumber, number": (a, b) => a.toNumber() + b,
-      "number, BigNumber": (a, b) => a + b.toNumber(),
+      "BigNumber, number": (a, b) => {
+        if (Number.isInteger(b) && !math.isInteger(a)) {
+          return math.add(a, math.bignumber(b));
+        }
+        return a.toNumber() + b;
+      },
+      "number, BigNumber": (a, b) => {
+        if (Number.isInteger(a) && !math.isInteger(b)) {
+          return math.add(math.bignumber(a), b);
+        }
+        return a + b.toNumber();
+      },
     });
   }),
 
   factory("subtract", ["typed"], function createBigIntSubtract({ typed }) {
     return typed("subtract", {
       "BigInt, BigInt": (a, b) => a - b,
-      "BigNumber, number": (a, b) => a.toNumber() - b,
-      "number, BigNumber": (a, b) => a - b.toNumber(),
+      "BigNumber, number": (a, b) => {
+        if (Number.isInteger(b) && !math.isInteger(a)) {
+          return math.subtract(a, math.bignumber(b));
+        }
+        return a - b.toNumber();
+      },
+      "number, BigNumber": (a, b) => {
+        if (Number.isInteger(a) && !math.isInteger(b)) {
+          return math.subtract(math.bignumber(a), b);
+        }
+        return a - b.toNumber();
+      },
     });
   }),
 
   factory("multiply", ["typed"], function createBigIntMultiply({ typed }) {
     return typed("multiply", {
       "BigInt, BigInt": (a, b) => a * b,
-      "BigNumber, number": (a, b) => a.toNumber() * b,
-      "number, BigNumber": (a, b) => a * b.toNumber(),
+      "BigNumber, number": (a, b) => {
+        if (Number.isInteger(b) && !math.isInteger(a)) {
+          return math.multiply(a, math.bignumber(b));
+        }
+        return a * b.toNumber();
+      },
+      "number, BigNumber": (a, b) => {
+        if (Number.isInteger(a) && !math.isInteger(b)) {
+          return math.multiply(math.bignumber(a), b);
+        }
+        return a * b.toNumber();
+      },
     });
   }),
 
@@ -95,24 +125,42 @@ math.import([
 
         return quotient;
       },
-      "BigNumber, number": (a, b) => a.toNumber() / b,
-      "number, BigNumber": (a, b) => a / b.toNumber(),
+      "BigNumber, number": (a, b) => {
+        if (Number.isInteger(b) && !math.isInteger(a)) {
+          return math.divide(a, math.bignumber(b));
+        }
+        return a / b.toNumber();
+      },
+      "number, BigNumber": (a, b) => {
+        if (Number.isInteger(a) && !math.isInteger(b)) {
+          return math.divide(math.bignumber(a), b);
+        }
+        return a / b.toNumber();
+      },
     });
   }),
 
   factory("mod", ["typed"], function createBigIntMod({ typed }) {
     return typed("mod", {
       "BigInt, BigInt": (a, b) => a % b,
-      "BigNumber, number": (a, b) => a.toNumber() % b,
-      "number, BigNumber": (a, b) => a % b.toNumber(),
+      "BigNumber, number": (a, b) => {
+        if (Number.isInteger(b) && !math.isInteger(a)) {
+          return math.mod(a, math.bignumber(b));
+        }
+        return a % b.toNumber();
+      },
+      "number, BigNumber": (a, b) => {
+        if (Number.isInteger(a) && !math.isInteger(b)) {
+          return math.mod(math.bignumber(a), b);
+        }
+        return a % b.toNumber();
+      },
     });
   }),
 
   factory("pow", ["typed"], function createBigIntPow({ typed }) {
     return typed("pow", {
       "BigInt, BigInt": (a, b) => a ** b,
-      "BigNumber, number": (a, b) => a.toNumber() ** b,
-      "number, BigNumber": (a, b) => a ** b.toNumber(),
     });
   }),
 
