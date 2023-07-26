@@ -2,5 +2,23 @@
   "dependencies": {
     "mathjs": "^11.9.1",
     "prettier": "^3.0.0"
-  }
+  },
+  "name": "@arith-lang/arith",
+  "description": "Core language, libraries, and runtime for the Arith language",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/arith-lang/core.git"
+  },
+  "author": "Jason Barr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arith-lang/core/issues"
+  },
+  "homepage": "https://github.com/arith-lang/core#readme"
 }
