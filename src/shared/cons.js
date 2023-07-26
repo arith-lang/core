@@ -77,8 +77,9 @@ export class Cons extends Array {
   }
 
   /**
-   *
-   * @param {*} fn
+   * Creates a new list with all items of the current list that pass a predicate
+   * @param {Function}
+   * @returns {Cons|null}
    */
   filter(fn) {
     let list = null;
@@ -97,7 +98,7 @@ export class Cons extends Array {
   }
 
   /**
-   * Fetch the value at index n of the current list, fail if out of list bounds
+   * Fetches the value at index n of the current list, fail if out of list bounds
    * @param {number} n
    * @returns {any}
    */
