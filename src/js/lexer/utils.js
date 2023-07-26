@@ -18,6 +18,10 @@ export const isRBrack = (ch) => /\]/.test(ch);
 export const isLBrace = (ch) => /\{/.test(ch);
 export const isRBrace = (ch) => /\}/.test(ch);
 export const isAmp = (ch) => /&/.test(ch);
+export const isHash = (ch) => /#/.test(ch);
+export const isQuote = (ch) => ch === "'";
+export const isQQuote = (ch) => ch === "`";
+export const isUQuote = (ch) => ch === "~";
 
 // String matchers
 export const isNumber = (str) => /^[+-]?\d+(\.\d+)?$/.test(str);
