@@ -10,11 +10,7 @@ import math from "./internal/_math.js";
 
 export const makeNumber = (str) => {
   if (isInteger(str)) {
-    if (isIntWithinBounds(Number(str))) {
-      return Number(str);
-    }
-
-    return BigInt(str);
+    return isIntWithinBounds(Number(str)) ? Number(str) : BigInt(str);
   }
 
   if (isFloat(str)) {
