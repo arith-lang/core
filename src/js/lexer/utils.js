@@ -24,6 +24,7 @@ export const isUQuote = (ch) => ch === "~";
 export const isBinChar = (ch) => /[0-1]/.test(ch);
 export const isOctChar = (ch) => /[0-7]/.test(ch);
 export const isHexChar = (ch) => /[0-9a-fA-F]/.test(ch);
+export const isAlphaNumeric = (ch) => /[\da-fA-F]/.test(ch);
 
 // String matchers
 export const isBoolean = (str) => /true|false/.test(str);
