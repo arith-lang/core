@@ -70,8 +70,9 @@ export class Cons extends Array {
    * @param {Function} fn
    */
   each(fn) {
+    let i = 0;
     for (let val of this) {
-      fn(val);
+      fn(val, i++, this);
     }
   }
 
@@ -92,6 +93,25 @@ export class Cons extends Array {
     }
 
     fail(`Index ${n} out of list bounds`);
+  }
+
+  /**
+   * Maps each element of the current list to a new list of items
+   * @param {Function} fn
+   * @returns {Cons}
+   */
+  map(fn) {
+    let list = cons(fn(this.head, 0, this), null);
+
+    this.each((el, i, lst) => {
+      if (i === 0) {
+        // do nothing
+      } else {
+        list.append(fn(el, i, lst));
+      }
+    });
+
+    return list;
   }
 
   toArray() {
