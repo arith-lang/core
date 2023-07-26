@@ -135,6 +135,32 @@ export class Cons extends Array {
     return list;
   }
 
+  /**
+   * Reduces the list to a single value (which can be another list)
+   * @param {Function} fn
+   * @param {any} init
+   * @returns {any}
+   */
+  reduce(fn, init) {
+    let acc = init;
+
+    this.each((el, i, lst) => {
+      acc = fn(acc, el, i, lst);
+    });
+
+    return acc;
+  }
+
+  /**
+   * Reduces the current list, but iterating from end to start
+   * @param {Function} fn
+   * @param {any} init
+   * @returns {any}
+   */
+  reduceRight(fn, init) {
+    return Cons.from(this.toArray().reduceRight(fn, init));
+  }
+
   toArray() {
     return [...this];
   }
