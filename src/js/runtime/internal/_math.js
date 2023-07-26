@@ -32,4 +32,12 @@ math.import([
   ),
 ]);
 
+math.typed.conversions.unshift({
+  from: "BigInt",,
+  to: "BigNumber",
+  convert: function(bigint) {
+    return new math.BigNumber(String(bigint));
+  }
+})
+
 export default math;
