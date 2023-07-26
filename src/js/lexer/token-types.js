@@ -1,4 +1,5 @@
 /**
+ * The different types of Tokens
  * @enum {string}
  */
 export const TokenTypes = {

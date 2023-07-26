@@ -1,4 +1,5 @@
 /**
+ * Represents the source code location of a lexeme
  * @class
  */
 export class SrcLoc {

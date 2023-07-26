@@ -1,5 +1,9 @@
 import TokenTypes from "./token-types.js";
 
+/**
+ * Represents a single lexeme in the language
+ * @class
+ */
 export class Token {
   /**
    * Constructor for Token
