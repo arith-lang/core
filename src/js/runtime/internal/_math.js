@@ -1,5 +1,6 @@
 import { create, all, typedDependencies, factory } from "mathjs";
 import { isIntWithinBounds } from "../../shared/utils.js";
+import { DivideByZeroException } from "../../shared/exceptions.js";
 
 const config = {
   number: "BigNumber",
@@ -391,5 +392,21 @@ function bigIntToBigNum(bigint) {
   return math.bignumber(String(bigint));
 }
 
-export default math;
+export const divide = (a, b) => {
+  if (math.equal(b, 0)) {
+    throw new DivideByZeroException();
+  }
+
+  return math.divide(a, b);
+};
+
+export const mod = (a, b) => {
+  if (math.equal(b, 0)) {
+    throw new DivideByZeroException();
+  }
+
+  return math.mod(a, b);
+};
+
+export default { ...math, divide, mod };
 console.log(math.equal(0n, math.bignumber(0)));
