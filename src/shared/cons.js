@@ -66,6 +66,16 @@ export class Cons extends Array {
   }
 
   /**
+   * Applies a function to each element of the current list
+   * @param {Function} fn
+   */
+  each(fn) {
+    for (let val of this) {
+      fn(val);
+    }
+  }
+
+  /**
    * Fetch the value at index n of the current list, fail if out of list bounds
    * @param {number} n
    * @returns {any}
