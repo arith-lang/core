@@ -1,7 +1,7 @@
 /**
  * @enum {string}
  */
-export default {
+export const TokenTypes = {
   Number: "Number",
   String: "String",
   Boolean: "Boolean",
@@ -22,3 +22,5 @@ export default {
   UQuote: "UQuote",
   SUQuote: "SUQuote",
 };
+
+export default TokenTypes;
