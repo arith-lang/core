@@ -196,7 +196,7 @@ math.import([
 
   factory("bitAnd", ["typed"], function createBigIntBitAnd({ typed }) {
     return typed("bitAnd", {
-      "BigInt, BigInt": (a, b) => a & b,
+      "BigInt, BigInt": (a, b) => Number(a & b),
       "BigNumber, number": (a, b) => a.toNumber() & b,
       "number, BigNumber": (a, b) => a & b.toNumber(),
     });
@@ -210,7 +210,7 @@ math.import([
 
   factory("bitOr", ["typed"], function createBigIntBitOr({ typed }) {
     return typed("bitOr", {
-      "BigInt, BigInt": (a, b) => a | b,
+      "BigInt, BigInt": (a, b) => Number(a | b),
       "BigNumber, number": (a, b) => a.toNumber() | b,
       "number, BigNumber": (a, b) => a | b.toNumber(),
     });
@@ -218,7 +218,7 @@ math.import([
 
   factory("bitXor", ["typed"], function createBigIntBitXor({ typed }) {
     return typed("bitXor", {
-      "BigInt, BigInt": (a, b) => a ^ b,
+      "BigInt, BigInt": (a, b) => Number(a ^ b),
       "BigNumber, number": (a, b) => a.toNumber() ^ b,
       "number, BigNumber": (a, b) => a ^ b.toNumber(),
     });
@@ -226,7 +226,7 @@ math.import([
 
   factory("leftShift", ["typed"], function createBigIntLeftShift({ typed }) {
     return typed("leftShift", {
-      "BigInt, BigInt": (a, b) => a << b,
+      "BigInt, BigInt": (a, b) => Number(a << b),
       "BigNumber, number": (a, b) => a.toNumber() << b,
       "number, BigNumber": (a, b) => a << b.toNumber(),
     });
@@ -237,7 +237,7 @@ math.import([
     ["typed"],
     function createBigIntRightArithShift({ typed }) {
       return typed("rightArithShift", {
-        "BigInt, BigInt": (a, b) => a >> b,
+        "BigInt, BigInt": (a, b) => Number(a >> b),
         "BigNumber, number": (a, b) => a.toNumber() >> b,
         "number, BigNumber": (a, b) => a >> b.toNumber(),
       });
