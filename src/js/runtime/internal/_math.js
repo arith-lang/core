@@ -341,8 +341,8 @@ math.import([
     function createBigIntRightLogShift({ typed }) {
       return typed("rightLogShift", {
         "BigInt, BigInt": (a, b) => Number(a) >>> Number(b),
-        "BigInt, Number": (a, b) => Number(a) >>> b,
-        "Number, BigInt": (a, b) => a >>> Number(b),
+        "BigInt, number": (a, b) => Number(a) >>> b,
+        "number, BigInt": (a, b) => a >>> Number(b),
         "BigNumber, number": (a, b) => a.toNumber() >>> b,
         "number, BigNumber": (a, b) => a >>> b.toNumber(),
       });
