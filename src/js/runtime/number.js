@@ -6,7 +6,7 @@ import {
   isComplex,
 } from "../shared/number-matchers.js";
 import { isIntWithinBounds } from "../shared/utils.js";
-import math from "./_math.js";
+import math from "../shared/math.js";
 
 export const makeNumber = (str) => {
   if (isInteger(str)) {
