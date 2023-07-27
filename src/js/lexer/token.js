@@ -1,4 +1,6 @@
-import TokenTypes from "./token-types.js";
+/**
+ * @typedef {import("./token-types").TokenTypes} TokenTypes
+ */
 
 /**
  * Represents a single lexeme in the language
