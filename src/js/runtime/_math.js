@@ -1,6 +1,6 @@
 import { create, all, typedDependencies, factory } from "mathjs";
-import { isIntWithinBounds } from "../../shared/utils.js";
-import { DivideByZeroException } from "../../shared/exceptions.js";
+import { isIntWithinBounds } from "../shared/utils.js";
+import { DivideByZeroException } from "../shared/exceptions.js";
 
 const config = {
   number: "BigNumber",
