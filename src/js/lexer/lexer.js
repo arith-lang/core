@@ -10,6 +10,7 @@ import {
   isDash,
   isDigit,
   isDot,
+  isForwardSlash,
   isHexChar,
   isNewline,
   isOctChar,
@@ -89,6 +90,178 @@ export class Lexer {
         return Token.new(TokenTypes.Number, num, srcloc, trivia);
       }
     }
+
+    // handle decimal numbers, which can include floats or decimals and can use exponential notation
+    ch = input.peek();
+
+    if (isDot(ch)) {
+      num += input.next();
+      num += input.readWhile(isDigit);
+
+      ch = input.peek();
+
+      if (ch === "e") {
+        num += input.next();
+        ch = input.peek();
+
+        if (!isDash(ch) && !isPlus(ch)) {
+          // is invalid - must have plus or minus sign
+          num += input.readWhile(isDigit);
+          this.diagnostics.add(
+            `Exponential notation decimal number must include plus or minus sign`,
+            sliceInput(input.input, pos),
+            srcloc,
+          );
+
+          return Token.new(TokenTypes.Bad, num, srcloc, trivia);
+        }
+
+        num += input.next();
+        num += input.readWhile(isDigit);
+        ch = input.peek();
+      }
+
+      // check to see if this is a bad rational (rationals can't have decimal numerator or denominator)
+      if (isForwardSlash(ch)) {
+        num += input.next();
+        num += input.readWhile(
+          (ch) =>
+            isDigit(ch) || isDot(ch) || ch === "e" || isDash(ch) || isPlus(ch),
+        );
+        this.diagnostics.add(
+          `Rational number cannot have decimal numerator or denominator`,
+          sliceInput(input.input, pos),
+          srcloc,
+        );
+
+        return Token.new(TokenTypes.Bad, num, srcloc, trivia);
+      }
+    }
+
+    // handle rational numbers
+    ch = input.peek();
+
+    if (isForwardSlash(ch)) {
+      num += input.next();
+      num += input.readWhile(isDigit);
+
+      // check to see if this is a bad rational (has decimal denominator)
+      ch = input.peek();
+
+      if (isDot(ch)) {
+        num += input.readWhile(
+          (ch) =>
+            isDigit(ch) || isDot(ch) || ch === "e" || isDash(ch) || isPlus(ch),
+        );
+        this.diagnostics.add(
+          `Rational number cannot have decimal numerator or denominator`,
+          sliceInput(input.input, pos),
+          srcloc,
+        );
+
+        return Token.new(TokenTypes.Bad, num, srcloc, trivia);
+      }
+
+      // Is valid rational, can return number token
+      return Token.new(TokenTypes.Number, num, srcloc, trivia);
+    }
+
+    // handle complex numbers, which can have decimals in either/both the real or/and imaginary parts
+    ch = input.peek();
+
+    if (ch === "i") {
+      // is imaginary number
+      num += input.next();
+      ch = input.peek();
+
+      if (isAlphaNumeric(ch)) {
+        // is invalid, imaginary number can't have digits after the i
+        num += input.readWhile(isAlphaNumeric);
+        this.diagnostics.add(
+          `Imaginary number must terminate with i, additional characters found`,
+          sliceInput(input.input, pos),
+          srcloc,
+        );
+
+        return Token.new(TokenTypes.Bad, num, srcloc, trivia);
+      }
+
+      // The i terminates the number, so return token here
+      return Token.new(TokenTypes.Number, num, srcloc, trivia);
+    } else if (isPlus(ch) || isDash(ch)) {
+      // is complex number of form n+mi or n-mi
+      num += input.next();
+      num += input.readWhile(isDigit);
+      ch = input.peek();
+
+      // can have decimal for imaginary part, including exponential notation decimal
+      if (isDot(ch)) {
+        num += input.next();
+        num += input.readWhile(isDigit);
+        ch = input.peek();
+
+        if (ch === "e") {
+          // is exponential notation
+          num += input.next();
+          ch = input.peek();
+
+          if (!isDash(ch) && !isPlus(ch)) {
+            // is invalid - must have plus or minus sign
+            num += input.readWhile(isDigit);
+            this.diagnostics.add(
+              `Exponential notation decimal number must include plus or minus sign`,
+              sliceInput(input.input, pos),
+              srcloc,
+            );
+
+            return Token.new(TokenTypes.Bad, num, srcloc, trivia);
+          }
+
+          num += input.next();
+          num += input.readWhile(isDigit);
+          ch = input.peek();
+        }
+      }
+
+      if (ch !== "i") {
+        // invalid - complex number must end with i for imaginary part
+        num += input.readWhile(isAlphaNumeric);
+        this.diagnostics.add(
+          `Complex number imaginary part must end with i`,
+          sliceInput(input.input, pos),
+          srcloc,
+        );
+
+        return Token.new(TokenTypes.Bad, num, srcloc, trivia);
+      }
+
+      // The i terminates the number, so return token here
+      num += input.next();
+      return Token.new(TokenTypes.Number, num, srcloc, trivia);
+    }
+
+    // If we're here, it's either a decimal integer, a Real (Decimal), or a float with an f suffix
+    ch = input.peek();
+
+    if (ch === "f") {
+      num += input.next();
+      ch = input.peek();
+    }
+
+    if (isAlphaNumeric(ch)) {
+      // invalid number character
+      num += input.readWhile(isAlphaNumeric);
+      this.diagnostics.add(
+        `Invalid characters in number literal`,
+        sliceInput(input.input, pos),
+        srcloc,
+      );
+
+      return Token.new(TokenTypes.Bad, num, srcloc, trivia);
+    }
+
+    // If we made it this far, congratulations! It's a valid integer, Real, or float
+    return Token.new(TokenTypes.Number, num, srcloc, trivia);
   }
 
   /**
