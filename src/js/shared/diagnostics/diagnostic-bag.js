@@ -26,6 +26,10 @@ export class DiagnosticBag {
   add(diagnostic) {
     this.diagnostics.push(diagnostic);
   }
+
+  isEmpty() {
+    return this.length === 0;
+  }
 }
 
 export default DiagnosticBag;
