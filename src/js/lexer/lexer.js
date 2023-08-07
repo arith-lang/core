@@ -266,7 +266,7 @@ export class Lexer {
 
   /**
    * Tokenizes an input stream
-   * @returns {import("./token").Token[]}
+   * @returns {{tokens: import("./token").Token[], diagnostics: DiagnosticBag}}
    */
   tokenize() {
     /** @type {import("./token").Token[]} */
@@ -301,6 +301,8 @@ export class Lexer {
         trivia = "";
       }
     }
+
+    return { tokens, diagnostics: this.diagnostics };
   }
 }
 
