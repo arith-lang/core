@@ -276,15 +276,29 @@ export class Lexer {
 
     while (!this.input.eof()) {
       let ch = input.peek();
+      const { pos, line, col, file } = input;
       if (isWhitespace(ch)) {
         trivia += input.readWhile(isWhitespace);
       } else if (isSemicolon(ch)) {
         trivia += input.readWhile((ch) => !isNewline(ch));
       } else if (isDash(ch) || isPlus(ch)) {
         if (isDigit(input.lookahead(1))) {
-          tokens.push(readNumber(trivia));
+          tokens.push(this.readNumber(trivia));
           trivia = "";
         }
+      } else if (isDigit(ch)) {
+        tokens.push(this.readNumber(trivia));
+        trivia = "";
+      } else {
+        const srcloc = SrcLoc.new(pos, line, col, file);
+
+        this.diagnostics.add(
+          `Unrecognized token ${ch}`,
+          sliceInput(input.input, pos),
+          srcloc,
+        );
+        tokens.push(Token.new(TokenTypes.Bad, ch), srcloc, trivia);
+        trivia = "";
       }
     }
   }
