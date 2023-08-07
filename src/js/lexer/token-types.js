@@ -23,6 +23,7 @@ export const TokenTypes = {
   UQuote: "UQuote",
   SUQuote: "SUQuote",
   EOF: "EOF",
+  Bad: "Bad",
 };
 
 export default TokenTypes;

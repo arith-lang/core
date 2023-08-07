@@ -12,3 +12,12 @@ export const isNil = (val) => val == null;
 
 export const isIntWithinBounds = (int) =>
   int > Number.MIN_SAFE_INTEGER && int < Number.MAX_SAFE_INTEGER;
+
+/**
+ * Slices the input based on length and pos value
+ * @param {string} input
+ * @param {number} pos
+ * @returns {string}
+ */
+export const sliceInput = (input, pos) =>
+  input.slice(pos > 5 ? pos - 5 : pos, input.length > pos + 5 ? pos + 5 : pos);
