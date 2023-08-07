@@ -12,11 +12,13 @@ export class Token {
    * @param {TokenTypes} type
    * @param {string} value
    * @param {import("./src-loc.js").SrcLoc} srcloc
+   * @param {string} trivia
    */
-  constructor(type, value, srcloc) {
+  constructor(type, value, srcloc, trivia) {
     this.type = type;
     this.value = value;
     this.srcloc = srcloc;
+    this.trivia = trivia;
   }
 
   /**
@@ -24,10 +26,11 @@ export class Token {
    * @param {TokenTypes} type
    * @param {string} value
    * @param {import("./src-loc.js").SrcLoc} srcloc
+   * @param {string} trivia
    * @returns {Token}
    */
-  static new(type, value, srcloc) {
-    return new Token(type, value, srcloc);
+  static new(type, value, srcloc, trivia) {
+    return new Token(type, value, srcloc, trivia);
   }
 }
 
