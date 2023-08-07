@@ -1,4 +1,4 @@
-import { DiagnosticBag } from "../shared/diagnostics/diagnostic-bag.js";
+import DiagnosticBag from "../shared/diagnostics/diagnostic-bag.js";
 import Diagnostic from "../shared/diagnostics/diagnostic.js";
 import { sliceInput } from "../shared/utils.js";
 import SrcLoc from "./src-loc.js";
