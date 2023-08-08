@@ -266,7 +266,7 @@ export class Lexer {
 
   /**
    * Tokenizes an input stream
-   * @returns {{tokens: import("./token").Token[], diagnostics: DiagnosticBag}}
+   * @returns {{tokens: import("./token").Token[], diagnostics: DiagnosticBag, input: string}}
    */
   tokenize() {
     /** @type {import("./token").Token[]} */
@@ -302,7 +302,7 @@ export class Lexer {
       }
     }
 
-    return { tokens, diagnostics: this.diagnostics };
+    return { tokens, diagnostics: this.diagnostics, input: input.input };
   }
 }
 
