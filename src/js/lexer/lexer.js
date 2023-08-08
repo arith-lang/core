@@ -19,6 +19,10 @@ import {
   isWhitespace,
 } from "./utils.js";
 
+/**
+ * @typedef {{tokens: import("./token").Token[], diagnostics: DiagnosticBag, input: string}} LexerOutput
+ */
+
 export class Lexer {
   /**
    * Constructor
@@ -266,7 +270,7 @@ export class Lexer {
 
   /**
    * Tokenizes an input stream
-   * @returns {{tokens: import("./token").Token[], diagnostics: DiagnosticBag, input: string}}
+   * @returns {LexerOutput}
    */
   tokenize() {
     /** @type {import("./token").Token[]} */
