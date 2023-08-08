@@ -21,6 +21,7 @@
     "prettier": "^3.0.0"
   },
   "dependencies": {
+    "ffi-napi": "^4.0.3",
     "mathjs": "^11.9.1"
   }
 }
