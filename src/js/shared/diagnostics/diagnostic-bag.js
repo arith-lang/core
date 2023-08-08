@@ -8,6 +8,17 @@ export class DiagnosticBag {
   }
 
   /**
+   * Constructs a Bag from another Bag
+   * @param {DiagnosticBag} other
+   * @returns {DiagnosticBag}
+   */
+  static from(other) {
+    let bag = DiagnosticBag.new();
+    bag.diagnostics = bag.diagnostics.concat(other.diagnostics);
+    return bag;
+  }
+
+  /**
    * Static constructor
    * @returns {DiagnosticBag}
    */
