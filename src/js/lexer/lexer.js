@@ -252,7 +252,7 @@ export class Lexer {
       ch = input.peek();
     }
 
-    if (isAlphaNumeric(ch)) {
+    if (isAlphaNumeric(ch) && typeof ch !== "undefined") {
       // invalid number character
       num += input.readWhile(isAlphaNumeric);
       this.diagnostics.add(
