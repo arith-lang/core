@@ -3,6 +3,15 @@
  */
 
 /**
+ * @enum {string}
+ */
+export const ASTTypes = {
+  Program: "Program",
+  Begin: "Begin",
+  NumberLiteral: "NumberLiteral",
+};
+
+/**
  * @typedef Program
  * @prop {AST} body
  * @prop {SrcLoc} srcloc
@@ -31,7 +40,7 @@ export const AST = {
    * @returns {Program}
    */
   Program(body, srcloc) {
-    return { body, srcloc };
+    return { type: ASTTypes.Program, body, srcloc };
   },
 
   /**
@@ -40,7 +49,7 @@ export const AST = {
    * @param {SrcLoc} srcloc
    */
   Begin(body, srcloc) {
-    return { body, srcloc };
+    return { type: ASTTypes.Begin, body, srcloc };
   },
 
   /**
@@ -49,7 +58,7 @@ export const AST = {
    * @param {SrcLoc} srcloc
    */
   NumberLiteral(value, srcloc) {
-    return { value, srcloc };
+    return { type: ASTTypes.NumberLiteral, value, srcloc };
   },
 };
 
