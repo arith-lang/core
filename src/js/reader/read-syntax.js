@@ -28,7 +28,7 @@ export const readSyntax = (lexResult) => {
     // Use default empty srcloc
     return {
       output: cons(makeSymbolToken(TokenTypes.Symbol, "begin"), null),
-      diagnostics,
+      diagnostics: reader.diagnostics,
       input,
     }; // change this to reader output with diagnostics
   }
