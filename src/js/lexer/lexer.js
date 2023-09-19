@@ -191,7 +191,7 @@ export class Lexer {
       num += input.next();
       ch = input.peek();
 
-      if (isAlphaNumeric(ch)) {
+      if (isAlphaNumeric(ch) && typeof ch !== "undefined") {
         // is invalid, imaginary number can't have digits after the i
         num += input.readWhile(isAlphaNumeric);
         this.diagnostics.add(
