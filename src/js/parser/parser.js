@@ -37,7 +37,7 @@ export const parse = (readResult) => {
   };
 
   /**
-   *
+   * Parses a primitive expression
    * @param {import("../lexer/token.js").Token} token
    */
   const parsePrimitive = (token) => {
