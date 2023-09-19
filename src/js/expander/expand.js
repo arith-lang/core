@@ -1,3 +1,3 @@
-export const expander = (readerOutput) => readerOutput;
+export const expand = (readerOutput) => readerOutput;
 
-export default expander;
+export default expand;
