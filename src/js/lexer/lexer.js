@@ -76,6 +76,19 @@ export class Lexer {
               input.readWhile(isBinChar);
 
         ch = input.peek();
+
+        if (isAlphaNumeric(ch)) {
+          // invalid number character
+          num += input.readWhile(isAlphaNumeric);
+          this.diagnostics.add(
+            `Invalid characters in number literal`,
+            sliceInput(input.input, pos),
+            srcloc,
+          );
+
+          return Token.new(TokenTypes.Bad, num, srcloc, trivia);
+        }
+
         if (isDot(ch)) {
           num += input.readWhile(isAlphaNumeric);
           this.diagnostics.add(
