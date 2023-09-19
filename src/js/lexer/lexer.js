@@ -2,7 +2,7 @@ import DiagnosticBag from "../shared/diagnostics/diagnostic-bag.js";
 import Diagnostic from "../shared/diagnostics/diagnostic.js";
 import { sliceInput } from "../shared/utils.js";
 import SrcLoc from "./src-loc.js";
-import Token from "./token";
+import Token from "./token.js";
 import TokenTypes from "./token-types.js";
 import {
   isAlphaNumeric,
