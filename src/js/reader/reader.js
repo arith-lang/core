@@ -53,12 +53,35 @@ export class Reader {
   }
 
   /**
-   *
+   * Looks ahead n positions from the current one
    * @param {number} n
    * @returns {Token}
    */
   lookahead(n = 1) {
     return this.tokens[this.pos + n];
+  }
+
+  /**
+   * Returns the current token and advances the token stream position by 1
+   * @returns {Token}
+   */
+  next() {
+    return this.tokens[this.pos++];
+  }
+
+  /**
+   * Returns the token at the current position
+   * @returns {Token}
+   */
+  peek() {
+    return this.tokens[this.pos];
+  }
+
+  /**
+   * Skips the token at the current position
+   */
+  skip() {
+    this.pos++;
   }
 }
 
