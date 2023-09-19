@@ -3,10 +3,16 @@ import { sliceInput } from "../shared/utils.js";
 /**
  * Manages state for the token reader
  */
+
+/**
+ * Represents a single lexeme in the language
+ * @typedef {import ("../lexer/token.js").Token} Token
+ */
+
 export class Reader {
   /**
    * Constructor
-   * @param {import ("../lexer/token.js").Token[]} tokens
+   * @param {Token[]} tokens
    * @param {import("../shared/diagnostics/diagnostic-bag.js").DiagnosticBag} diagnostics
    * @param {string} input
    */
@@ -44,6 +50,15 @@ export class Reader {
 
   eof() {
     this.pos >= this.length;
+  }
+
+  /**
+   *
+   * @param {number} n
+   * @returns {Token}
+   */
+  lookahead(n = 1) {
+    return this.tokens[this.pos + n];
   }
 }
 
