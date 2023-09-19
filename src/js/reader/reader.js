@@ -14,6 +14,7 @@ export class Reader {
     this.tokens = tokens;
     this.diagnostics = diagnostics;
     this.input = input;
+    this.pos = 0;
   }
 
   /**
@@ -39,6 +40,10 @@ export class Reader {
    */
   addDiagnostic(msg, pos, srcloc) {
     this.diagnostics.add(msg, sliceInput(this.input, pos), srcloc);
+  }
+
+  eof() {
+    this.pos >= this.length;
   }
 }
 
