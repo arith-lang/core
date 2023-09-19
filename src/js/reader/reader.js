@@ -30,7 +30,7 @@ export class Reader {
    * @param {string} input
    * @returns {Reader}
    */
-  new(tokens, diagnostics, input) {
+  static new(tokens, diagnostics, input) {
     return new Reader(tokens, diagnostics, input);
   }
 
