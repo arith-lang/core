@@ -1,5 +1,8 @@
 import Diagnostic from "./diagnostic.js";
 
+/**
+ * Container type for syntax diagnostics
+ */
 export class DiagnosticBag {
   /**
    * Constructor
