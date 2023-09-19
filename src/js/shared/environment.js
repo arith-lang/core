@@ -2,11 +2,19 @@
  * Holds bindings and their values
  */
 export class Environment {
-  constructor({ parent = null, name = "Global" }) {
+  constructor({ parent = null, name = "Global" } = {}) {
     this.parent = parent;
     this.name = name;
     /** @type {Map<string, any>} */
     this.vars = new Map();
+  }
+
+  static new(opts = {}) {
+    return new Environment(opts);
+  }
+
+  extend(name) {
+    return new Environment({ parent: this, name });
   }
 
   get(name) {
