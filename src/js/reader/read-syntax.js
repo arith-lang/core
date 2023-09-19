@@ -4,6 +4,13 @@ import { cons } from "../shared/cons.js";
 import { makeSymbolToken } from "../shared/make-symbol-token.js";
 
 /**
+ * @typedef ReaderOutput
+ * @prop {Form} output
+ * @prop {import("../shared/diagnostics/diagnostic-bag.js").DiagnosticBag} diagnostics
+ * @prop {string} input
+ */
+
+/**
  * Reads the token stream into a data structure for the compiler
  * @param {import("../lexer/lexer").LexerOutput} lexResult
  */
@@ -15,7 +22,11 @@ export const readSyntax = (lexResult) => {
 
   if (!first) {
     // Use default empty srcloc
-    return cons(makeSymbolToken(TokenTypes.Symbol, "begin"), null); // change this to reader output with diagnostics
+    return {
+      output: cons(makeSymbolToken(TokenTypes.Symbol, "begin"), null),
+      diagnostics,
+      input,
+    }; // change this to reader output with diagnostics
   }
 
   const srcloc = first.srcloc;
