@@ -3,8 +3,8 @@ import { sliceInput } from "../shared/utils.js";
 export class Reader {
   /**
    * Constructor
-   * @param {import ("../lexer/token").Token[]} tokens
-   * @param {import("../shared/diagnostics/diagnostic-bag").DiagnosticBag} diagnostics
+   * @param {import ("../lexer/token.js").Token[]} tokens
+   * @param {import("../shared/diagnostics/diagnostic-bag.js").DiagnosticBag} diagnostics
    * @param {string} input
    */
   constructor(tokens, diagnostics, input) {
@@ -15,8 +15,8 @@ export class Reader {
 
   /**
    * Static constructor
-   * @param {import ("../lexer/token").Token[]} tokens
-   * @param {import("../shared/diagnostics/diagnostic").Diagnostic} diagnostics
+   * @param {import ("../lexer/token.js").Token[]} tokens
+   * @param {import("../shared/diagnostics/diagnostic.js").Diagnostic} diagnostics
    * @param {string} input
    * @returns {Reader}
    */
@@ -28,7 +28,7 @@ export class Reader {
    *
    * @param {string} msg
    * @param {number} pos
-   * @param {import("../lexer/src-loc").SrcLoc} srcloc
+   * @param {import("../lexer/src-loc.js").SrcLoc} srcloc
    */
   addDiagnostic(msg, pos, srcloc) {
     this.diagnostics.add(msg, sliceInput(this.input, pos), srcloc);
