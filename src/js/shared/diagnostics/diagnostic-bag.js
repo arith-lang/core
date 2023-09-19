@@ -1,3 +1,5 @@
+import Diagnostic from "./diagnostic.js";
+
 export class DiagnosticBag {
   /**
    * Constructor
@@ -32,9 +34,12 @@ export class DiagnosticBag {
 
   /**
    * Add a diagnostic to the bag
-   * @param {import("./diagnostic.js").Diagnostic} diagnostic
+   * @param {string} msg
+   * @param {string} span The text span including the error
+   * @param {import("../../lexer/src-loc.js").SrcLoc}
    */
-  add(diagnostic) {
+  add(msg, span, srcloc) {
+    const diagnostic = Diagnostic.new(msg, span, srcloc);
     this.diagnostics.push(diagnostic);
   }
 
