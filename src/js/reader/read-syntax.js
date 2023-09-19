@@ -13,6 +13,7 @@ import { makeSymbolToken } from "../shared/make-symbol-token.js";
 /**
  * Reads the token stream into a data structure for the compiler
  * @param {import("../lexer/lexer").LexerOutput} lexResult
+ * @returns {ReaderOutput}
  */
 export const readSyntax = (lexResult) => {
   const { tokens, diagnostics: lexerDiagnostics, input } = lexResult;
