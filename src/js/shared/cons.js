@@ -142,11 +142,11 @@ export class Cons extends Array {
    * @returns {Cons}
    */
   map(fn) {
-    let list = cons(fn(this.head, 0, this), null);
+    let list = null;
 
     this.each((el, i, lst) => {
       if (i === 0) {
-        // do nothing
+        list = cons(fn(this.head, 0, this), list);
       } else {
         list.append(fn(el, i, lst));
       }
