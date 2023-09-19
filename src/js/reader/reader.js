@@ -1,5 +1,8 @@
 import { sliceInput } from "../shared/utils.js";
 
+/**
+ * Manages state for the token reader
+ */
 export class Reader {
   /**
    * Constructor
