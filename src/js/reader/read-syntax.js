@@ -1,8 +1,7 @@
 import DiagnosticBag from "../shared/diagnostics/diagnostic-bag.js";
 import Reader from "./reader.js";
 import { cons } from "../shared/cons.js";
-import { makeToken } from "../shared/make-token.js";
-import TokenTypes from "../lexer/token-types.js";
+import { makeSymbolToken } from "../shared/make-symbol-token.js";
 
 /**
  * Reads the token stream into a data structure for the compiler
@@ -16,11 +15,11 @@ export const readSyntax = (lexResult) => {
 
   if (!first) {
     // Use default empty srcloc
-    return cons(makeToken(TokenTypes.Symbol, "begin"), null); // change this to reader output with diagnostics
+    return cons(makeSymbolToken(TokenTypes.Symbol, "begin"), null); // change this to reader output with diagnostics
   }
 
   const srcloc = first.srcloc;
-  const output = cons(makeToken(TokenTypes.Symbol, "begin", srcloc), null);
+  const output = cons(makeSymbolToken("begin", srcloc), null);
 };
 
 export default readSyntax;
