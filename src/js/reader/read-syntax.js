@@ -11,12 +11,12 @@ import TokenTypes from "../lexer/token-types.js";
  * @prop {string} input
  */
 /**
- * @typedef {Token|import("../shared/cons.js").Cons} Form
+ * @typedef {import("../lexer/token.js").Token|import("../shared/cons.js").Cons} Form
  */
 
 /**
  * @param {Reader} reader
- * @returns {Token}
+ * @returns {import("../lexer/token.js").Token}
  */
 const readPrimitive = (reader) => {
   const tok = reader.peek();
@@ -24,6 +24,7 @@ const readPrimitive = (reader) => {
   switch (tok.type) {
     case TokenTypes.Number:
     case TokenTypes.EOF:
+    case TokenTypes.Bad:
       reader.skip();
       return tok;
   }
