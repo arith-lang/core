@@ -254,6 +254,19 @@ export class Lexer {
 
       // The i terminates the number, so return token here
       num += input.next();
+      ch = input.peek();
+
+      if (isAlphaNumeric(ch) && typeof ch !== "undefined") {
+        num += input.readWhile(isAlphaNumeric);
+        this.diagnostics.add(
+          `Complex number imaginary part must end with i`,
+          sliceInput(input.input, pos),
+          srcloc,
+        );
+
+        return Token.new(TokenTypes.Bad, num, srcloc, trivia);
+      }
+
       return Token.new(TokenTypes.Number, num, srcloc, trivia);
     }
 
@@ -316,6 +329,7 @@ export class Lexer {
         );
         tokens.push(Token.new(TokenTypes.Bad, ch), srcloc, trivia);
         trivia = "";
+        this.input.next();
       }
     }
 
