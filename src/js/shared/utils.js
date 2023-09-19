@@ -20,7 +20,4 @@ export const isIntWithinBounds = (int) =>
  * @returns {string}
  */
 export const sliceInput = (input, pos) =>
-  input.slice(
-    pos > 10 ? pos - 10 : pos,
-    input.length > pos + 10 ? pos + 10 : pos,
-  );
+  input.slice(pos > 10 ? pos - 10 : pos, pos + 10);
