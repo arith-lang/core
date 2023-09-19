@@ -9,6 +9,9 @@ import { sliceInput } from "../shared/utils.js";
  * @typedef {import ("../lexer/token.js").Token} Token
  */
 
+/**
+ * Manages state for the input to the reader functions
+ */
 export class Reader {
   /**
    * Constructor
