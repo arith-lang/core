@@ -22,3 +22,5 @@ export const readSyntax = (lexResult) => {
   const srcloc = first.srcloc;
   const output = cons(makeToken(TokenTypes.Symbol, "begin", srcloc), null);
 };
+
+export default readSyntax;
