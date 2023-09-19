@@ -17,8 +17,11 @@ import { makeSymbolToken } from "../shared/make-symbol-token.js";
  */
 export const readSyntax = (lexResult) => {
   const { tokens, diagnostics: lexerDiagnostics, input } = lexResult;
-  const diagnostics = DiagnosticBag.from(lexerDiagnostics);
-  const reader = Reader.new(tokens, diagnostics, input);
+  const reader = Reader.new(
+    tokens,
+    DiagnosticBag.from(lexerDiagnostics),
+    input,
+  );
   const first = tokens[0];
 
   if (!first) {
