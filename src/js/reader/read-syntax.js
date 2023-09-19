@@ -9,6 +9,27 @@ import { makeSymbolToken } from "../shared/make-symbol-token.js";
  * @prop {import("../shared/diagnostics/diagnostic-bag.js").DiagnosticBag} diagnostics
  * @prop {string} input
  */
+/**
+ * @typedef {Token|import("../shared/cons.js").Cons} Form
+ */
+
+/**
+ * @param {Reader} reader
+ * @returns {Token}
+ */
+const readPrimitive = (reader) => {};
+
+/**
+ * @param {Reader} reader
+ * @returns {Form}
+ */
+const readForm = (reader) => {};
+
+/**
+ * @param {Reader} reader
+ * @returns {Form}
+ */
+const readExpression = (reader) => {};
 
 /**
  * Reads the token stream into a data structure for the compiler
