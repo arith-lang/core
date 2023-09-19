@@ -24,6 +24,10 @@ export class Reader {
     return new Reader(tokens, diagnostics, input);
   }
 
+  get length() {
+    return this.tokens.length;
+  }
+
   /**
    *
    * @param {string} msg
