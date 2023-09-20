@@ -10,6 +10,7 @@ import {
   isDash,
   isDigit,
   isDot,
+  isDoubleQuote,
   isForwardSlash,
   isHexChar,
   isNewline,
@@ -403,6 +404,8 @@ export class Lexer {
       } else if (isDigit(ch)) {
         tokens.push(this.readNumber(trivia));
         trivia = "";
+      } else if (isDoubleQuote(ch)) {
+        tokens.push(this.readString(trivia));
       } else {
         const srcloc = SrcLoc.new(pos, line, col, file);
 
