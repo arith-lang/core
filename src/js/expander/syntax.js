@@ -22,8 +22,8 @@ export class Syntax {
     return new Syntax(name, evaluator);
   }
 
-  evaluate(form) {
-    return this.evaluator(form);
+  evaluate(form, env) {
+    return this.evaluator(form, env);
   }
 }
 
