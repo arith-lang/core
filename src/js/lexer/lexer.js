@@ -105,7 +105,7 @@ export class Lexer {
       str += "\\";
     } else if (c === "u" || c === "U") {
       // is Unicode escape sequence
-      seq += this.input.readWhile(isHexDigit);
+      seq += this.input.readWhile(isHexChar);
       str += String.fromCodePoint(parseInt(seq, 16));
     }
 
@@ -364,7 +364,14 @@ export class Lexer {
     return Token.new(TokenTypes.Number, num, srcloc, trivia);
   }
 
-  readString(trivia) {}
+  readString(trivia) {
+    let { pos, line, col, file } = this.input;
+    const srcloc = SrcLoc.new(pos, line, col, file);
+    let str = this.input.next(); // collect opening double quote
+
+    str += this.readEscaped();
+    return Token.new(TokenTypes.String, str, srcloc, trivia);
+  }
 
   /**
    * Tokenizes an input stream
