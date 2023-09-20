@@ -363,6 +363,11 @@ export class Lexer {
     return Token.new(TokenTypes.Number, num, srcloc, trivia);
   }
 
+  /**
+   * Reads a string from the input
+   * @param {string} trivia
+   * @returns {import("./token").Token}
+   */
   readString(trivia) {
     let { pos, line, col, file } = this.input;
     const srcloc = SrcLoc.new(pos, line, col, file);
