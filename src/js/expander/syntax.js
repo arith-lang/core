@@ -5,25 +5,25 @@ export class Syntax {
   /**
    * Constructor
    * @param {string} name
-   * @param {Function} evaluator
+   * @param {Function} func
    */
-  constructor(name, evaluator) {
+  constructor(name, func) {
     this.name = name;
-    this.evaluator = evaluator;
+    this.func = func;
   }
 
   /**
    * Static constructor
    * @param {string} name
-   * @param {Function} evaluator
+   * @param {Function} func
    * @returns {Syntax}
    */
-  static new(name, evaluator) {
-    return new Syntax(name, evaluator);
+  static new(name, func) {
+    return new Syntax(name, func);
   }
 
   evaluate(form, env) {
-    return this.evaluator(form, env);
+    return this.func(form, env);
   }
 }
 
