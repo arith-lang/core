@@ -15,10 +15,12 @@ import {
   isDoubleQuote,
   isForwardSlash,
   isHexChar,
+  isLParen,
   isNewline,
   isNil,
   isOctChar,
   isPlus,
+  isRParen,
   isSemicolon,
   isSymbolChar,
   isSymbolStart,
@@ -46,6 +48,11 @@ export class Lexer {
    */
   static new(input) {
     return new Lexer(input);
+  }
+
+  makeSrcLoc() {
+    const { pos, line, col, file } = this.input;
+    return SrcLoc.new(pos, line, col, file);
   }
 
   readEscaped() {
@@ -383,6 +390,18 @@ export class Lexer {
   }
 
   /**
+   * Reads a punctuation token from the input
+   * @param {string} punc
+   * @param {TokenTypes} type
+   * @param {SrcLoc} srcloc
+   * @param {string} trivia
+   * @returns {import("./token").Token}
+   */
+  readPuncToken(punc, type, srcloc, trivia) {
+    return Token.new(type, punc, srcloc, trivia);
+  }
+
+  /**
    * Reads a string from the input
    * @param {string} trivia
    * @returns {import("./token").Token}
@@ -453,6 +472,14 @@ export class Lexer {
         tokens.push(this.readKeyword(trivia));
       } else if (isSymbolStart(ch)) {
         tokens.push(this.readSymbol(trivia));
+      } else if (isLParen(ch)) {
+        this.input.next();
+        const srcloc = this.makeSrcLoc();
+        tokens.push(this.readPuncToken(ch, TokenTypes.LParen, srcloc, trivia));
+      } else if (isRParen(ch)) {
+        this.input.next();
+        const srcloc = this.makeSrcLoc();
+        tokens.push(this.readPuncToken(ch, TokenTypes.RParen, srcloc, trivia));
       } else {
         const srcloc = SrcLoc.new(pos, line, col, file);
 
