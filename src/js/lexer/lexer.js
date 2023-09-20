@@ -42,6 +42,76 @@ export class Lexer {
     return new Lexer(input);
   }
 
+  readEscaped() {
+    let str = "";
+    let escaped = false;
+    let ended = false;
+
+    while (!this.input.eof()) {
+      let ch = this.input.next();
+
+      if (escaped) {
+        str += this.readEscapeSequence(ch);
+        escaped = false;
+      } else if (ch === "\\") {
+        escaped = true;
+      } else if (isDoubleQuote(ch)) {
+        ended = true;
+        str += ch;
+        break;
+      } else if (ch === "\n") {
+        throw new Exception(
+          "Unexpected newline in nonterminated single-line string literal",
+        );
+      } else if (ch === "`") {
+        str += "\\`";
+      } else {
+        str += ch;
+      }
+    }
+
+    if (!ended && this.input.eof()) {
+      throw new Exception(
+        "Expected double quote to close string literal; got EOF",
+      );
+    }
+
+    return str;
+  }
+
+  readEscapeSequence(c) {
+    let str = "";
+    let seq = "";
+
+    if (c === "n") {
+      str += "\n";
+    } else if (c === "b") {
+      str += "\b";
+    } else if (c === "f") {
+      str += "\f";
+    } else if (c === "r") {
+      str += "\r";
+    } else if (c === "t") {
+      str += "\t";
+    } else if (c === "v") {
+      str += "\v";
+    } else if (c === "0") {
+      str += "\0";
+    } else if (c === "'") {
+      str += "'";
+    } else if (c === '"') {
+      str += '"';
+    } else if (c === "\\") {
+      str += "\\";
+    } else if (c === "u" || c === "U") {
+      // is Unicode escape sequence
+      seq += this.input.readWhile(isHexDigit);
+      str += String.fromCodePoint(parseInt(seq, 16));
+    }
+
+    return str;
+  }
+
   /**
    * Reads a number from the input
    * @param {string} trivia
@@ -293,6 +363,8 @@ export class Lexer {
     // If we made it this far, congratulations! It's a valid integer, Real, or float
     return Token.new(TokenTypes.Number, num, srcloc, trivia);
   }
+
+  readString(trivia) {}
 
   /**
    * Tokenizes an input stream
