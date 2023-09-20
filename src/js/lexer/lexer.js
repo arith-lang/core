@@ -46,6 +46,7 @@ export class Lexer {
     let str = "";
     let escaped = false;
     let ended = false;
+    let error = null;
 
     while (!this.input.eof()) {
       let ch = this.input.next();
@@ -60,9 +61,8 @@ export class Lexer {
         str += ch;
         break;
       } else if (ch === "\n") {
-        throw new Exception(
-          "Unexpected newline in nonterminated single-line string literal",
-        );
+        error =
+          "Unexpected newline in nonterminated single-line string literal";
       } else if (ch === "`") {
         str += "\\`";
       } else {
@@ -71,12 +71,10 @@ export class Lexer {
     }
 
     if (!ended && this.input.eof()) {
-      throw new Exception(
-        "Expected double quote to close string literal; got EOF",
-      );
+      error = "Expected double quote to close string literal; got EOF";
     }
 
-    return str;
+    return [error, str];
   }
 
   readEscapeSequence(c) {
@@ -369,7 +367,14 @@ export class Lexer {
     const srcloc = SrcLoc.new(pos, line, col, file);
     let str = this.input.next(); // collect opening double quote
 
-    str += this.readEscaped();
+    const [error, string] = this.readEscaped();
+    str += string;
+
+    if (error) {
+      this.diagnostics.add(error, sliceInput(input.input, pos), srcloc);
+      return Token.new(TokenTypes.Bad, str, srcloc, trivia);
+    }
+
     return Token.new(TokenTypes.String, str, srcloc, trivia);
   }
 
