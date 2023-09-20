@@ -1,3 +1,4 @@
+import { isList } from "../shared/cons.js";
 import { AssertionException } from "../shared/exceptions.js";
 import { isKeyword } from "./keyword.js";
 import { isNumber } from "./number.js";
@@ -29,5 +30,14 @@ export const assertIsNil = (obj) => {
 export const assertIsKeyword = (obj) => {
   if (!isKeyword(obj)) {
     throw new AssertionException("keyword", typeof obj);
+  }
+};
+
+export const assertIsList = (obj) => {
+  if (!isList(obj)) {
+    throw new AssertionException(
+      "list",
+      obj.constructor?.name ? obj.constructor.name : typeof obj,
+    );
   }
 };
