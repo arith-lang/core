@@ -60,6 +60,7 @@ export const readSyntax = (lexResult) => {
   );
   const first = tokens[0];
 
+  // This should never happen
   if (!first) {
     // Use default empty srcloc
     return {
