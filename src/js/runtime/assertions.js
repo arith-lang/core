@@ -44,6 +44,15 @@ export const assertIsList = (obj) => {
   }
 };
 
+export const assertIsArray = (obj) => {
+  if (!Array.isArray(obj)) {
+    throw new AssertionException(
+      "array",
+      obj.constructor?.name ? obj.constructor.name : typeof obj,
+    );
+  }
+};
+
 export const assertIsVector = (obj) => {
   if (!isVector(obj)) {
     throw new AssertionException(
@@ -66,6 +75,15 @@ export const assertIsSet = (obj) => {
   if (!Set.isSet(obj)) {
     throw new AssertionException(
       "set",
+      obj.constructor?.name ? obj.constructor.name : typeof obj,
+    );
+  }
+};
+
+export const assertIsSeq = (obj) => {
+  if (obj.constructor?.name !== "Sequence") {
+    throw new AssertionException(
+      "Seq",
       obj.constructor?.name ? obj.constructor.name : typeof obj,
     );
   }
