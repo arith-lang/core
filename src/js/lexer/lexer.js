@@ -7,6 +7,7 @@ import TokenTypes from "./token-types.js";
 import {
   isAlphaNumeric,
   isBinChar,
+  isBoolean,
   isColon,
   isDash,
   isDigit,
@@ -15,10 +16,12 @@ import {
   isForwardSlash,
   isHexChar,
   isNewline,
+  isNil,
   isOctChar,
   isPlus,
   isSemicolon,
   isSymbolChar,
+  isSymbolStart,
   isWhitespace,
 } from "./utils.js";
 
@@ -385,7 +388,7 @@ export class Lexer {
    * @returns {import("./token").Token}
    */
   readString(trivia) {
-    let { pos, line, col, file } = this.input;
+    const { pos, line, col, file } = this.input;
     const srcloc = SrcLoc.new(pos, line, col, file);
     let str = this.input.next(); // collect opening double quote
 
@@ -398,6 +401,25 @@ export class Lexer {
     }
 
     return Token.new(TokenTypes.String, str, srcloc, trivia);
+  }
+
+  /**
+   * Reads a symbol from the input
+   * @param {string} trivia
+   * @returns {import("./token").Token}
+   */
+  readSymbol(trivia) {
+    const { pos, line, col, file } = this.input;
+    const srcloc = SrcLoc.new(pos, line, col, file);
+    const sym = this.input.readWhile(isSymbolChar);
+
+    if (isBoolean(sym)) {
+      return Token.new(TokenTypes.Boolean, sym, srcloc, trivia);
+    } else if (isNil(sym)) {
+      return Token.new(TokenTypes.Nil, sym, srcloc, trivia);
+    }
+
+    return Token.new(TokenTypes.Symbol, sym, srcloc, trivia);
   }
 
   /**
@@ -429,6 +451,8 @@ export class Lexer {
         tokens.push(this.readString(trivia));
       } else if (isColon(ch)) {
         tokens.push(this.readKeyword(trivia));
+      } else if (isSymbolStart(ch)) {
+        tokens.push(this.readSymbol(trivia));
       } else {
         const srcloc = SrcLoc.new(pos, line, col, file);
 
