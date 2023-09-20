@@ -35,6 +35,15 @@ export const assertIsKeyword = (obj) => {
   }
 };
 
+export const assertIsPair = (obj) => {
+  if (obj.constructor?.name !== "Cons") {
+    throw new AssertionException(
+      "pair",
+      obj.constructor?.name ? obj.constructor.name : typeof obj,
+    );
+  }
+};
+
 export const assertIsList = (obj) => {
   if (!isList(obj)) {
     throw new AssertionException(
