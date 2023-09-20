@@ -97,3 +97,20 @@ export const assertIsSeq = (obj) => {
     );
   }
 };
+
+export const assertIsObject = (obj) => {
+  if (
+    typeof obj !== "object" ||
+    obj == null ||
+    Map.isMap(obj) ||
+    Array.isArray(obj) ||
+    isList(obj) ||
+    isVector(obj) ||
+    Set.isSet(obj) ||
+    isNumber(obj) ||
+    obj.constructor?.name === "Sequence" ||
+    obj.constructor?.name === "Cons"
+  ) {
+    throw new AssertionException("object", "something else"); // FIXME: create getType function that covers in-lang data structures
+  }
+};
