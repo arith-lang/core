@@ -9,3 +9,9 @@ export class DivideByZeroException extends Exception {
     super("Cannot divide by zero");
   }
 }
+
+export class AssertionException extends Exception {
+  constructor(expected, actual) {
+    super(`Assertion Exception: expected ${expected}, got ${actual}`);
+  }
+}

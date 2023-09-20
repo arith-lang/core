@@ -33,3 +33,10 @@ export const makeNumber = (str) => {
   // should never get here
   return Number(str);
 };
+
+export const isNumber = (obj) =>
+  typeof obj === "number" ||
+  typeof obj === "bigint" ||
+  math.isBigNumber(obj) ||
+  math.isFraction(obj) ||
+  math.isComplex(obj);
