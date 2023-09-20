@@ -7,6 +7,7 @@ import TokenTypes from "./token-types.js";
 import {
   isAlphaNumeric,
   isBinChar,
+  isColon,
   isDash,
   isDigit,
   isDot,
@@ -17,6 +18,7 @@ import {
   isOctChar,
   isPlus,
   isSemicolon,
+  isSymbolChar,
   isWhitespace,
 } from "./utils.js";
 
@@ -109,6 +111,20 @@ export class Lexer {
     }
 
     return str;
+  }
+
+  /**
+   * Reads a keyword from the input
+   * @param {string} trivia
+   * @returns {import("./token").Token}
+   */
+  readKeyword(trivia) {
+    const { pos, line, col, file } = this.input;
+    const srcloc = SrcLoc.new(pos, line, col, file);
+    let kw = this.input.next(); // get beginning colon
+
+    kw += this.input.readWhile(isSymbolChar);
+    return Token.new(TokenTypes.Keyword, kw, srcloc, trivia);
   }
 
   /**
@@ -411,6 +427,8 @@ export class Lexer {
         trivia = "";
       } else if (isDoubleQuote(ch)) {
         tokens.push(this.readString(trivia));
+      } else if (isColon(ch)) {
+        tokens.push(this.readKeyword(trivia));
       } else {
         const srcloc = SrcLoc.new(pos, line, col, file);
 
