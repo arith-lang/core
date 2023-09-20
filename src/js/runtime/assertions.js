@@ -1,5 +1,5 @@
 import { isList as isVector } from "list";
-import { Map, Set } from "immutable";
+import { Map, Set, Record } from "immutable";
 import { isList } from "../shared/cons.js";
 import { AssertionException } from "../shared/exceptions.js";
 import { isKeyword } from "./keyword.js";
@@ -112,5 +112,11 @@ export const assertIsObject = (obj) => {
     obj.constructor?.name === "Cons"
   ) {
     throw new AssertionException("object", "something else"); // FIXME: create getType function that covers in-lang data structures
+  }
+};
+
+export const assertIsRecord = (obj) => {
+  if (Record.isRecord(obj)) {
+    throw new AssertionException("record", typeof obj);
   }
 };
