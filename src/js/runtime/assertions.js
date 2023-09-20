@@ -1,3 +1,5 @@
+import { isList as isVector } from "list";
+import { Map, Set } from "immutable";
 import { isList } from "../shared/cons.js";
 import { AssertionException } from "../shared/exceptions.js";
 import { isKeyword } from "./keyword.js";
@@ -37,6 +39,33 @@ export const assertIsList = (obj) => {
   if (!isList(obj)) {
     throw new AssertionException(
       "list",
+      obj.constructor?.name ? obj.constructor.name : typeof obj,
+    );
+  }
+};
+
+export const assertIsVector = (obj) => {
+  if (!isVector(obj)) {
+    throw new AssertionException(
+      "vector",
+      obj.constructor?.name ? obj.constructor.name : typeof obj,
+    );
+  }
+};
+
+export const assertIsMap = (obj) => {
+  if (!Map.isMap(obj)) {
+    throw new AssertionException(
+      "map",
+      obj.constructor?.name ? obj.constructor.name : typeof obj,
+    );
+  }
+};
+
+export const assertIsSet = (obj) => {
+  if (!Set.isSet(obj)) {
+    throw new AssertionException(
+      "set",
       obj.constructor?.name ? obj.constructor.name : typeof obj,
     );
   }
