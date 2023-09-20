@@ -22,7 +22,7 @@ export class Syntax {
     return new Syntax(name, func);
   }
 
-  evaluate(form, env) {
+  transform(form, env) {
     return this.func(form, env);
   }
 }
