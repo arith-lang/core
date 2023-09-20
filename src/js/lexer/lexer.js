@@ -15,11 +15,15 @@ import {
   isDoubleQuote,
   isForwardSlash,
   isHexChar,
+  isLBrace,
+  isLBrack,
   isLParen,
   isNewline,
   isNil,
   isOctChar,
   isPlus,
+  isRBrace,
+  isRBrack,
   isRParen,
   isSemicolon,
   isSymbolChar,
@@ -481,6 +485,22 @@ export class Lexer {
         this.input.next();
         const srcloc = this.makeSrcLoc();
         tokens.push(this.readPuncToken(ch, TokenTypes.RParen, srcloc, trivia));
+      } else if (isLBrack(ch)) {
+        this.input.next();
+        const srcloc = this.makeSrcLoc();
+        tokens.push(this.readPuncToken(ch, TokenTypes.LBrack, srcloc, trivia));
+      } else if (isRBrack(ch)) {
+        this.input.next();
+        const srcloc = this.makeSrcLoc();
+        tokens.push(this.readPuncToken(ch, TokenTypes.RBrack, srcloc, trivia));
+      } else if (isLBrace(ch)) {
+        this.input.next();
+        const srcloc = this.makeSrcLoc();
+        tokens.push(this.readPuncToken(ch, TokenTypes.LBrace, srcloc, trivia));
+      } else if (isRBrace(ch)) {
+        this.input.next();
+        const srcloc = this.makeSrcLoc();
+        tokens.push(this.readPuncToken(ch, TokenTypes.RBrace, srcloc, trivia));
       } else {
         const srcloc = SrcLoc.new(pos, line, col, file);
 
