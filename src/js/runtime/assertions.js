@@ -116,7 +116,7 @@ export const assertIsObject = (obj) => {
 };
 
 export const assertIsRecord = (obj) => {
-  if (Record.isRecord(obj)) {
+  if (!Record.isRecord(obj)) {
     throw new AssertionException("record", typeof obj);
   }
 };
