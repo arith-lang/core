@@ -23,10 +23,22 @@ const readPrimitive = (reader) => {
 
   switch (tok.type) {
     case TokenTypes.Number:
+    case TokenTypes.String:
+    case TokenTypes.Boolean:
+    case TokenTypes.Keyword:
+    case TokenTypes.Symbol:
+    case TokenTypes.Keyword:
     case TokenTypes.EOF:
     case TokenTypes.Bad:
       reader.skip();
       return tok;
+    default:
+      reader.skip();
+      reader.addDiagnostic(
+        `Unknown token type ${tok.type}`,
+        tok.srcloc.pos,
+        tok.srcloc,
+      );
   }
 };
 
