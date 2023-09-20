@@ -458,11 +458,12 @@ export class Lexer {
         trivia += input.readWhile(isWhitespace);
       } else if (isSemicolon(ch)) {
         trivia += input.readWhile((ch) => !isNewline(ch));
-      } else if (isDash(ch) || isPlus(ch)) {
-        if (isDigit(input.lookahead(1))) {
-          tokens.push(this.readNumber(trivia));
-          trivia = "";
-        }
+      } else if (
+        (isDash(ch) && isDigit(input.lookahead(1))) ||
+        (isPlus(ch) && isDigit(input.lookahead(1)))
+      ) {
+        tokens.push(this.readNumber(trivia));
+        trivia = "";
       } else if (isDigit(ch)) {
         tokens.push(this.readNumber(trivia));
         trivia = "";

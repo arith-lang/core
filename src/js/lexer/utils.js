@@ -7,9 +7,9 @@ export const isNewline = (ch) => /\n/.test(ch);
 export const isDash = (ch) => /\-/.test(ch);
 export const isPlus = (ch) => /\+/.test(ch);
 export const isDoubleQuote = (ch) => /"/.test(ch);
-export const isSymbolStart = (ch) => /[=<>%|?\\/*\p{L}_$!+-]/u.test(ch);
+export const isSymbolStart = (ch) => /[=<>%\|\?\\\/\*\p{L}_\$!\+\-]/u.test(ch);
 export const isSymbolChar = (ch) =>
-  /[=@~<>%&|?\\/^*&#'\p{L}\p{N}_$!+-]/u.test(ch);
+  /[=@~<>%&\|\?\\\/^\*&#'\p{L}\p{N}_\$!\+\-]/u.test(ch);
 export const isLParen = (ch) => /\(/.test(ch);
 export const isRParen = (ch) => /\)/.test(ch);
 export const isLBrack = (ch) => /\[/.test(ch);
